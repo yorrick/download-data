@@ -38,13 +38,13 @@ class TestExtract(TestCase):
 
 
     def test_line_extract_2(self):
-        line = """2015-03-04 02:17:29 100.43.91.4 GET / HTTP/1.1 - 80 - 100.43.91.4 "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)" "-" 200 6387"""
+        line = """2015-03-04 02:17:29 100.43.91.4 GET /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 100.43.91.4 "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)" "-" 200 6387"""
         record = extract(line)
 
         self.assertEqual(record.timestamp, datetime(2015, 3, 4, 2, 17, 29))
         self.assertEqual(record.first_ip, "100.43.91.4")
         self.assertEqual(record.http_method, "GET")
-        self.assertEqual(record.url, "/")
+        self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.second_ip.ip, "100.43.91.4")
         self.assertEqual(record.second_ip.country, "US")
@@ -63,7 +63,7 @@ class TestExtract(TestCase):
 
 
     def test_line_extract_3(self):
-        line = """2015-03-04 00:29:36 222.33.68.117 GET / - 80 - 222.33.68.117 "-" "-" 400 460"""
+        line = """2015-03-04 00:29:36 222.33.68.117 GET /revue/JCHA/1995/v6/n1/031091ar.pdf - 80 - 222.33.68.117 "-" "-" 400 460"""
         record = extract(line)
 
         self.assertEqual(record.timestamp, datetime(2015, 3, 4, 0, 29, 36))
@@ -76,7 +76,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.second_ip.timezone, "Asia/Shanghai")
         self.assertEqual(record.second_ip.location, (39.9289, 116.3883))
 
-        self.assertEqual(record.url, "/")
+        self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.raw_user_agent, "-")
         self.assertEqual(record.user_agent.browser.family, "Other")
@@ -89,7 +89,7 @@ class TestExtract(TestCase):
 
 
     def test_line_extract_4(self):
-        line = """2015-03-04 03:13:51 125.122.116.68 POST / HTTP/1.1 - 80 - 125.122.116.68 "" "-" 200 6387"""
+        line = """2015-03-04 03:13:51 125.122.116.68 POST /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 125.122.116.68 "" "-" 200 6387"""
         record = extract(line)
 
         self.assertEqual(record.timestamp, datetime(2015, 3, 4, 3, 13, 51))
@@ -102,7 +102,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.second_ip.timezone, "Asia/Shanghai")
         self.assertEqual(record.second_ip.location, (30.2936, 120.1614))
 
-        self.assertEqual(record.url, "/")
+        self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.raw_user_agent, "")
         self.assertEqual(record.user_agent.browser.family, "Other")
@@ -128,6 +128,12 @@ class TestExtract(TestCase):
     def test_line_extract_7(self):
         """No GET, or no URL"""
         line = """2015-03-04 04:12:09 202.112.50.77 quit - 80 - 202.112.50.77 "-" "-" 200 6387"""
+        record = extract(line)
+        self.assertIsNone(record)
+
+    def test_line_extract_8(self):
+        """URL does not match"""
+        line = """2015-03-03 23:59:55 52.16.55.221 GET /favico HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
         record = extract(line)
         self.assertIsNone(record)
 
