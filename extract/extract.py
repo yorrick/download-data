@@ -35,8 +35,7 @@ LOG_REGEX = """^(?P<timestamp>{timestamp}) (?P<first_ip>{ip}) (?P<http_method>{h
 
 
 LINE_FILTERS = [
-    lambda line: ".pdf" in line,
-    lambda line: "/revue" in line,
+    lambda line: "/revue/" in line and (".html" in line or ".pdf" in line),
     lambda line: "GET" in line,
     lambda line: "200" in line,
 ]

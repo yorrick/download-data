@@ -141,12 +141,16 @@ class TestExtract(TestCase):
         lines = get_lines(path.join(BASE_DIR, "test-log.log"))
         self.assertEquals(len(list(lines)), 4)
 
-    def test_non_interesting_line_are_discarded(self):
+    def test_non_interesting_lines_are_discarded(self):
         line = """2015-03-04 04:12:09 202.112.50.77 quit - 80 - 202.112.50.77 "-" "-" 200 6387"""
         self.assertFalse(interesting_line(line))
 
-    def test_interesting_line_are_kept(self):
+    def test_interesting_lines_are_kept(self):
         line = """2015-03-03 23:59:55 52.16.55.221 GET  /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
+        self.assertTrue(interesting_line(line))
+
+    def test_html_lines_are_kept(self):
+        line = """2015-03-03 23:59:55 52.16.55.221 GET  /revue/JCHA/1995/v6/n1/031091ar.html HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
         self.assertTrue(interesting_line(line))
 
     def test_record_is_download(self):
