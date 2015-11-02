@@ -7,6 +7,9 @@ from os import path
 BASE_DIR = path.dirname(path.abspath(__file__))
 
 
+MockUserAgent = namedtuple('MockUserAgent', ['is_bot'])
+
+
 class TestExtract(TestCase):
 
     def test_line_extract_1(self):
@@ -17,8 +20,19 @@ class TestExtract(TestCase):
         self.assertEqual(record.first_ip, "52.16.55.221")
         self.assertEqual(record.http_method, "GET")
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
-        self.assertEqual(record.second_ip, "52.16.55.221")
-        self.assertEqual(record.user_agent, "curl/7.35.0")
+
+        self.assertEqual(record.second_ip.ip, "52.16.55.221")
+        self.assertEqual(record.second_ip.country, "IE")
+        self.assertEqual(record.second_ip.continent, "EU")
+        self.assertEqual(record.second_ip.timezone, "Europe/Dublin")
+        self.assertEqual(record.second_ip.location, (53.3331, -6.2489))
+
+        self.assertEqual(record.raw_user_agent, "curl/7.35.0")
+        self.assertEqual(record.user_agent.browser.family, "Other")
+        self.assertEqual(record.user_agent.os.family, "Other")
+        self.assertEqual(record.user_agent.device.family, "Other")
+        self.assertFalse(record.user_agent.is_bot)
+
         self.assertEqual(record.referer, "-")
         self.assertEqual(record.http_response_code, 200)
 
@@ -31,8 +45,19 @@ class TestExtract(TestCase):
         self.assertEqual(record.first_ip, "100.43.91.4")
         self.assertEqual(record.http_method, "GET")
         self.assertEqual(record.url, "/")
-        self.assertEqual(record.second_ip, "100.43.91.4")
-        self.assertEqual(record.user_agent, "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)")
+
+        self.assertEqual(record.second_ip.ip, "100.43.91.4")
+        self.assertEqual(record.second_ip.country, "US")
+        self.assertEqual(record.second_ip.continent, "NA")
+        self.assertEqual(record.second_ip.timezone, "America/Los_Angeles")
+        self.assertEqual(record.second_ip.location, (37.4135, -122.1312))
+
+        self.assertEqual(record.raw_user_agent, "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)")
+        self.assertEqual(record.user_agent.browser.family, "YandexBot")
+        self.assertEqual(record.user_agent.os.family, "Other")
+        self.assertEqual(record.user_agent.device.family, "Spider")
+        self.assertTrue(record.user_agent.is_bot)
+
         self.assertEqual(record.referer, "-")
         self.assertEqual(record.http_response_code, 200)
 
@@ -44,9 +69,21 @@ class TestExtract(TestCase):
         self.assertEqual(record.timestamp, datetime(2015, 3, 4, 0, 29, 36))
         self.assertEqual(record.first_ip, "222.33.68.117")
         self.assertEqual(record.http_method, "GET")
-        self.assertEqual(record.second_ip, "222.33.68.117")
+
+        self.assertEqual(record.second_ip.ip, "222.33.68.117")
+        self.assertEqual(record.second_ip.country, "CN")
+        self.assertEqual(record.second_ip.continent, "AS")
+        self.assertEqual(record.second_ip.timezone, "Asia/Shanghai")
+        self.assertEqual(record.second_ip.location, (39.9289, 116.3883))
+
         self.assertEqual(record.url, "/")
-        self.assertEqual(record.user_agent, "-")
+
+        self.assertEqual(record.raw_user_agent, "-")
+        self.assertEqual(record.user_agent.browser.family, "Other")
+        self.assertEqual(record.user_agent.os.family, "Other")
+        self.assertEqual(record.user_agent.device.family, "Other")
+        self.assertFalse(record.user_agent.is_bot)
+
         self.assertEqual(record.referer, "-")
         self.assertEqual(record.http_response_code, 400)
 
@@ -58,9 +95,21 @@ class TestExtract(TestCase):
         self.assertEqual(record.timestamp, datetime(2015, 3, 4, 3, 13, 51))
         self.assertEqual(record.first_ip, "125.122.116.68")
         self.assertEqual(record.http_method, "POST")
-        self.assertEqual(record.second_ip, "125.122.116.68")
+
+        self.assertEqual(record.second_ip.ip, "125.122.116.68")
+        self.assertEqual(record.second_ip.country, "CN")
+        self.assertEqual(record.second_ip.continent, "AS")
+        self.assertEqual(record.second_ip.timezone, "Asia/Shanghai")
+        self.assertEqual(record.second_ip.location, (30.2936, 120.1614))
+
         self.assertEqual(record.url, "/")
-        self.assertEqual(record.user_agent, "")
+
+        self.assertEqual(record.raw_user_agent, "")
+        self.assertEqual(record.user_agent.browser.family, "Other")
+        self.assertEqual(record.user_agent.os.family, "Other")
+        self.assertEqual(record.user_agent.device.family, "Other")
+        self.assertFalse(record.user_agent.is_bot)
+
         self.assertEqual(record.referer, "-")
         self.assertEqual(record.http_response_code, 200)
 
@@ -100,6 +149,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
+            MockUserAgent(False),
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             "202.112.50.77",
             "-",
@@ -114,6 +164,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
+            MockUserAgent(True),
             "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
             "202.112.50.77",
             "-",

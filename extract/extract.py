@@ -21,7 +21,7 @@ USER_AGENT_REGEX = "[^\"]*"
 REFERER_REGEX = "[^\"]*"
 HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
 
-LOG_REGEX = """^(?P<timestamp>{timestamp}) (?P<first_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<second_ip>{ip}) \"(?P<user_agent>{user_agent})\" \"(?P<referer>{referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
+LOG_REGEX = """^(?P<timestamp>{timestamp}) (?P<first_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<second_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<referer>{referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
     timestamp = TIMESTAMP_REGEX,
     ip = IP_REGEX,
     http_method = HTTP_METHOD_REGEX,
@@ -54,7 +54,7 @@ def extract(log_line):
         # parse timestamp
         groups["timestamp"] = datetime.strptime(groups["timestamp"], TIMESTAMP_FORMAT)
         groups["http_response_code"] = int(groups["http_response_code"])
-        groups["user_agent"] = compute_user_agent(groups["user_agent"])
+        groups["user_agent"] = compute_user_agent(groups["raw_user_agent"])
         groups["second_ip"] = compute_ip_geo_location(groups["second_ip"])
 
         return Record(**groups)
@@ -83,12 +83,8 @@ def memoize_single_arg(f):
     return memodict().__getitem__
 
 
-# MockUserAgent = namedtuple('MockUserAgent', ['is_bot'])
-
-
 @memoize_single_arg
 def compute_user_agent(raw_user_agent):
-    # return MockUserAgent(True)
     return parse(raw_user_agent)
 
 
@@ -96,3 +92,18 @@ def compute_user_agent(raw_user_agent):
 def compute_ip_geo_location(raw_ip):
     return geolite2.lookup(raw_ip)
 
+
+def get_ip_info(ip):
+    if ip is not None:
+        return [ip.ip, ip.continent, ip.country, ip.location, ip.timezone]
+    else:
+        return ["", "", "", "", ""]
+
+
+def get_user_agent_info(user_agent):
+    if user_agent is not None:
+        return [user_agent.browser.family,  # returns 'Mobile Safari'
+        user_agent.os.family,  # returns 'iOS'
+        user_agent.device.family]  # returns 'iPhone'
+    else:
+        return ["", "", ""]

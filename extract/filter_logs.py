@@ -9,22 +9,6 @@ import multiprocessing as mp
 LOG_FILE_ENCODING = "us-ascii"
 
 
-def get_ip_info(ip):
-    if ip is not None:
-        return [ip.ip, ip.continent, ip.country, ip.location, ip.timezone]
-    else:
-        return ["", "", "", "", ""]
-
-
-def get_user_agent_info(user_agent):
-    if user_agent is not None:
-        return [user_agent.browser.family,  # returns 'Mobile Safari'
-        user_agent.os.family,  # returns 'iOS'
-        user_agent.device.family]  # returns 'iPhone'
-    else:
-        return ["", "", ""]
-
-
 def process_file(log_file):
     print("Parsing file {}".format(log_file))
     output_file = "{}.csv".format(log_file)
