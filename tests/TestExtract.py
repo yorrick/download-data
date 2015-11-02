@@ -172,3 +172,20 @@ class TestExtract(TestCase):
         )
 
         self.assertFalse(is_pdf_download(record))
+
+    def test_get_ip_info(self):
+        ip_info = get_ip_info(compute_ip_geo_location("202.112.50.77"))
+        self.assertEquals(ip_info, ['202.112.50.77', 'AS', 'CN', (23.1167, 113.25), 'Asia/Shanghai'])
+
+
+    def test_none_get_ip_info(self):
+        ip_info = get_ip_info(None)
+        self.assertEquals(ip_info, ['', '', '', tuple(), ''])
+
+    def test_get_user_agent_info(self):
+        ip_info = get_user_agent_info(compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"))
+        self.assertEquals(ip_info, ['Firefox', u'Mac OS X', 'Other'])
+
+    def test_none_get_user_agent_info(self):
+        ip_info = get_user_agent_info(None)
+        self.assertEquals(ip_info, ['', '', ''])

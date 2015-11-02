@@ -97,7 +97,7 @@ def get_ip_info(ip):
     if ip is not None:
         return [ip.ip, ip.continent, ip.country, ip.location, ip.timezone]
     else:
-        return ["", "", "", "", ""]
+        return ["", "", "", tuple(), ""]
 
 
 def get_user_agent_info(user_agent):
