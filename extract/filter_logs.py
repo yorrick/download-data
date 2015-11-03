@@ -39,7 +39,9 @@ def process_file(log_file):
                             record.first_ip,
                             record.url,
                             record.referer,
-                        ] + get_ip_info(record.second_ip) + get_user_agent_info(record.user_agent)
+                        ] + get_ip_info(record.second_ip) + \
+                                      get_user_agent_info(record.user_agent) + \
+                                      get_journal_info(record.journal)
 
                         csv_writer.writerow(row_content)
 

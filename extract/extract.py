@@ -15,11 +15,14 @@ TIMESTAMP_REGEX = "\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
 IP_REGEX = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
 HTTP_METHOD_REGEX = "([^\s]+)"
 PORT_REGEX = "\d{1,5}"
-URL_REGEX = "/revue/[^\s]+(.pdf|.html)"
+URL_REGEX = "/revue/[^\s]+ar(.pdf|.html)"
 PROTOCOL_REGEX = "HTTP/1.[01] "
 USER_AGENT_REGEX = "[^\"]*"
 REFERER_REGEX = "[^\"]*"
 HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
+
+# /revue/JCHA/1995/v6/n1/031091ar.pdf
+JOURNAL_REGEX = "/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)"
 
 LOG_REGEX = """^(?P<timestamp>{timestamp}) (?P<first_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<second_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<referer>{referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
     timestamp = TIMESTAMP_REGEX,
@@ -55,10 +58,23 @@ def extract(log_line):
         groups["http_response_code"] = int(groups["http_response_code"])
         groups["user_agent"] = compute_user_agent(groups["raw_user_agent"])
         groups["second_ip"] = compute_ip_geo_location(groups["second_ip"])
+        groups["journal"] = extract_journal(groups["url"])
 
         return Record(**groups)
     else:
         return None
+
+
+def extract_journal(url):
+    match = re.match(JOURNAL_REGEX, url)
+
+    if match is None:
+        return Journal(None, None, None, None, None)
+
+    groups = match.groupdict()
+    groups["year"] = int(groups["year"])
+
+    return Journal(**groups)
 
 
 def get_lines(source_file, encoding = "utf-8"):
@@ -106,3 +122,16 @@ def get_user_agent_info(user_agent):
         user_agent.device.family]  # returns 'iPhone'
     else:
         return ["", "", ""]
+
+
+def get_journal_info(journal):
+    if journal is not None:
+        return [
+            journal.name,
+            journal.year,
+            journal.volume,
+            journal.issue,
+            journal.article_id,
+        ]
+    else:
+        return ["", "", "", "", ""]

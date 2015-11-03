@@ -21,6 +21,12 @@ class TestExtract(TestCase):
         self.assertEqual(record.http_method, "GET")
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
+        self.assertEqual(record.journal.name, "JCHA")
+        self.assertEqual(record.journal.year, 1995)
+        self.assertEqual(record.journal.volume, "v6")
+        self.assertEqual(record.journal.issue, "n1")
+        self.assertEqual(record.journal.article_id, "031091")
+
         self.assertEqual(record.second_ip.ip, "52.16.55.221")
         self.assertEqual(record.second_ip.country, "IE")
         self.assertEqual(record.second_ip.continent, "EU")
@@ -137,6 +143,15 @@ class TestExtract(TestCase):
         record = extract(line)
         self.assertIsNone(record)
 
+    def test_journal_extract(self):
+        url = """/revue/JCHA/1995/v6/n1/031091ar.pdf"""
+        journal = extract_journal(url)
+        self.assertEquals(journal.name, "JCHA")
+        self.assertEquals(journal.year, 1995)
+        self.assertEquals(journal.volume, "v6")
+        self.assertEquals(journal.issue, "n1")
+        self.assertEquals(journal.article_id, "031091")
+
     def test_get_lines(self):
         lines = get_lines(path.join(BASE_DIR, "test-log.log"))
         self.assertEquals(len(list(lines)), 4)
@@ -159,6 +174,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
+            None,
             MockUserAgent(False),
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             "202.112.50.77",
@@ -174,6 +190,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
+            None,
             MockUserAgent(True),
             "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
             "202.112.50.77",
