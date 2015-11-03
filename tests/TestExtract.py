@@ -202,12 +202,11 @@ class TestExtract(TestCase):
 
     def test_get_ip_info(self):
         ip_info = get_ip_info(compute_ip_geo_location("202.112.50.77"))
-        self.assertEquals(ip_info, ['202.112.50.77', 'AS', 'CN', (23.1167, 113.25), 'Asia/Shanghai'])
-
+        self.assertEquals(ip_info, ['202.112.50.77', 'AS', 'CN', "23.1167, 113.25", 'Asia/Shanghai'])
 
     def test_none_get_ip_info(self):
         ip_info = get_ip_info(None)
-        self.assertEquals(ip_info, ['', '', '', tuple(), ''])
+        self.assertEquals(ip_info, ['', '', '', '', ''])
 
     def test_get_user_agent_info(self):
         ip_info = get_user_agent_info(compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"))
@@ -216,3 +215,44 @@ class TestExtract(TestCase):
     def test_none_get_user_agent_info(self):
         ip_info = get_user_agent_info(None)
         self.assertEquals(ip_info, ['', '', ''])
+
+    def test_to_csv_row(self):
+        record = Record(
+            timestamp=datetime(2015, 3, 3, 23, 59, 55),
+            first_ip="202.112.50.77",
+            http_method="GET",
+            url="/revue/JCHA/1995/v6/n1/031091ar.pdf",
+            journal=Journal(
+                name="JChA",
+                year=1995,
+                volume="v6",
+                issue="n1",
+                article_id="031091"
+            ),
+            user_agent=compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"),
+            raw_user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
+            second_ip=compute_ip_geo_location("202.112.50.77"),
+            referer="-",
+            http_response_code=100
+        )
+
+        self.assertEquals(to_csv_row(record), [
+            datetime(2015, 3, 3, 23, 59, 55),
+            '202.112.50.77',
+            '/revue/JCHA/1995/v6/n1/031091ar.pdf',
+            '-',
+            '202.112.50.77',
+            'AS',
+            'CN',
+            "23.1167, 113.25",
+            'Asia/Shanghai',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0',
+            'Firefox',
+            u'Mac OS X',
+            'Other',
+            'JChA',
+            1995,
+            'v6',
+            'n1',
+            '031091']
+        )

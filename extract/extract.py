@@ -110,9 +110,10 @@ def compute_ip_geo_location(raw_ip):
 
 def get_ip_info(ip):
     if ip is not None:
-        return [ip.ip, ip.continent, ip.country, ip.location, ip.timezone]
+        location_string = ", ".join([str(loc) for loc in ip.location]) if ip.location is not None else ""
+        return [ip.ip, ip.continent, ip.country, location_string, ip.timezone]
     else:
-        return ["", "", "", tuple(), ""]
+        return ["", "", "", "", ""]
 
 
 def get_user_agent_info(user_agent):
@@ -135,3 +136,16 @@ def get_journal_info(journal):
         ]
     else:
         return ["", "", "", "", ""]
+
+
+def to_csv_row(record):
+    return [
+        record.timestamp,
+        record.first_ip,
+        record.url,
+        record.referer,
+    ] + \
+        get_ip_info(record.second_ip) + \
+        [record.raw_user_agent] + \
+        get_user_agent_info(record.user_agent) + \
+        get_journal_info(record.journal)

@@ -35,18 +35,8 @@ def process_file(log_file):
 
                     if is_pdf_download(record):
                         download += 1
-
-                        row_content = [
-                            record.timestamp,
-                            record.first_ip,
-                            record.url,
-                            record.referer,
-                        ] + get_ip_info(record.second_ip) + \
-                                      get_user_agent_info(record.user_agent) + \
-                                      get_journal_info(record.journal)
-
-                        csv_writer.writerow(row_content)
-
+                        csv_row = to_csv_row(record)
+                        csv_writer.writerow(csv_row)
                 else:
                     pass
                     # print(log_line, end="")
