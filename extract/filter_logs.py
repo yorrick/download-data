@@ -17,6 +17,7 @@ def process_file(log_file):
     interesting = 0
     extracted = 0
     download = 0
+    first_line = True
 
     with codecs.open(output_file, "w", LOG_FILE_ENCODING) as result_file:
         result_file.write("sep=,\n")
@@ -36,7 +37,13 @@ def process_file(log_file):
                     if is_pdf_download(record):
                         download += 1
                         csv_row = to_csv_row(record)
-                        csv_writer.writerow(csv_row)
+
+                        # write header using first line data
+                        if first_line:
+                            csv_writer.writerow(csv_row.keys())
+                            first_line = False
+
+                        csv_writer.writerow(csv_row.values())
                 else:
                     pass
                     # print(log_line, end="")

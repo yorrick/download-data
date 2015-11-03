@@ -7,7 +7,7 @@ import codecs
 import sys
 from user_agents import parse
 from geoip import geolite2
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 
 
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -72,6 +72,7 @@ def extract_journal(url):
         return Journal(None, None, None, None, None)
 
     groups = match.groupdict()
+    groups["name"] = groups["name"].lower()
     groups["year"] = int(groups["year"])
 
     return Journal(**groups)
@@ -111,41 +112,70 @@ def compute_ip_geo_location(raw_ip):
 def get_ip_info(ip):
     if ip is not None:
         location_string = ", ".join([str(loc) for loc in ip.location]) if ip.location is not None else ""
-        return [ip.ip, ip.continent, ip.country, location_string, ip.timezone]
+
+        return [
+            ("user_ip", ip.ip),
+            ("continent", ip.continent),
+            ("country", ip.country),
+            ("geo_coordinates", location_string),
+            ("timezone", ip.timezone),
+        ]
     else:
-        return ["", "", "", "", ""]
+        return [
+            ("user_ip", ""),
+            ("continent", ""),
+            ("country", ""),
+            ("geo_coordinates", ""),
+            ("timezone", ""),
+        ]
 
 
 def get_user_agent_info(user_agent):
     if user_agent is not None:
-        return [user_agent.browser.family,  # returns 'Mobile Safari'
-        user_agent.os.family,  # returns 'iOS'
-        user_agent.device.family]  # returns 'iPhone'
+        return [
+            ("browser", user_agent.browser.family),
+            ("os", user_agent.os.family),
+            ("device", user_agent.device.family),
+        ]
     else:
-        return ["", "", ""]
+        return [
+            ("browser", ""),
+            ("os", ""),
+            ("device", ""),
+        ]
 
 
 def get_journal_info(journal):
     if journal is not None:
         return [
-            journal.name,
-            journal.year,
-            journal.volume,
-            journal.issue,
-            journal.article_id,
+            ("journal_name", journal.name),
+            ("publication_year", journal.year),
+            ("volume", journal.volume),
+            ("issue", journal.issue),
+            ("article_id", journal.article_id),
         ]
     else:
-        return ["", "", "", "", ""]
+        return [
+            ("journal_name", ""),
+            ("publication_year", ""),
+            ("volume", ""),
+            ("issue", ""),
+            ("article_id", ""),
+        ]
 
 
 def to_csv_row(record):
-    return [
-        record.timestamp,
-        record.first_ip,
-        record.url,
-        record.referer,
-    ] + \
+    return OrderedDict(
+        [
+            ('time', record.timestamp),
+            ('proxy_ip', record.first_ip),
+            ('url', record.url),
+            ('referer', record.referer),
+        ] + \
         get_ip_info(record.second_ip) + \
-        [record.raw_user_agent] + \
+        [
+            ("user_agent", record.raw_user_agent)
+        ] + \
         get_user_agent_info(record.user_agent) + \
         get_journal_info(record.journal)
+    )
