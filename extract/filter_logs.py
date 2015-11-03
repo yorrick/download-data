@@ -19,6 +19,8 @@ def process_file(log_file):
     download = 0
 
     with codecs.open(output_file, "w", LOG_FILE_ENCODING) as result_file:
+        result_file.write("sep=,\n")
+
         csv_writer = csv.writer(result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         for log_line in get_lines(log_file, LOG_FILE_ENCODING):
