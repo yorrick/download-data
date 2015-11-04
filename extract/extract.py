@@ -183,11 +183,13 @@ def get_journal_info(journal):
 
 def to_csv_row(record):
     local_tz = record.geo_location.timezone if record.geo_location is not None else None
+    local_time = to_local_time(record.timestamp, local_tz)
 
     return OrderedDict(
         [
             ('time', record.timestamp.strftime(TIMESTAMP_FORMAT)),
-            ('local_time', to_local_time(record.timestamp, local_tz).strftime(TIMESTAMP_FORMAT)),
+            ('local_time', local_time.strftime(TIMESTAMP_FORMAT)),
+            ('local_hour', local_time.hour),
             ('proxy_ip', record.proxy_ip),
             ('user_ip', record.user_ip),
             ('url', record.url),

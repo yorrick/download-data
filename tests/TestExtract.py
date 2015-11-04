@@ -259,6 +259,7 @@ class TestExtract(TestCase):
         self.assertEquals(to_csv_row(record).items(), [
             ("time", "2015-03-03 23:59:55"),
             ("local_time", "2015-03-04 12:59:55"),
+            ("local_hour", 12),
             ("proxy_ip", '202.112.50.77'),
             ("user_ip", '202.112.50.77'),
             ("url", '/revue/JCHA/1995/v6/n1/031091ar.pdf'),
