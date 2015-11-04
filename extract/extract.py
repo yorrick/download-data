@@ -8,6 +8,7 @@ from user_agents import parse
 from geoip import geolite2
 from collections import OrderedDict
 from pytz import timezone
+from countries import COUNTRIES
 
 
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -125,24 +126,17 @@ def compute_ip_geo_location(raw_ip):
     return geolite2.lookup(raw_ip)
 
 
-COUNTRY_DICT = {
-    "CA": "Canada",
-    "CA": "Canada",
-    "CA": "Canada",
-    "CA": "Canada",
-}
+def get_geo_location_info(geo_location):
+    if geo_location is not None:
+        location_string = ", ".join([str(loc) for loc in geo_location.location]) if geo_location.location is not None else ""
 
-
-def get_geo_location_info(ip):
-    if ip is not None:
-        location_string = ", ".join([str(loc) for loc in ip.location]) if ip.location is not None else ""
-
-        tz = '' if ip.timezone == 'None' else ip.timezone
+        tz = '' if geo_location.timezone == 'None' else geo_location.timezone
+        country = COUNTRIES.get(geo_location.country, geo_location.country)
 
         return [
-            ("user_ip", ip.ip),
-            ("continent", ip.continent),
-            ("country", ip.country),
+            ("user_ip", geo_location.ip),
+            ("continent", geo_location.continent),
+            ("country", country),
             ("geo_coordinates", location_string),
             ("timezone", tz),
         ]

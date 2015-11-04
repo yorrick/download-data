@@ -204,7 +204,7 @@ class TestExtract(TestCase):
         self.assertEquals(ip_info, [
             ("user_ip", "202.112.50.77"),
             ("continent", "AS"),
-            ("country", "CN"),
+            ("country", "China"),
             ("geo_coordinates", "23.1167, 113.25"),
             ("timezone", "Asia/Shanghai"),
         ])
@@ -265,7 +265,7 @@ class TestExtract(TestCase):
             ("url", '/revue/JCHA/1995/v6/n1/031091ar.pdf'),
             ("referer", ''),
             ("continent", 'AS'),
-            ("country", 'CN'),
+            ("country", 'China'),
             ("geo_coordinates", "23.1167, 113.25"),
             ("timezone", 'Asia/Shanghai'),
             ("user_agent", 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0'),

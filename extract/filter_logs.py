@@ -4,7 +4,7 @@ from __future__ import print_function
 from extract import *
 import csv
 import multiprocessing as mp
-
+import sys
 
 LOG_FILE_ENCODING = "us-ascii"
 
@@ -19,7 +19,7 @@ def process_file(log_file):
     download = 0
     first_line = True
 
-    with codecs.open(output_file, "w", LOG_FILE_ENCODING) as result_file:
+    with codecs.open(output_file, "w", 'utf-8') as result_file:
         result_file.write("sep=,\n")
 
         csv_writer = csv.writer(result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -58,8 +58,6 @@ if __name__ == "__main__":
         print("Give at least one source file")
 
     log_files = sys.argv[1:]
-    # TODO remove this test
-    process_file(log_files[0])
 
     pool = mp.Pool(processes=4)
     pool.map(process_file, log_files)
