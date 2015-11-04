@@ -130,12 +130,14 @@ def get_geo_location_info(ip):
     if ip is not None:
         location_string = ", ".join([str(loc) for loc in ip.location]) if ip.location is not None else ""
 
+        tz = '' if ip.timezone == 'None' else ip.timezone
+
         return [
             ("user_ip", ip.ip),
             ("continent", ip.continent),
             ("country", ip.country),
             ("geo_coordinates", location_string),
-            ("timezone", ip.timezone),
+            ("timezone", tz),
         ]
     else:
         return [
@@ -185,6 +187,8 @@ def to_csv_row(record):
     local_tz = record.geo_location.timezone if record.geo_location is not None else None
     local_time = to_local_time(record.timestamp, local_tz)
 
+    referer = '' if record.referer == '-' else record.referer
+
     return OrderedDict(
         [
             ('time', record.timestamp.strftime(TIMESTAMP_FORMAT)),
@@ -193,7 +197,7 @@ def to_csv_row(record):
             ('proxy_ip', record.proxy_ip),
             ('user_ip', record.user_ip),
             ('url', record.url),
-            ('referer', record.referer),
+            ('referer', referer),
         ] + \
         get_geo_location_info(record.geo_location) + \
         [

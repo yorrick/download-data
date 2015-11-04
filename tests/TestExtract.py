@@ -263,7 +263,7 @@ class TestExtract(TestCase):
             ("proxy_ip", '202.112.50.77'),
             ("user_ip", '202.112.50.77'),
             ("url", '/revue/JCHA/1995/v6/n1/031091ar.pdf'),
-            ("referer", '-'),
+            ("referer", ''),
             ("continent", 'AS'),
             ("country", 'CN'),
             ("geo_coordinates", "23.1167, 113.25"),
