@@ -58,6 +58,8 @@ if __name__ == "__main__":
         print("Give at least one source file")
 
     log_files = sys.argv[1:]
+    # TODO remove this test
+    process_file(log_files[0])
 
     pool = mp.Pool(processes=4)
     pool.map(process_file, log_files)

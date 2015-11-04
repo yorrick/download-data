@@ -3,15 +3,17 @@
 
 class Record():
 
-    def __init__(self, timestamp, first_ip, http_method, url, journal, user_agent, raw_user_agent, second_ip, referer, http_response_code):
+    def __init__(self, timestamp, proxy_ip, http_method, url, journal,
+                 user_agent, raw_user_agent, user_ip, geo_location, referer, http_response_code):
         self.timestamp = timestamp
-        self.first_ip = first_ip
+        self.proxy_ip = proxy_ip
         self.http_method = http_method
         self.url = url
         self.journal = journal
         self.user_agent = user_agent
         self.raw_user_agent = raw_user_agent
-        self.second_ip = second_ip
+        self.user_ip = user_ip
+        self.geo_location = geo_location
         self.referer = referer
         self.http_response_code = http_response_code
 

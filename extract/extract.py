@@ -8,6 +8,7 @@ import sys
 from user_agents import parse
 from geoip import geolite2
 from collections import namedtuple, OrderedDict
+from pytz import timezone
 
 
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -24,7 +25,7 @@ HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
 JOURNAL_REGEX = "/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)"
 
-LOG_REGEX = """^(?P<timestamp>{timestamp}) (?P<first_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<second_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<referer>{referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
+LOG_REGEX = """^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<referer>{referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
     timestamp = TIMESTAMP_REGEX,
     ip = IP_REGEX,
     http_method = HTTP_METHOD_REGEX,
@@ -37,11 +38,26 @@ LOG_REGEX = """^(?P<timestamp>{timestamp}) (?P<first_ip>{ip}) (?P<http_method>{h
 )
 
 
+MONTREAL_TIMEZONE = timezone("America/Montreal")
+
+
 LINE_FILTERS = [
     lambda line: "/revue/" in line and (".html" in line or ".pdf" in line),
     lambda line: "GET" in line,
     lambda line: "200" in line,
 ]
+
+
+def get_log_time(dt):
+    return MONTREAL_TIMEZONE.localize(dt, is_dst=False)
+
+
+def to_local_time(dt, tz):
+    if tz is None or tz == 'None':
+        return dt
+    else:
+        local_tz = timezone(tz)
+        return local_tz.normalize(dt.astimezone(local_tz))
 
 
 def interesting_line(log_line):
@@ -54,10 +70,11 @@ def extract(log_line):
     if match is not None:
         groups = match.groupdict()
         # parse timestamp
-        groups["timestamp"] = datetime.strptime(groups["timestamp"], TIMESTAMP_FORMAT)
+        # do not handle ambiguous timestamps, due to time changes of 1 hour between seasons
+        groups["timestamp"] = get_log_time(datetime.strptime(groups["timestamp"], TIMESTAMP_FORMAT))
+        groups["geo_location"] = compute_ip_geo_location(groups["user_ip"])
         groups["http_response_code"] = int(groups["http_response_code"])
         groups["user_agent"] = compute_user_agent(groups["raw_user_agent"])
-        groups["second_ip"] = compute_ip_geo_location(groups["second_ip"])
         groups["journal"] = extract_journal(groups["url"])
 
         return Record(**groups)
@@ -109,7 +126,7 @@ def compute_ip_geo_location(raw_ip):
     return geolite2.lookup(raw_ip)
 
 
-def get_ip_info(ip):
+def get_geo_location_info(ip):
     if ip is not None:
         location_string = ", ".join([str(loc) for loc in ip.location]) if ip.location is not None else ""
 
@@ -165,14 +182,18 @@ def get_journal_info(journal):
 
 
 def to_csv_row(record):
+    local_tz = record.geo_location.timezone if record.geo_location is not None else None
+
     return OrderedDict(
         [
-            ('time', record.timestamp),
-            ('proxy_ip', record.first_ip),
+            ('time', record.timestamp.strftime(TIMESTAMP_FORMAT)),
+            ('local_time', to_local_time(record.timestamp, local_tz).strftime(TIMESTAMP_FORMAT)),
+            ('proxy_ip', record.proxy_ip),
+            ('user_ip', record.user_ip),
             ('url', record.url),
             ('referer', record.referer),
         ] + \
-        get_ip_info(record.second_ip) + \
+        get_geo_location_info(record.geo_location) + \
         [
             ("user_agent", record.raw_user_agent)
         ] + \
