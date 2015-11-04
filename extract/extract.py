@@ -4,10 +4,9 @@ import re
 from models import *
 from datetime import datetime
 import codecs
-import sys
 from user_agents import parse
 from geoip import geolite2
-from collections import namedtuple, OrderedDict
+from collections import OrderedDict
 from pytz import timezone
 
 
@@ -124,6 +123,14 @@ def compute_user_agent(raw_user_agent):
 @memoize_single_arg
 def compute_ip_geo_location(raw_ip):
     return geolite2.lookup(raw_ip)
+
+
+COUNTRY_DICT = {
+    "CA": "Canada",
+    "CA": "Canada",
+    "CA": "Canada",
+    "CA": "Canada",
+}
 
 
 def get_geo_location_info(ip):
