@@ -12,6 +12,7 @@ from countries import COUNTRIES
 
 
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
+DATE_FORMAT = "%Y-%m-%d"
 TIMESTAMP_REGEX = "\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
 IP_REGEX = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
 HTTP_METHOD_REGEX = "([^\s]+)"
@@ -193,7 +194,12 @@ def to_csv_row(record):
     return OrderedDict(
         [
             ('time', record.timestamp.strftime(TIMESTAMP_FORMAT)),
+            ('date', record.timestamp.strftime(DATE_FORMAT)),
+            ('year', record.timestamp.year),
+            ('hour', record.timestamp.hour),
             ('local_time', local_time.strftime(TIMESTAMP_FORMAT)),
+            ('local_date', local_time.strftime(DATE_FORMAT)),
+            ('local_year', local_time.year),
             ('local_hour', local_time.hour),
             ('proxy_ip', record.proxy_ip),
             ('user_ip', record.user_ip),
