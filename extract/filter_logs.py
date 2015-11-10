@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 from extract import *
+from common import *
 import csv
 import multiprocessing as mp
 import sys
+
 
 LOG_FILE_ENCODING = "us-ascii"
 
@@ -48,9 +50,7 @@ def process_file(log_file):
                     pass
                     # print(log_line, end="")
 
-    print("Found {} interesting lines ({:4.4f}%) out of {}".format(interesting, (interesting / float(total)) * 100, total))
-    print("Extracted {} lines ({:4.4f}%) out of {} interesting".format(extracted, (extracted / float(interesting)) * 100, interesting))
-    print("Found {} downloads ({:4.4f}%) out of {} extracted".format(download, (download / float(extracted)) * 100, extracted))
+    print(build_result_log(log_file, total, interesting, extracted, download))
 
 
 if __name__ == "__main__":
