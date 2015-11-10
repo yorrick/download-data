@@ -6,6 +6,7 @@ from common import *
 import csv
 import multiprocessing as mp
 import sys
+from collections import defaultdict
 
 
 LOG_FILE_ENCODING = "us-ascii"
@@ -20,6 +21,9 @@ def process_file(log_file):
     extracted = 0
     download = 0
     first_line = True
+
+    # counts number of download per user IP
+    downloads_per_user_ip = defaultdict(lambda: 0)
 
     with codecs.open(output_file, "w", 'utf-8') as result_file:
         result_file.write("sep=,\n")
@@ -38,6 +42,7 @@ def process_file(log_file):
 
                     if is_pdf_download(record):
                         download += 1
+                        downloads_per_user_ip[record.user_ip] +=1
                         csv_row = to_csv_row(record)
 
                         # write header using first line data
@@ -50,7 +55,7 @@ def process_file(log_file):
                     pass
                     # print(log_line, end="")
 
-    print(build_result_log(log_file, total, interesting, extracted, download))
+    print(build_result_log(log_file, total, interesting, extracted, download, downloads_per_user_ip))
 
 
 if __name__ == "__main__":
@@ -58,6 +63,9 @@ if __name__ == "__main__":
         print("Give at least one source file")
 
     log_files = sys.argv[1:]
+
+    # TODO remove this test!!!!
+    # process_file(log_files[0])
 
     pool = mp.Pool(processes=4)
     pool.map(process_file, log_files)
