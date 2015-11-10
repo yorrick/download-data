@@ -185,6 +185,13 @@ def get_journal_info(journal):
         ]
 
 
+def compute_age(download_year, publication_year):
+    if publication_year is None:
+        return None
+
+    return download_year - publication_year
+
+
 def to_csv_row(record):
     local_tz = record.geo_location.timezone if record.geo_location is not None else None
     local_time = to_local_time(record.timestamp, local_tz)
@@ -210,5 +217,5 @@ def to_csv_row(record):
         [("user_agent", record.raw_user_agent)] + \
         get_user_agent_info(record.user_agent) + \
         get_journal_info(record.journal) + \
-        [("age", record.timestamp.year - record.journal.year)]
+        [("age", compute_age(record.timestamp.year, record.journal.year))]
     )
