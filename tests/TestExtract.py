@@ -276,5 +276,6 @@ class TestExtract(TestCase):
             ("publication_year", 1995),
             ("volume", 'v6'),
             ("issue", 'n1'),
-            ("article_id", '031091')
+            ("article_id", '031091'),
+            ("age", 20),
         ])

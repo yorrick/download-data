@@ -201,9 +201,8 @@ def to_csv_row(record):
             ('referer', referer),
         ] + \
         get_geo_location_info(record.geo_location) + \
-        [
-            ("user_agent", record.raw_user_agent)
-        ] + \
+        [("user_agent", record.raw_user_agent)] + \
         get_user_agent_info(record.user_agent) + \
-        get_journal_info(record.journal)
+        get_journal_info(record.journal) + \
+        [("age", record.timestamp.year - record.journal.year)]
     )
