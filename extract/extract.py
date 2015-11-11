@@ -9,6 +9,7 @@ from geoip import geolite2
 from collections import OrderedDict
 from pytz import timezone
 from countries import COUNTRIES
+from urlparse import urlparse
 
 
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -192,11 +193,22 @@ def compute_age(download_year, publication_year):
     return download_year - publication_year
 
 
+def get_referer(raw_referer):
+    return '' if raw_referer == '-' else raw_referer
+
+
+def get_referer_host(referer):
+    if not referer:
+        return ''
+    else:
+        # return '' if url could not be parsed
+        return urlparse(referer).netloc
+
+
 def to_csv_row(record):
     local_tz = record.geo_location.timezone if record.geo_location is not None else None
     local_time = to_local_time(record.timestamp, local_tz)
-
-    referer = '' if record.referer == '-' else record.referer
+    referer = get_referer(record.referer)
 
     return OrderedDict(
         [
@@ -212,6 +224,7 @@ def to_csv_row(record):
             ('user_ip', record.user_ip),
             ('url', record.url),
             ('referer', referer),
+            ('referer_host', get_referer_host(referer)),
         ] + \
         get_geo_location_info(record.geo_location) + \
         [("user_agent", record.raw_user_agent)] + \
