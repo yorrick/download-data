@@ -2,7 +2,7 @@
 from __future__ import print_function
 
 
-def build_result_log(log_file, total, interesting, extracted, download, downloads_per_user_ip):
+def build_result_log(log_file, total, interesting, extracted, download, top_ips):
     metrics = {
         "log_file": log_file,
         "total": total,
@@ -16,8 +16,7 @@ def build_result_log(log_file, total, interesting, extracted, download, download
 
     number_of_lines_string = "{log_file}: Total: {total} => Interesting: {interesting} ({interesting_percent:4.2f}%) => Extracted: {extracted} ({extracted_percent:4.2f}%) => Downloads: {download} ({download_percent:4.2f}%)".format(**metrics)
 
-    top_ips = sorted(downloads_per_user_ip.items(), key=lambda tup: -tup[1])[:5]
-    formatted_top_ips = ["{}: {}".format(ip, count) for ip, count in top_ips]
-    top_ips_string = "Top 5 ips that downloaded the most:\n{}".format('\n'.join(formatted_top_ips))
+    formatted_top_ips = ["{}: {} => {}".format(ip, count, example_record.values()) for ip, count, example_record in top_ips]
+    top_ips_string = "Top ips that downloaded the most:\n{}".format('\n'.join(formatted_top_ips))
 
     return "{}\n{}".format(number_of_lines_string, top_ips_string)
