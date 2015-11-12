@@ -12,7 +12,7 @@ from robot_detection import *
 LOG_FILE_ENCODING = "us-ascii"
 
 
-def process_file(log_file):
+def process_file(log_file, detect_hiding_robots):
     print("Parsing file {}".format(log_file))
     output_file = "{}.csv".format(log_file)
 
@@ -21,6 +21,8 @@ def process_file(log_file):
     extracted = 0
     download = 0
     first_line = True
+
+    robot_detector = RobotDetector(detect_hiding_robots)
 
     with codecs.open(output_file, "w", 'utf-8') as result_file:
         result_file.write("sep=,\n")
@@ -40,7 +42,8 @@ def process_file(log_file):
                     if is_pdf_download(record):
                         download += 1
                         csv_row = to_csv_row(record)
-                        RobotDetector.register_csv_row(csv_row)
+
+                        robot_detector.register_csv_row(csv_row)
 
                         # write header using first line data
                         if first_line:
@@ -52,18 +55,18 @@ def process_file(log_file):
                     pass
                     # print(log_line, end="")
 
-    # TODO write another csv file containing suspicious downloads?
-    print(build_result_log(log_file, total, interesting, extracted, download, RobotDetector.get_suspicious_ips(300)))
+    print(build_result_log(log_file, total, interesting, extracted, download))
+
+    if detect_hiding_robots:
+        # TODO write another csv file containing suspicious downloads?
+        print(build_top_ips_logs(robot_detector.get_suspicious_ips()))
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Give at least one source file")
-
-    log_files = sys.argv[1:]
+    params = parse_argv(sys.argv)
 
     # TODO remove this test!!!!
-    process_file(log_files[0])
+    process_file(params.log_files[0], params.detect_hiding_robots)
 
     # pool = mp.Pool(processes=4)
-    # pool.map(process_file, log_files)
+    # pool.map(process_file, [(log_file, params.detect_hiding_robots) for log_file in params.log_files])
