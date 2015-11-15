@@ -20,7 +20,7 @@ nosetests
 ## Run log filtering
 
 ```
-./extract/filter_logs.py data/*.log
+./extract/filter_logs.py --detect-downloads-above 500 data/*.log
 ```
 
 

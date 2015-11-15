@@ -19,17 +19,22 @@ def build_result_log(log_file, total, interesting, extracted, download):
 
 
 def build_top_ips_logs(top_ips):
-    formatted_top_ips = ["{}: {} => {}".format(ip, count, example_record.values()) for ip, count, example_record in top_ips]
-    return "Top ips that downloaded the most:\n{}".format('\n'.join(formatted_top_ips))
+    formatted_top_ips = ["{}: {}, from proxy ips {}".format(
+        detection_result.user_ip,
+        detection_result.download_count,
+        ", ".join(detection_result.proxy_ips)
+    ) for detection_result in top_ips]
+
+    return "Top user ips that downloaded the most:\n{}".format('\n'.join(formatted_top_ips))
 
 
 class Parameters():
-    def __init__(self, log_files, detect_hiding_robots):
+    def __init__(self, log_files, detect_downloads_above):
         self.log_files = log_files
-        self.detect_hiding_robots = detect_hiding_robots
+        self.detect_downloads_above = detect_downloads_above
 
     def __str__(self):
-        return "log_files: {}, detect_hiding_robots: {}".format(self.log_files, self.detect_hiding_robots)
+        return "log_files: {}, detect_downloads_above: {}".format(self.log_files, self.detect_downloads_above)
 
     def __repr__(self):
         return str(self)
@@ -37,12 +42,14 @@ class Parameters():
 
 def parse_argv(argv):
     parser = OptionParser()
-    parser.add_option("-d", "--detect-hiding-robots", action="store_true", dest="detect_hiding_robots",
-                      help="Attemp to detect hiding robots", default=False)
+    parser.add_option("-r", "--detect-downloads-above", dest="detect_downloads_above",
+                  help="Detect download above this threshold", default=None)
 
     (options, args) = parser.parse_args(argv)
 
+    detect_downloads_above = int(options.detect_downloads_above) if options.detect_downloads_above else None
+
     return Parameters(
         log_files=args[1:],
-        detect_hiding_robots=options.detect_hiding_robots
+        detect_downloads_above=detect_downloads_above
     )
