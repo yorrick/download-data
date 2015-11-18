@@ -19,15 +19,16 @@ IP_REGEX = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
 HTTP_METHOD_REGEX = "([^\s]+)"
 PORT_REGEX = "\d{1,5}"
 URL_REGEX = "/revue/[^\s]+ar(.pdf|.html)"
+# URL_REGEX = "/revue/[^\s]+ar.pdf"
 PROTOCOL_REGEX = "HTTP/1.[01] "
 USER_AGENT_REGEX = "[^\"]*"
 REFERER_REGEX = "[^\"]*"
 HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
 
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
-JOURNAL_REGEX = "/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)"
+JOURNAL_REGEX = re.compile("/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)")
 
-LOG_REGEX = """^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<referer>{referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
+LOG_REGEX = re.compile("""^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<referer>{referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
     timestamp = TIMESTAMP_REGEX,
     ip = IP_REGEX,
     http_method = HTTP_METHOD_REGEX,
@@ -37,14 +38,14 @@ LOG_REGEX = """^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{h
     user_agent = USER_AGENT_REGEX,
     http_response_code = HTTP_RETURN_CODE_REGEX,
     referer = REFERER_REGEX,
-)
+))
 
 
 MONTREAL_TIMEZONE = timezone("America/Montreal")
 
 
 LINE_FILTERS = [
-    lambda line: "/revue/" in line and (".html" in line or ".pdf" in line),
+    lambda line: "/revue/" in line and ("ar.html" in line or "ar.pdf" in line),
     lambda line: "GET" in line,
     lambda line: "200" in line,
 ]
@@ -67,7 +68,7 @@ def interesting_line(log_line):
 
 
 def extract(log_line):
-    match = re.match(LOG_REGEX, log_line)
+    match = LOG_REGEX.match(log_line)
 
     if match is not None:
         groups = match.groupdict()
@@ -85,7 +86,7 @@ def extract(log_line):
 
 
 def extract_journal(url):
-    match = re.match(JOURNAL_REGEX, url)
+    match = JOURNAL_REGEX.match(url)
 
     if match is None:
         return Journal(None, None, None, None, None)
