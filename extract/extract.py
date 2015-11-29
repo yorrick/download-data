@@ -4,7 +4,6 @@ import re
 from models import *
 import codecs
 from collections import OrderedDict
-from countries import COUNTRIES
 
 
 TIMESTAMP_REGEX = "\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
@@ -17,9 +16,6 @@ PROTOCOL_REGEX = "HTTP/1.[01] "
 USER_AGENT_REGEX = "[^\"]*"
 REFERER_REGEX = "[^\"]*"
 HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
-
-# /revue/JCHA/1995/v6/n1/031091ar.pdf
-JOURNAL_REGEX = re.compile("/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)")
 
 LOG_REGEX = re.compile("""^(?P<raw_timestamp>{raw_timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{raw_user_agent})\" \"(?P<raw_referer>{raw_referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
     raw_timestamp = TIMESTAMP_REGEX,
@@ -50,24 +46,10 @@ def extract(log_line):
 
     if match is not None:
         groups = match.groupdict()
-        groups["journal"] = extract_journal(groups["url"])
 
         return Record(**groups)
     else:
         return None
-
-
-def extract_journal(url):
-    match = JOURNAL_REGEX.match(url)
-
-    if match is None:
-        return Journal(None, None, None, None, None)
-
-    groups = match.groupdict()
-    groups["name"] = groups["name"].lower()
-    groups["year"] = int(groups["year"])
-
-    return Journal(**groups)
 
 
 def get_lines(source_file, encoding = "utf-8"):
@@ -80,28 +62,9 @@ def is_pdf_download(record):
     return not record.user_agent.is_bot and record.http_response_code == 200 and record.http_method == "GET"
 
 
-def get_journal_info(journal):
-    if journal is not None:
-        return [
-            ("journal_name", journal.name),
-            ("publication_year", journal.year),
-            ("volume", journal.volume),
-            ("issue", journal.issue),
-            ("article_id", journal.article_id),
-        ]
-    else:
-        return [
-            ("journal_name", ""),
-            ("publication_year", ""),
-            ("volume", ""),
-            ("issue", ""),
-            ("article_id", ""),
-        ]
-
-
 def compute_age(download_year, publication_year):
-    if publication_year is None:
-        return None
+    if not publication_year:
+        return ''
 
     return download_year - publication_year
 
@@ -133,7 +96,11 @@ def to_csv_row(record):
             ('os', record.os),
             ('device', record.device),
 
+            ('journal_name', record.journal_name),
+            ('publication_year', record.publication_year),
+            ('volume', record.volume),
+            ('issue', record.issue),
+            ('article_id', record.article_id),
         ] + \
-        get_journal_info(record.journal) + \
-        [("age", compute_age(record.timestamp.year, record.journal.year))]
+        [("age", compute_age(record.year, record.publication_year))]
     )

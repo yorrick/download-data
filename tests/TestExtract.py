@@ -18,11 +18,11 @@ class TestExtract(TestCase):
         self.assertEqual(record.http_method, "GET")
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
-        self.assertEqual(record.journal.name, "jcha")
-        self.assertEqual(record.journal.year, 1995)
-        self.assertEqual(record.journal.volume, "v6")
-        self.assertEqual(record.journal.issue, "n1")
-        self.assertEqual(record.journal.article_id, "031091")
+        self.assertEqual(record.journal_name, "jcha")
+        self.assertEqual(record.publication_year, 1995)
+        self.assertEqual(record.volume, "v6")
+        self.assertEqual(record.issue, "n1")
+        self.assertEqual(record.article_id, "031091")
 
         self.assertEqual(record.user_ip, "52.16.55.221")
         self.assertEqual(record.country, "Ireland")
@@ -144,15 +144,6 @@ class TestExtract(TestCase):
         record = extract(line)
         self.assertIsNone(record)
 
-    def test_journal_extract(self):
-        url = """/revue/JCHA/1995/v6/n1/031091ar.pdf"""
-        journal = extract_journal(url)
-        self.assertEquals(journal.name, "jcha")
-        self.assertEquals(journal.year, 1995)
-        self.assertEquals(journal.volume, "v6")
-        self.assertEquals(journal.issue, "n1")
-        self.assertEquals(journal.article_id, "031091")
-
     def test_get_lines(self):
         lines = get_lines(path.join(BASE_DIR, "test-log.log"))
         self.assertEquals(len(list(lines)), 4)
@@ -175,7 +166,6 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
-            None,
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             "202.112.50.77",
             "-",
@@ -190,7 +180,6 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
-            None,
             "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
             "202.112.50.77",
             "-",
@@ -205,13 +194,6 @@ class TestExtract(TestCase):
             proxy_ip="202.112.50.77",
             http_method="GET",
             url="/revue/JCHA/1995/v6/n1/031091ar.pdf",
-            journal=Journal(
-                name="JChA",
-                year=1995,
-                volume="v6",
-                issue="n1",
-                article_id="031091"
-            ),
             raw_user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             user_ip="202.112.50.77",
             raw_referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
@@ -240,7 +222,7 @@ class TestExtract(TestCase):
             ("browser", 'Firefox'),
             ("os", 'Mac OS X'),
             ("device", 'Other'),
-            ("journal_name", 'JChA'),
+            ("journal_name", 'jcha'),
             ("publication_year", 1995),
             ("volume", 'v6'),
             ("issue", 'n1'),

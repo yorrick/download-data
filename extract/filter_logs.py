@@ -69,7 +69,7 @@ if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
     # TODO remove this test!!!!
-    # process_file(params)
+    process_file(params)
 
     pool = mp.Pool(processes=4)
 
