@@ -62,13 +62,6 @@ def is_pdf_download(record):
     return not record.user_agent.is_bot and record.http_response_code == 200 and record.http_method == "GET"
 
 
-def compute_age(download_year, publication_year):
-    if not publication_year:
-        return ''
-
-    return download_year - publication_year
-
-
 def to_csv_row(record):
     return OrderedDict(
         [
@@ -101,6 +94,7 @@ def to_csv_row(record):
             ('volume', record.volume),
             ('issue', record.issue),
             ('article_id', record.article_id),
-        ] + \
-        [("age", compute_age(record.year, record.publication_year))]
+
+            ('age', record.age),
+        ]
     )

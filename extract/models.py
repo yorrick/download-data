@@ -156,6 +156,10 @@ class Record():
     def article_id(self):
         return self._journal_match["article_id"] if self._journal_match else ''
 
+    @cached_property
+    def age(self):
+        return self.year - self.publication_year if self.publication_year else ''
+
 
 @memoize_single_arg
 def compute_ip_geo_location(raw_ip):
