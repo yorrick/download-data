@@ -3,7 +3,6 @@ from __future__ import print_function
 import re
 from models import *
 import codecs
-from user_agents import parse
 from collections import OrderedDict
 from countries import COUNTRIES
 
@@ -22,14 +21,14 @@ HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
 JOURNAL_REGEX = re.compile("/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)")
 
-LOG_REGEX = re.compile("""^(?P<raw_timestamp>{raw_timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<raw_referer>{raw_referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
+LOG_REGEX = re.compile("""^(?P<raw_timestamp>{raw_timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{raw_user_agent})\" \"(?P<raw_referer>{raw_referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
     raw_timestamp = TIMESTAMP_REGEX,
     ip = IP_REGEX,
     http_method = HTTP_METHOD_REGEX,
     port = PORT_REGEX,
     url = URL_REGEX,
     protocol = PROTOCOL_REGEX,
-    user_agent = USER_AGENT_REGEX,
+    raw_user_agent = USER_AGENT_REGEX,
     http_response_code = HTTP_RETURN_CODE_REGEX,
     raw_referer = REFERER_REGEX,
 ))
@@ -51,9 +50,6 @@ def extract(log_line):
 
     if match is not None:
         groups = match.groupdict()
-        # parse timestamp
-        groups["http_response_code"] = int(groups["http_response_code"])
-        groups["user_agent"] = compute_user_agent(groups["raw_user_agent"])
         groups["journal"] = extract_journal(groups["url"])
 
         return Record(**groups)
@@ -82,26 +78,6 @@ def get_lines(source_file, encoding = "utf-8"):
 
 def is_pdf_download(record):
     return not record.user_agent.is_bot and record.http_response_code == 200 and record.http_method == "GET"
-
-
-@memoize_single_arg
-def compute_user_agent(raw_user_agent):
-    return parse(raw_user_agent)
-
-
-def get_user_agent_info(user_agent):
-    if user_agent is not None:
-        return [
-            ("browser", user_agent.browser.family),
-            ("os", user_agent.os.family),
-            ("device", user_agent.device.family),
-        ]
-    else:
-        return [
-            ("browser", ""),
-            ("os", ""),
-            ("device", ""),
-        ]
 
 
 def get_journal_info(journal):
@@ -151,9 +127,13 @@ def to_csv_row(record):
             ('country', record.country),
             ('geo_coordinates', record.geo_coordinates),
             ('timezone', record.timezone),
+
+            ('user_agent', record.raw_user_agent),
+            ('browser', record.browser),
+            ('os', record.os),
+            ('device', record.device),
+
         ] + \
-        [("user_agent", record.raw_user_agent)] + \
-        get_user_agent_info(record.user_agent) + \
         get_journal_info(record.journal) + \
         [("age", compute_age(record.timestamp.year, record.journal.year))]
     )

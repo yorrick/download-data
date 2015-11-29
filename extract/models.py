@@ -5,22 +5,22 @@ from urlparse import urlparse
 from geoip import geolite2
 from datetime import datetime
 from countries import COUNTRIES
+from user_agents import parse
 
 
 class Record():
 
     def __init__(self, raw_timestamp, proxy_ip, http_method, url, journal,
-                 user_agent, raw_user_agent, user_ip, raw_referer, http_response_code):
+                 raw_user_agent, user_ip, raw_referer, http_response_code):
         self.raw_timestamp = raw_timestamp  ## string version of timestamp
         self.proxy_ip = proxy_ip
         self.http_method = http_method
         self.url = url
         self.journal = journal
-        self.user_agent = user_agent
         self.raw_user_agent = raw_user_agent
         self.user_ip = user_ip
         self.raw_referer = raw_referer  # raw version of user agent
-        self.http_response_code = http_response_code
+        self.http_response_code = int(http_response_code)
 
     @cached_property
     def timestamp(self):
@@ -103,6 +103,26 @@ class Record():
         else:
             return ''
 
+    @cached_property
+    def user_agent(self):
+        return compute_user_agent(self.raw_user_agent) if self.raw_user_agent else ''
+
+    @cached_property
+    def browser(self):
+        return self.user_agent.browser.family if self.user_agent else ''
+
+    @cached_property
+    def os(self):
+        return self.user_agent.os.family if self.user_agent else ''
+
+    @cached_property
+    def device(self):
+        return self.user_agent.device.family if self.user_agent else ''
+
+    @cached_property
+    def is_bot(self):
+        return self.user_agent.is_bot if self.user_agent else ''
+    
 
 class Journal():
 
@@ -117,3 +137,15 @@ class Journal():
 @memoize_single_arg
 def compute_ip_geo_location(raw_ip):
     return geolite2.lookup(raw_ip)
+
+
+@memoize_single_arg
+def compute_user_agent(raw_user_agent):
+    return parse(raw_user_agent)
+
+
+def compute_age(download_year, publication_year):
+    if publication_year is None:
+        return None
+
+    return download_year - publication_year

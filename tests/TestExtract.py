@@ -31,10 +31,10 @@ class TestExtract(TestCase):
         self.assertEqual(record.geo_coordinates, "53.3331, -6.2489")
 
         self.assertEqual(record.raw_user_agent, "curl/7.35.0")
-        self.assertEqual(record.user_agent.browser.family, "Other")
-        self.assertEqual(record.user_agent.os.family, "Other")
-        self.assertEqual(record.user_agent.device.family, "Other")
-        self.assertFalse(record.user_agent.is_bot)
+        self.assertEqual(record.browser, "Other")
+        self.assertEqual(record.os, "Other")
+        self.assertEqual(record.device, "Other")
+        self.assertFalse(record.is_bot)
 
         self.assertEqual(record.raw_referer, "-")
         self.assertEqual(record.referer, "")
@@ -57,10 +57,10 @@ class TestExtract(TestCase):
         self.assertEqual(record.geo_coordinates, "37.4135, -122.1312")
 
         self.assertEqual(record.raw_user_agent, "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)")
-        self.assertEqual(record.user_agent.browser.family, "YandexBot")
-        self.assertEqual(record.user_agent.os.family, "Other")
-        self.assertEqual(record.user_agent.device.family, "Spider")
-        self.assertTrue(record.user_agent.is_bot)
+        self.assertEqual(record.browser, "YandexBot")
+        self.assertEqual(record.os, "Other")
+        self.assertEqual(record.device, "Spider")
+        self.assertTrue(record.is_bot)
 
         self.assertEqual(record.raw_referer, "-")
         self.assertEqual(record.referer, "")
@@ -84,10 +84,10 @@ class TestExtract(TestCase):
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.raw_user_agent, "-")
-        self.assertEqual(record.user_agent.browser.family, "Other")
-        self.assertEqual(record.user_agent.os.family, "Other")
-        self.assertEqual(record.user_agent.device.family, "Other")
-        self.assertFalse(record.user_agent.is_bot)
+        self.assertEqual(record.browser, "Other")
+        self.assertEqual(record.os, "Other")
+        self.assertEqual(record.device, "Other")
+        self.assertFalse(record.is_bot)
 
         self.assertEqual(record.raw_referer, "-")
         self.assertEqual(record.referer, "")
@@ -111,10 +111,10 @@ class TestExtract(TestCase):
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.raw_user_agent, "")
-        self.assertEqual(record.user_agent.browser.family, "Other")
-        self.assertEqual(record.user_agent.os.family, "Other")
-        self.assertEqual(record.user_agent.device.family, "Other")
-        self.assertFalse(record.user_agent.is_bot)
+        self.assertEqual(record.browser, "")
+        self.assertEqual(record.os, "")
+        self.assertEqual(record.device, "")
+        self.assertFalse(record.is_bot)
 
         self.assertEqual(record.raw_referer, "-")
         self.assertEqual(record.referer, "")
@@ -176,7 +176,6 @@ class TestExtract(TestCase):
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
             None,
-            compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"),
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             "202.112.50.77",
             "-",
@@ -192,7 +191,6 @@ class TestExtract(TestCase):
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
             None,
-            compute_user_agent("Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)"),
             "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
             "202.112.50.77",
             "-",
@@ -200,22 +198,6 @@ class TestExtract(TestCase):
         )
 
         self.assertFalse(is_pdf_download(record))
-
-    def test_get_user_agent_info(self):
-        ip_info = get_user_agent_info(compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"))
-        self.assertEquals(ip_info, [
-            ("browser", "Firefox"),
-            ("os", "Mac OS X"),
-            ("device", "Other"),
-        ])
-
-    def test_none_get_user_agent_info(self):
-        ip_info = get_user_agent_info(None)
-        self.assertEquals(ip_info, [
-            ("browser", ""),
-            ("os", ""),
-            ("device", ""),
-        ])
 
     def test_to_csv_row(self):
         record = Record(
@@ -230,11 +212,10 @@ class TestExtract(TestCase):
                 issue="n1",
                 article_id="031091"
             ),
-            user_agent=compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"),
             raw_user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             user_ip="202.112.50.77",
             raw_referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
-            http_response_code=100
+            http_response_code="100"
         )
 
         self.assertEquals(to_csv_row(record).items(), [
