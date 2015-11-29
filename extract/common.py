@@ -74,3 +74,14 @@ class cached_property(object):
         setattr(instance, self._attr_name, attr)
 
         return attr
+
+
+# http://code.activestate.com/recipes/578231-probably-the-fastest-memoization-decorator-in-the-/
+def memoize_single_arg(f):
+    class memodict(dict):
+        __slots__ = ()
+        def __missing__(self, key):
+            self[key] = ret = f(key)
+            return ret
+
+    return memodict().__getitem__

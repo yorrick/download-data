@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-from common import cached_property
+from common import *
 from datetime_utils import *
 from urlparse import urlparse
+from geoip import geolite2
 
 
 class Record():
 
     def __init__(self, timestamp, proxy_ip, http_method, url, journal,
-                 user_agent, raw_user_agent, user_ip, geo_location, raw_referer, http_response_code):
+                 user_agent, raw_user_agent, user_ip, raw_referer, http_response_code):
         self.timestamp = timestamp
 
         self.proxy_ip = proxy_ip
@@ -17,7 +18,6 @@ class Record():
         self.user_agent = user_agent
         self.raw_user_agent = raw_user_agent
         self.user_ip = user_ip
-        self.geo_location = geo_location
         self.raw_referer = raw_referer
         self.http_response_code = http_response_code
 
@@ -70,6 +70,10 @@ class Record():
             # return '' if url could not be parsed
             return urlparse(self.referer).netloc
 
+    @cached_property
+    def geo_location(self):
+        return compute_ip_geo_location(self.user_ip)
+
 
 class Journal():
 
@@ -79,3 +83,8 @@ class Journal():
         self.volume = volume
         self.issue = issue
         self.article_id = article_id
+
+
+@memoize_single_arg
+def compute_ip_geo_location(raw_ip):
+    return geolite2.lookup(raw_ip)

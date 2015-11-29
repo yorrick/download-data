@@ -5,7 +5,6 @@ from models import *
 from datetime import datetime
 import codecs
 from user_agents import parse
-from geoip import geolite2
 from collections import OrderedDict
 from countries import COUNTRIES
 from datetime_utils import *
@@ -57,7 +56,6 @@ def extract(log_line):
         # parse timestamp
         # do not handle ambiguous timestamps, due to time changes of 1 hour between seasons
         groups["timestamp"] = get_log_time(datetime.strptime(groups["timestamp"], TIMESTAMP_FORMAT))
-        groups["geo_location"] = compute_ip_geo_location(groups["user_ip"])
         groups["http_response_code"] = int(groups["http_response_code"])
         groups["user_agent"] = compute_user_agent(groups["raw_user_agent"])
         groups["journal"] = extract_journal(groups["url"])
@@ -90,25 +88,10 @@ def is_pdf_download(record):
     return not record.user_agent.is_bot and record.http_response_code == 200 and record.http_method == "GET"
 
 
-# http://code.activestate.com/recipes/578231-probably-the-fastest-memoization-decorator-in-the-/
-def memoize_single_arg(f):
-    class memodict(dict):
-        __slots__ = ()
-        def __missing__(self, key):
-            self[key] = ret = f(key)
-            return ret
-
-    return memodict().__getitem__
-
-
 @memoize_single_arg
 def compute_user_agent(raw_user_agent):
     return parse(raw_user_agent)
 
-
-@memoize_single_arg
-def compute_ip_geo_location(raw_ip):
-    return geolite2.lookup(raw_ip)
 
 
 def get_geo_location_info(geo_location):

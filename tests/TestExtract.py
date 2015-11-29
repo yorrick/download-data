@@ -179,7 +179,6 @@ class TestExtract(TestCase):
             compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"),
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             "202.112.50.77",
-            None,
             "-",
             200,
         )
@@ -196,7 +195,6 @@ class TestExtract(TestCase):
             compute_user_agent("Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)"),
             "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
             "202.112.50.77",
-            None,
             "-",
             200,
         )
@@ -255,7 +253,6 @@ class TestExtract(TestCase):
             user_agent=compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"),
             raw_user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             user_ip="202.112.50.77",
-            geo_location=compute_ip_geo_location("202.112.50.77"),
             raw_referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
             http_response_code=100
         )
