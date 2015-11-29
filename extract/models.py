@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from common import TIMESTAMP_FORMAT, DATE_FORMAT, cached_property
+from common import cached_property
+from datetime_utils import *
 
 
 class Record():
@@ -34,6 +35,27 @@ class Record():
     @cached_property
     def hour(self):
         return self.timestamp.hour
+
+    @cached_property
+    def local_timestamp(self):
+        local_tz = self.geo_location.timezone if self.geo_location is not None else None
+        return to_local_time(self.timestamp, local_tz)
+
+    @cached_property
+    def local_time(self):
+        return self.local_timestamp.strftime(TIMESTAMP_FORMAT)
+
+    @cached_property
+    def local_date(self):
+        return self.local_timestamp.strftime(DATE_FORMAT)
+
+    @cached_property
+    def local_year(self):
+        return self.local_timestamp.year
+
+    @cached_property
+    def local_hour(self):
+        return self.local_timestamp.hour
 
 
 class Journal():

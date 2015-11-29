@@ -2,9 +2,6 @@
 from __future__ import print_function
 from optparse import OptionParser
 
-TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
-DATE_FORMAT = "%Y-%m-%d"
-
 
 def build_result_log(log_file, total, interesting, extracted, download):
     metrics = {

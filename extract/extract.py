@@ -7,9 +7,9 @@ import codecs
 from user_agents import parse
 from geoip import geolite2
 from collections import OrderedDict
-from pytz import timezone
 from countries import COUNTRIES
 from urlparse import urlparse
+from datetime_utils import *
 
 
 TIMESTAMP_REGEX = "\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
@@ -39,26 +39,11 @@ LOG_REGEX = re.compile("""^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<htt
 ))
 
 
-MONTREAL_TIMEZONE = timezone("America/Montreal")
-
-
 LINE_FILTERS = [
     lambda line: "/revue/" in line and ("ar.html" in line or "ar.pdf" in line),
     lambda line: "GET" in line,
     lambda line: "200" in line,
 ]
-
-
-def get_log_time(dt):
-    return MONTREAL_TIMEZONE.localize(dt, is_dst=False)
-
-
-def to_local_time(dt, tz):
-    if tz is None or tz == 'None':
-        return dt
-    else:
-        local_tz = timezone(tz)
-        return local_tz.normalize(dt.astimezone(local_tz))
 
 
 def interesting_line(log_line):
@@ -205,8 +190,6 @@ def get_referer_host(referer):
 
 
 def to_csv_row(record):
-    local_tz = record.geo_location.timezone if record.geo_location is not None else None
-    local_time = to_local_time(record.timestamp, local_tz)
     referer = get_referer(record.referer)
 
     return OrderedDict(
@@ -215,10 +198,10 @@ def to_csv_row(record):
             ('date', record.date),
             ('year', record.year),
             ('hour', record.hour),
-            ('local_time', local_time.strftime(TIMESTAMP_FORMAT)),
-            ('local_date', local_time.strftime(DATE_FORMAT)),
-            ('local_year', local_time.year),
-            ('local_hour', local_time.hour),
+            ('local_time', record.local_time),
+            ('local_date', record.local_date),
+            ('local_year', record.local_year),
+            ('local_hour', record.local_hour),
             ('proxy_ip', record.proxy_ip),
             ('user_ip', record.user_ip),
             ('url', record.url),
