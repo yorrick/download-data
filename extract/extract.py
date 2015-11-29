@@ -2,18 +2,10 @@
 from __future__ import print_function
 import re
 from models import *
-from datetime import datetime
 import codecs
-from user_agents import parse
-from geoip import geolite2
 from collections import OrderedDict
-from pytz import timezone
-from countries import COUNTRIES
-from urlparse import urlparse
 
 
-TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
-DATE_FORMAT = "%Y-%m-%d"
 TIMESTAMP_REGEX = "\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
 IP_REGEX = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
 HTTP_METHOD_REGEX = "([^\s]+)"
@@ -25,23 +17,17 @@ USER_AGENT_REGEX = "[^\"]*"
 REFERER_REGEX = "[^\"]*"
 HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
 
-# /revue/JCHA/1995/v6/n1/031091ar.pdf
-JOURNAL_REGEX = re.compile("/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)")
-
-LOG_REGEX = re.compile("""^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<referer>{referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
-    timestamp = TIMESTAMP_REGEX,
+LOG_REGEX = re.compile("""^(?P<raw_timestamp>{raw_timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{raw_user_agent})\" \"(?P<raw_referer>{raw_referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
+    raw_timestamp = TIMESTAMP_REGEX,
     ip = IP_REGEX,
     http_method = HTTP_METHOD_REGEX,
     port = PORT_REGEX,
     url = URL_REGEX,
     protocol = PROTOCOL_REGEX,
-    user_agent = USER_AGENT_REGEX,
+    raw_user_agent = USER_AGENT_REGEX,
     http_response_code = HTTP_RETURN_CODE_REGEX,
-    referer = REFERER_REGEX,
+    raw_referer = REFERER_REGEX,
 ))
-
-
-MONTREAL_TIMEZONE = timezone("America/Montreal")
 
 
 LINE_FILTERS = [
@@ -49,18 +35,6 @@ LINE_FILTERS = [
     lambda line: "GET" in line,
     lambda line: "200" in line,
 ]
-
-
-def get_log_time(dt):
-    return MONTREAL_TIMEZONE.localize(dt, is_dst=False)
-
-
-def to_local_time(dt, tz):
-    if tz is None or tz == 'None':
-        return dt
-    else:
-        local_tz = timezone(tz)
-        return local_tz.normalize(dt.astimezone(local_tz))
 
 
 def interesting_line(log_line):
@@ -72,30 +46,10 @@ def extract(log_line):
 
     if match is not None:
         groups = match.groupdict()
-        # parse timestamp
-        # do not handle ambiguous timestamps, due to time changes of 1 hour between seasons
-        groups["timestamp"] = get_log_time(datetime.strptime(groups["timestamp"], TIMESTAMP_FORMAT))
-        groups["geo_location"] = compute_ip_geo_location(groups["user_ip"])
-        groups["http_response_code"] = int(groups["http_response_code"])
-        groups["user_agent"] = compute_user_agent(groups["raw_user_agent"])
-        groups["journal"] = extract_journal(groups["url"])
 
         return Record(**groups)
     else:
         return None
-
-
-def extract_journal(url):
-    match = JOURNAL_REGEX.match(url)
-
-    if match is None:
-        return Journal(None, None, None, None, None)
-
-    groups = match.groupdict()
-    groups["name"] = groups["name"].lower()
-    groups["year"] = int(groups["year"])
-
-    return Journal(**groups)
 
 
 def get_lines(source_file, encoding = "utf-8"):
@@ -108,128 +62,40 @@ def is_pdf_download(record):
     return not record.user_agent.is_bot and record.http_response_code == 200 and record.http_method == "GET"
 
 
-# http://code.activestate.com/recipes/578231-probably-the-fastest-memoization-decorator-in-the-/
-def memoize_single_arg(f):
-    class memodict(dict):
-        __slots__ = ()
-        def __missing__(self, key):
-            self[key] = ret = f(key)
-            return ret
-
-    return memodict().__getitem__
-
-
-@memoize_single_arg
-def compute_user_agent(raw_user_agent):
-    return parse(raw_user_agent)
-
-
-@memoize_single_arg
-def compute_ip_geo_location(raw_ip):
-    return geolite2.lookup(raw_ip)
-
-
-def get_geo_location_info(geo_location):
-    if geo_location is not None:
-        location_string = ", ".join([str(loc) for loc in geo_location.location]) if geo_location.location is not None else ""
-
-        tz = '' if geo_location.timezone == 'None' else geo_location.timezone
-        country = COUNTRIES.get(geo_location.country, geo_location.country)
-
-        return [
-            ("user_ip", geo_location.ip),
-            ("continent", geo_location.continent),
-            ("country", country),
-            ("geo_coordinates", location_string),
-            ("timezone", tz),
-        ]
-    else:
-        return [
-            ("user_ip", ""),
-            ("continent", ""),
-            ("country", ""),
-            ("geo_coordinates", ""),
-            ("timezone", ""),
-        ]
-
-
-def get_user_agent_info(user_agent):
-    if user_agent is not None:
-        return [
-            ("browser", user_agent.browser.family),
-            ("os", user_agent.os.family),
-            ("device", user_agent.device.family),
-        ]
-    else:
-        return [
-            ("browser", ""),
-            ("os", ""),
-            ("device", ""),
-        ]
-
-
-def get_journal_info(journal):
-    if journal is not None:
-        return [
-            ("journal_name", journal.name),
-            ("publication_year", journal.year),
-            ("volume", journal.volume),
-            ("issue", journal.issue),
-            ("article_id", journal.article_id),
-        ]
-    else:
-        return [
-            ("journal_name", ""),
-            ("publication_year", ""),
-            ("volume", ""),
-            ("issue", ""),
-            ("article_id", ""),
-        ]
-
-
-def compute_age(download_year, publication_year):
-    if publication_year is None:
-        return None
-
-    return download_year - publication_year
-
-
-def get_referer(raw_referer):
-    return '' if raw_referer == '-' else raw_referer
-
-
-def get_referer_host(referer):
-    if not referer:
-        return ''
-    else:
-        # return '' if url could not be parsed
-        return urlparse(referer).netloc
-
-
 def to_csv_row(record):
-    local_tz = record.geo_location.timezone if record.geo_location is not None else None
-    local_time = to_local_time(record.timestamp, local_tz)
-    referer = get_referer(record.referer)
-
     return OrderedDict(
         [
-            ('time', record.timestamp.strftime(TIMESTAMP_FORMAT)),
-            ('date', record.timestamp.strftime(DATE_FORMAT)),
-            ('year', record.timestamp.year),
-            ('hour', record.timestamp.hour),
-            ('local_time', local_time.strftime(TIMESTAMP_FORMAT)),
-            ('local_date', local_time.strftime(DATE_FORMAT)),
-            ('local_year', local_time.year),
-            ('local_hour', local_time.hour),
+            ('time', record.time),
+            ('date', record.date),
+            ('year', record.year),
+            ('hour', record.hour),
+            ('local_time', record.local_time),
+            ('local_date', record.local_date),
+            ('local_year', record.local_year),
+            ('local_hour', record.local_hour),
             ('proxy_ip', record.proxy_ip),
             ('user_ip', record.user_ip),
             ('url', record.url),
-            ('referer', referer),
-            ('referer_host', get_referer_host(referer)),
-        ] + \
-        get_geo_location_info(record.geo_location) + \
-        [("user_agent", record.raw_user_agent)] + \
-        get_user_agent_info(record.user_agent) + \
-        get_journal_info(record.journal) + \
-        [("age", compute_age(record.timestamp.year, record.journal.year))]
+            ('referer', record.referer),
+            ('referer_host', record.referer_host),
+
+            ('continent', record.continent),
+            ('country', record.country),
+            ('geo_coordinates', record.geo_coordinates),
+            ('timezone', record.timezone),
+
+            ('user_agent', record.raw_user_agent),
+            ('browser', record.browser),
+            ('os', record.os),
+            ('device', record.device),
+
+            ('journal_name', record.journal_name),
+            ('publication_year', record.publication_year),
+            ('volume', record.volume),
+            ('issue', record.issue),
+            ('article_id', record.article_id),
+
+            ('age', record.age),
+            ('embargo', str(record.embargo)),
+        ]
     )

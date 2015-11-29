@@ -10,110 +10,131 @@ BASE_DIR = path.dirname(path.abspath(__file__))
 class TestExtract(TestCase):
 
     def test_line_extract_1(self):
-        line = """2015-03-03 23:59:55 52.16.55.221 GET /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
+        line = """2015-03-03 23:59:55 52.16.55.221 GET /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973"""
         record = extract(line)
 
-        self.assertEqual(record.timestamp, get_log_time(datetime(2015, 3, 3, 23, 59, 55)))
+        self.assertEqual(record.timestamp, get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)))
+        self.assertEqual(record.time, "2015-03-03 23:59:55")
+        self.assertEqual(record.date, "2015-03-03")
+        self.assertEqual(record.year, 2015)
+        self.assertEqual(record.hour, 23)
+
+        self.assertEqual(record.local_time, "2015-03-04 04:59:55")
+        self.assertEqual(record.local_date, "2015-03-04")
+        self.assertEqual(record.local_year, 2015)
+        self.assertEqual(record.local_hour, 4)
+
+        self.assertEqual(record.referer, "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127")
+        self.assertEqual(record.referer_host, "www.bing.com")
+
+        self.assertEqual(record.user_ip, "52.16.55.221")
+        self.assertEqual(record.continent, "EU")
+        self.assertEqual(record.country, "Ireland")
+        self.assertEqual(record.geo_coordinates, "53.3331, -6.2489")
+        self.assertEqual(record.timezone, "Europe/Dublin")
+
         self.assertEqual(record.proxy_ip, "52.16.55.221")
         self.assertEqual(record.http_method, "GET")
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
-        self.assertEqual(record.journal.name, "jcha")
-        self.assertEqual(record.journal.year, 1995)
-        self.assertEqual(record.journal.volume, "v6")
-        self.assertEqual(record.journal.issue, "n1")
-        self.assertEqual(record.journal.article_id, "031091")
-
-        self.assertEqual(record.user_ip, "52.16.55.221")
-        self.assertEqual(record.geo_location.country, "IE")
-        self.assertEqual(record.geo_location.continent, "EU")
-        self.assertEqual(record.geo_location.timezone, "Europe/Dublin")
-        self.assertEqual(record.geo_location.location, (53.3331, -6.2489))
+        self.assertEqual(record.journal_name, "jcha")
+        self.assertEqual(record.publication_year, 1995)
+        self.assertEqual(record.volume, "v6")
+        self.assertEqual(record.issue, "n1")
+        self.assertEqual(record.article_id, "031091")
 
         self.assertEqual(record.raw_user_agent, "curl/7.35.0")
-        self.assertEqual(record.user_agent.browser.family, "Other")
-        self.assertEqual(record.user_agent.os.family, "Other")
-        self.assertEqual(record.user_agent.device.family, "Other")
-        self.assertFalse(record.user_agent.is_bot)
+        self.assertEqual(record.browser, "Other")
+        self.assertEqual(record.os, "Other")
+        self.assertEqual(record.device, "Other")
+        self.assertFalse(record.is_bot)
 
-        self.assertEqual(record.referer, "-")
         self.assertEqual(record.http_response_code, 200)
+
+        self.assertEqual(record.age, 20)
+        self.assertFalse(record.embargo)
 
 
     def test_line_extract_2(self):
-        line = """2015-03-04 02:17:29 100.43.91.4 GET /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 100.43.91.4 "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)" "-" 200 6387"""
+        line = """2015-03-04 02:17:29 100.43.91.4 GET /revue/JCHA/2013/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 100.43.91.4 "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)" "-" 200 6387"""
         record = extract(line)
 
-        self.assertEqual(record.timestamp, get_log_time(datetime(2015, 3, 4, 2, 17, 29)))
+        self.assertEqual(record.timestamp, get_montreal_time(datetime(2015, 3, 4, 2, 17, 29)))
         self.assertEqual(record.proxy_ip, "100.43.91.4")
         self.assertEqual(record.http_method, "GET")
-        self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
+        self.assertEqual(record.url, "/revue/JCHA/2013/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.user_ip, "100.43.91.4")
-        self.assertEqual(record.geo_location.country, "US")
-        self.assertEqual(record.geo_location.continent, "NA")
-        self.assertEqual(record.geo_location.timezone, "America/Los_Angeles")
-        self.assertEqual(record.geo_location.location, (37.4135, -122.1312))
+        self.assertEqual(record.country, "United States of America")
+        self.assertEqual(record.continent, "NA")
+        self.assertEqual(record.timezone, "America/Los_Angeles")
+        self.assertEqual(record.geo_coordinates, "37.4135, -122.1312")
 
         self.assertEqual(record.raw_user_agent, "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)")
-        self.assertEqual(record.user_agent.browser.family, "YandexBot")
-        self.assertEqual(record.user_agent.os.family, "Other")
-        self.assertEqual(record.user_agent.device.family, "Spider")
-        self.assertTrue(record.user_agent.is_bot)
+        self.assertEqual(record.browser, "YandexBot")
+        self.assertEqual(record.os, "Other")
+        self.assertEqual(record.device, "Spider")
+        self.assertTrue(record.is_bot)
 
-        self.assertEqual(record.referer, "-")
+        self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
+
+        self.assertEqual(record.age, 2)
+        self.assertTrue(record.embargo)
 
 
     def test_line_extract_3(self):
-        line = """2015-03-04 00:29:36 222.33.68.117 GET /revue/JCHA/1995/v6/n1/031091ar.pdf - 80 - 222.33.68.117 "-" "-" 400 460"""
+        line = """2015-03-04 00:29:36 222.33.68.117 GET /revue/JCHA/2015/v6/n1/031091ar.pdf - 80 - 222.33.68.117 "-" "-" 400 460"""
         record = extract(line)
 
-        self.assertEqual(record.timestamp, get_log_time(datetime(2015, 3, 4, 0, 29, 36)))
+        self.assertEqual(record.timestamp, get_montreal_time(datetime(2015, 3, 4, 0, 29, 36)))
         self.assertEqual(record.proxy_ip, "222.33.68.117")
         self.assertEqual(record.http_method, "GET")
 
         self.assertEqual(record.user_ip, "222.33.68.117")
-        self.assertEqual(record.geo_location.country, "CN")
-        self.assertEqual(record.geo_location.continent, "AS")
-        self.assertEqual(record.geo_location.timezone, "Asia/Shanghai")
-        self.assertEqual(record.geo_location.location, (39.9289, 116.3883))
+        self.assertEqual(record.country, "China")
+        self.assertEqual(record.continent, "AS")
+        self.assertEqual(record.timezone, "Asia/Shanghai")
+        self.assertEqual(record.geo_coordinates, "39.9289, 116.3883")
 
-        self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
+        self.assertEqual(record.url, "/revue/JCHA/2015/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.raw_user_agent, "-")
-        self.assertEqual(record.user_agent.browser.family, "Other")
-        self.assertEqual(record.user_agent.os.family, "Other")
-        self.assertEqual(record.user_agent.device.family, "Other")
-        self.assertFalse(record.user_agent.is_bot)
+        self.assertEqual(record.browser, "Other")
+        self.assertEqual(record.os, "Other")
+        self.assertEqual(record.device, "Other")
+        self.assertFalse(record.is_bot)
 
-        self.assertEqual(record.referer, "-")
+        self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 400)
+
+        self.assertEqual(record.age, 0)
+        self.assertTrue(record.embargo)
 
 
     def test_line_extract_4(self):
         line = """2015-03-04 03:13:51 125.122.116.68 POST /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 125.122.116.68 "" "-" 200 6387"""
         record = extract(line)
 
-        self.assertEqual(record.timestamp, get_log_time(datetime(2015, 3, 4, 3, 13, 51)))
+        self.assertEqual(record.timestamp, get_montreal_time(datetime(2015, 3, 4, 3, 13, 51)))
         self.assertEqual(record.proxy_ip, "125.122.116.68")
         self.assertEqual(record.http_method, "POST")
 
         self.assertEqual(record.user_ip, "125.122.116.68")
-        self.assertEqual(record.geo_location.country, "CN")
-        self.assertEqual(record.geo_location.continent, "AS")
-        self.assertEqual(record.geo_location.timezone, "Asia/Shanghai")
-        self.assertEqual(record.geo_location.location, (30.2936, 120.1614))
+        self.assertEqual(record.country, "China")
+        self.assertEqual(record.continent, "AS")
+        self.assertEqual(record.timezone, "Asia/Shanghai")
+        self.assertEqual(record.geo_coordinates, "30.2936, 120.1614")
 
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.raw_user_agent, "")
-        self.assertEqual(record.user_agent.browser.family, "Other")
-        self.assertEqual(record.user_agent.os.family, "Other")
-        self.assertEqual(record.user_agent.device.family, "Other")
-        self.assertFalse(record.user_agent.is_bot)
+        self.assertEqual(record.browser, "")
+        self.assertEqual(record.os, "")
+        self.assertEqual(record.device, "")
+        self.assertFalse(record.is_bot)
 
-        self.assertEqual(record.referer, "-")
+        self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
 
     def test_line_extract_5(self):
@@ -140,15 +161,6 @@ class TestExtract(TestCase):
         record = extract(line)
         self.assertIsNone(record)
 
-    def test_journal_extract(self):
-        url = """/revue/JCHA/1995/v6/n1/031091ar.pdf"""
-        journal = extract_journal(url)
-        self.assertEquals(journal.name, "jcha")
-        self.assertEquals(journal.year, 1995)
-        self.assertEquals(journal.volume, "v6")
-        self.assertEquals(journal.issue, "n1")
-        self.assertEquals(journal.article_id, "031091")
-
     def test_get_lines(self):
         lines = get_lines(path.join(BASE_DIR, "test-log.log"))
         self.assertEquals(len(list(lines)), 4)
@@ -167,15 +179,12 @@ class TestExtract(TestCase):
 
     def test_record_is_download(self):
         record = Record(
-            get_log_time(datetime(2015, 3, 3, 23, 59, 55)),
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
             "202.112.50.77",
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
-            None,
-            compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"),
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             "202.112.50.77",
-            None,
             "-",
             200,
         )
@@ -184,76 +193,28 @@ class TestExtract(TestCase):
 
     def test_record_is_not_download(self):
         record = Record(
-            get_log_time(datetime(2015, 3, 3, 23, 59, 55)),
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
             "202.112.50.77",
             "GET",
             "/revue/JCHA/1995/v6/n1/031091ar.pdf",
-            None,
-            compute_user_agent("Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)"),
             "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
             "202.112.50.77",
-            None,
             "-",
             200,
         )
 
         self.assertFalse(is_pdf_download(record))
 
-    def test_get_ip_info(self):
-        ip_info = get_geo_location_info(compute_ip_geo_location("202.112.50.77"))
-        self.assertEquals(ip_info, [
-            ("user_ip", "202.112.50.77"),
-            ("continent", "AS"),
-            ("country", "China"),
-            ("geo_coordinates", "23.1167, 113.25"),
-            ("timezone", "Asia/Shanghai"),
-        ])
-
-    def test_none_get_ip_info(self):
-        ip_info = get_geo_location_info(None)
-        self.assertEquals(ip_info, [
-            ("user_ip", ""),
-            ("continent", ""),
-            ("country", ""),
-            ("geo_coordinates", ""),
-            ("timezone", ""),
-        ])
-
-    def test_get_user_agent_info(self):
-        ip_info = get_user_agent_info(compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"))
-        self.assertEquals(ip_info, [
-            ("browser", "Firefox"),
-            ("os", "Mac OS X"),
-            ("device", "Other"),
-        ])
-
-    def test_none_get_user_agent_info(self):
-        ip_info = get_user_agent_info(None)
-        self.assertEquals(ip_info, [
-            ("browser", ""),
-            ("os", ""),
-            ("device", ""),
-        ])
-
     def test_to_csv_row(self):
         record = Record(
-            timestamp=get_log_time(datetime(2015, 3, 3, 23, 59, 55)),
+            raw_timestamp="2015-03-03 23:59:55",
             proxy_ip="202.112.50.77",
             http_method="GET",
             url="/revue/JCHA/1995/v6/n1/031091ar.pdf",
-            journal=Journal(
-                name="JChA",
-                year=1995,
-                volume="v6",
-                issue="n1",
-                article_id="031091"
-            ),
-            user_agent=compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"),
             raw_user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             user_ip="202.112.50.77",
-            geo_location=compute_ip_geo_location("202.112.50.77"),
-            referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
-            http_response_code=100
+            raw_referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
+            http_response_code="100"
         )
 
         self.assertEquals(to_csv_row(record).items(), [
@@ -278,10 +239,11 @@ class TestExtract(TestCase):
             ("browser", 'Firefox'),
             ("os", 'Mac OS X'),
             ("device", 'Other'),
-            ("journal_name", 'JChA'),
+            ("journal_name", 'jcha'),
             ("publication_year", 1995),
             ("volume", 'v6'),
             ("issue", 'n1'),
             ("article_id", '031091'),
             ("age", 20),
+            ("embargo", "False"),
         ])
