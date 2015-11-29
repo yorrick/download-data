@@ -36,7 +36,8 @@ class TestExtract(TestCase):
         self.assertEqual(record.user_agent.device.family, "Other")
         self.assertFalse(record.user_agent.is_bot)
 
-        self.assertEqual(record.referer, "-")
+        self.assertEqual(record.raw_referer, "-")
+        self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
 
 
@@ -61,7 +62,8 @@ class TestExtract(TestCase):
         self.assertEqual(record.user_agent.device.family, "Spider")
         self.assertTrue(record.user_agent.is_bot)
 
-        self.assertEqual(record.referer, "-")
+        self.assertEqual(record.raw_referer, "-")
+        self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
 
 
@@ -87,7 +89,8 @@ class TestExtract(TestCase):
         self.assertEqual(record.user_agent.device.family, "Other")
         self.assertFalse(record.user_agent.is_bot)
 
-        self.assertEqual(record.referer, "-")
+        self.assertEqual(record.raw_referer, "-")
+        self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 400)
 
 
@@ -113,7 +116,8 @@ class TestExtract(TestCase):
         self.assertEqual(record.user_agent.device.family, "Other")
         self.assertFalse(record.user_agent.is_bot)
 
-        self.assertEqual(record.referer, "-")
+        self.assertEqual(record.raw_referer, "-")
+        self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
 
     def test_line_extract_5(self):
@@ -252,7 +256,7 @@ class TestExtract(TestCase):
             raw_user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             user_ip="202.112.50.77",
             geo_location=compute_ip_geo_location("202.112.50.77"),
-            referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
+            raw_referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
             http_response_code=100
         )
 

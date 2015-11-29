@@ -26,7 +26,7 @@ HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
 JOURNAL_REGEX = re.compile("/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)")
 
-LOG_REGEX = re.compile("""^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<referer>{referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
+LOG_REGEX = re.compile("""^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<raw_referer>{raw_referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
     timestamp = TIMESTAMP_REGEX,
     ip = IP_REGEX,
     http_method = HTTP_METHOD_REGEX,
@@ -35,7 +35,7 @@ LOG_REGEX = re.compile("""^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<htt
     protocol = PROTOCOL_REGEX,
     user_agent = USER_AGENT_REGEX,
     http_response_code = HTTP_RETURN_CODE_REGEX,
-    referer = REFERER_REGEX,
+    raw_referer = REFERER_REGEX,
 ))
 
 
@@ -177,10 +177,6 @@ def compute_age(download_year, publication_year):
     return download_year - publication_year
 
 
-def get_referer(raw_referer):
-    return '' if raw_referer == '-' else raw_referer
-
-
 def get_referer_host(referer):
     if not referer:
         return ''
@@ -190,8 +186,6 @@ def get_referer_host(referer):
 
 
 def to_csv_row(record):
-    referer = get_referer(record.referer)
-
     return OrderedDict(
         [
             ('time', record.time),
@@ -205,8 +199,8 @@ def to_csv_row(record):
             ('proxy_ip', record.proxy_ip),
             ('user_ip', record.user_ip),
             ('url', record.url),
-            ('referer', referer),
-            ('referer_host', get_referer_host(referer)),
+            ('referer', record.referer),
+            ('referer_host', get_referer_host(record.referer)),
         ] + \
         get_geo_location_info(record.geo_location) + \
         [("user_agent", record.raw_user_agent)] + \

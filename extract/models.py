@@ -6,7 +6,7 @@ from datetime_utils import *
 class Record():
 
     def __init__(self, timestamp, proxy_ip, http_method, url, journal,
-                 user_agent, raw_user_agent, user_ip, geo_location, referer, http_response_code):
+                 user_agent, raw_user_agent, user_ip, geo_location, raw_referer, http_response_code):
         self.timestamp = timestamp
 
         self.proxy_ip = proxy_ip
@@ -17,7 +17,7 @@ class Record():
         self.raw_user_agent = raw_user_agent
         self.user_ip = user_ip
         self.geo_location = geo_location
-        self.referer = referer
+        self.raw_referer = raw_referer
         self.http_response_code = http_response_code
 
     @cached_property
@@ -56,6 +56,12 @@ class Record():
     @cached_property
     def local_hour(self):
         return self.local_timestamp.hour
+
+    @cached_property
+    def referer(self):
+        return '' if self.raw_referer == '-' else self.raw_referer
+
+
 
 
 class Journal():
