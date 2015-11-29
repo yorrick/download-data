@@ -7,6 +7,7 @@ from datetime import datetime
 from countries import COUNTRIES
 from user_agents import parse
 import re
+from journals import EMPTY_REFERENTIAL
 
 
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
@@ -16,7 +17,8 @@ JOURNAL_REGEX = re.compile("/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^
 class Record():
 
     def __init__(self, raw_timestamp, proxy_ip, http_method, url,
-                 raw_user_agent, user_ip, raw_referer, http_response_code):
+                 raw_user_agent, user_ip, raw_referer, http_response_code,
+                 journal_referential = EMPTY_REFERENTIAL):
         self.raw_timestamp = raw_timestamp  ## string version of timestamp
         self.proxy_ip = proxy_ip
         self.http_method = http_method
@@ -25,6 +27,7 @@ class Record():
         self.user_ip = user_ip
         self.referer = '' if raw_referer == '-' else raw_referer
         self.http_response_code = int(http_response_code)
+        self.journal_referential = journal_referential
 
     @cached_property
     def timestamp(self):

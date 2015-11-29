@@ -4,6 +4,7 @@ import re
 from models import *
 import codecs
 from collections import OrderedDict
+from journals import EMPTY_REFERENTIAL
 
 
 TIMESTAMP_REGEX = "\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
@@ -41,13 +42,17 @@ def interesting_line(log_line):
     return all([filter(log_line) for filter in LINE_FILTERS])
 
 
-def extract(log_line):
+def extract(log_line, journal_referential = EMPTY_REFERENTIAL):
     match = LOG_REGEX.match(log_line)
 
     if match is not None:
-        groups = match.groupdict()
+        args = match.groupdict()\
 
-        return Record(**groups)
+        args.update({
+            "journal_referential": journal_referential
+        })
+
+        return Record(**args)
     else:
         return None
 

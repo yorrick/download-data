@@ -36,3 +36,6 @@ def _get_journal_names(journal):
 
 def _get_journal_id(journal):
     return journal["id"]
+
+
+EMPTY_REFERENTIAL = JournalReferential([])

@@ -3,6 +3,7 @@
 from __future__ import print_function
 from extract import *
 from common import *
+from journals import *
 import csv
 import multiprocessing as mp
 import sys
@@ -37,7 +38,7 @@ def process_file(parameters):
 
             if interesting_line(log_line):
                 interesting += 1
-                record = extract(log_line)
+                record = extract(log_line, parameters.journal_referential)
 
                 if record is not None:
                     extracted += 1
@@ -68,10 +69,21 @@ def process_file(parameters):
 if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
+    try:
+        journal_referential = build_journal_referential("journals.json")
+    except Exception as e:
+        print("Could not load journal referential:", e)
+        sys.exit(1)
+
     # TODO remove this test!!!!
     # process_file(params)
 
     pool = mp.Pool(processes=4)
 
-    all_parameters = [Parameters([log_file], params.detect_downloads_above) for log_file in params.log_files]
+    all_parameters = [Parameters(
+            [log_file],
+            params.detect_downloads_above,
+            journal_referential
+        ) for log_file in params.log_files]
+
     pool.map(process_file, all_parameters)
