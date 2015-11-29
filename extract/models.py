@@ -138,10 +138,15 @@ class Record():
     @cached_property
     def journal_name(self):
         if self._journal_match:
+            # return unique name defined in referential
             journal_name = self._journal_match["name"].lower()
             return self.journal_referential.get_journal_id(journal_name)
         else:
             return ''
+
+    @cached_property
+    def journal_domain(self):
+        return self.journal_referential.get_journal_first_domain(self.journal_name) if self.journal_name else ''
 
     @cached_property
     def publication_year(self):

@@ -23,6 +23,9 @@ class TestExtract(TestCase):
         self.assertEquals(referential.get_journal_id("toto"), "toto")
         self.assertEquals(referential.get_journal_id("ac"), "crimino")
 
+        self.assertEquals(referential.get_journal_first_domain("ae"), u"économie")
+        self.assertEquals(referential.get_journal_first_domain("crimino"), "droit")
+
     def test_build_full_referential(self):
         # tests that no fail happens
         build_journal_referential("journals.json")

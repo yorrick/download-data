@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from extract.extract import *
+from extract.journals import *
 from datetime import datetime
 from unittest import TestCase
 from os import path
@@ -9,9 +10,22 @@ BASE_DIR = path.dirname(path.abspath(__file__))
 
 class TestExtract(TestCase):
 
+    journal_ref = JournalReferential([{
+        "id": "crimino",
+        "names": [
+          {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
+          {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
+        ],
+        "domains": [
+          "Droit", "Sociologie"
+        ],
+        "full_oa": False
+    }])
+
     def test_line_extract_1(self):
-        line = """2015-03-03 23:59:55 52.16.55.221 GET /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973"""
-        record = extract(line)
+
+        line = """2015-03-03 23:59:55 52.16.55.221 GET /revue/ac/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973"""
+        record = extract(line, self.journal_ref)
 
         self.assertEqual(record.timestamp, get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)))
         self.assertEqual(record.time, "2015-03-03 23:59:55")
@@ -35,9 +49,10 @@ class TestExtract(TestCase):
 
         self.assertEqual(record.proxy_ip, "52.16.55.221")
         self.assertEqual(record.http_method, "GET")
-        self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
+        self.assertEqual(record.url, "/revue/ac/1995/v6/n1/031091ar.pdf")
 
-        self.assertEqual(record.journal_name, "jcha")
+        self.assertEqual(record.journal_name, "crimino")
+        self.assertEqual(record.journal_domain, "droit")
         self.assertEqual(record.publication_year, 1995)
         self.assertEqual(record.volume, "v6")
         self.assertEqual(record.issue, "n1")
@@ -69,6 +84,9 @@ class TestExtract(TestCase):
         self.assertEqual(record.continent, "NA")
         self.assertEqual(record.timezone, "America/Los_Angeles")
         self.assertEqual(record.geo_coordinates, "37.4135, -122.1312")
+
+        self.assertEqual(record.journal_name, "jcha")
+        self.assertEqual(record.journal_domain, "")
 
         self.assertEqual(record.raw_user_agent, "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)")
         self.assertEqual(record.browser, "YandexBot")
@@ -210,11 +228,12 @@ class TestExtract(TestCase):
             raw_timestamp="2015-03-03 23:59:55",
             proxy_ip="202.112.50.77",
             http_method="GET",
-            url="/revue/JCHA/1995/v6/n1/031091ar.pdf",
+            url="/revue/ac/1995/v6/n1/031091ar.pdf",
             raw_user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             user_ip="202.112.50.77",
             raw_referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
-            http_response_code="100"
+            http_response_code="100",
+            journal_referential=self.journal_ref
         )
 
         self.assertEquals(to_csv_row(record).items(), [
@@ -228,7 +247,7 @@ class TestExtract(TestCase):
             ("local_hour", 12),
             ("proxy_ip", '202.112.50.77'),
             ("user_ip", '202.112.50.77'),
-            ("url", '/revue/JCHA/1995/v6/n1/031091ar.pdf'),
+            ("url", '/revue/ac/1995/v6/n1/031091ar.pdf'),
             ("referer", 'http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127'),
             ("referer_host", 'www.bing.com'),
             ("continent", 'AS'),
@@ -239,7 +258,8 @@ class TestExtract(TestCase):
             ("browser", 'Firefox'),
             ("os", 'Mac OS X'),
             ("device", 'Other'),
-            ("journal_name", 'jcha'),
+            ("journal_name", 'crimino'),
+            ("journal_domain", 'droit'),
             ("publication_year", 1995),
             ("volume", 'v6'),
             ("issue", 'n1'),
