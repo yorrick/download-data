@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from common import cached_property
 from datetime_utils import *
+from urlparse import urlparse
 
 
 class Record():
@@ -61,7 +62,13 @@ class Record():
     def referer(self):
         return '' if self.raw_referer == '-' else self.raw_referer
 
-
+    @cached_property
+    def referer_host(self):
+        if not self.referer:
+            return ''
+        else:
+            # return '' if url could not be parsed
+            return urlparse(self.referer).netloc
 
 
 class Journal():

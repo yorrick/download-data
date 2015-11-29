@@ -8,7 +8,6 @@ from user_agents import parse
 from geoip import geolite2
 from collections import OrderedDict
 from countries import COUNTRIES
-from urlparse import urlparse
 from datetime_utils import *
 
 
@@ -177,14 +176,6 @@ def compute_age(download_year, publication_year):
     return download_year - publication_year
 
 
-def get_referer_host(referer):
-    if not referer:
-        return ''
-    else:
-        # return '' if url could not be parsed
-        return urlparse(referer).netloc
-
-
 def to_csv_row(record):
     return OrderedDict(
         [
@@ -200,7 +191,7 @@ def to_csv_row(record):
             ('user_ip', record.user_ip),
             ('url', record.url),
             ('referer', record.referer),
-            ('referer_host', get_referer_host(record.referer)),
+            ('referer_host', record.referer_host),
         ] + \
         get_geo_location_info(record.geo_location) + \
         [("user_agent", record.raw_user_agent)] + \
