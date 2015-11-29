@@ -23,7 +23,7 @@ class Record():
         self.url = url
         self.raw_user_agent = raw_user_agent
         self.user_ip = user_ip
-        self.raw_referer = raw_referer  # raw version of user agent
+        self.referer = '' if raw_referer == '-' else raw_referer
         self.http_response_code = int(http_response_code)
 
     @cached_property
@@ -65,10 +65,6 @@ class Record():
     @cached_property
     def local_hour(self):
         return self.local_timestamp.hour if self.local_timestamp else ''
-
-    @cached_property
-    def referer(self):
-        return '' if self.raw_referer == '-' else self.raw_referer
 
     @cached_property
     def referer_host(self):

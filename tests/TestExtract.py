@@ -10,10 +10,29 @@ BASE_DIR = path.dirname(path.abspath(__file__))
 class TestExtract(TestCase):
 
     def test_line_extract_1(self):
-        line = """2015-03-03 23:59:55 52.16.55.221 GET /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
+        line = """2015-03-03 23:59:55 52.16.55.221 GET /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973"""
         record = extract(line)
 
         self.assertEqual(record.timestamp, get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)))
+        self.assertEqual(record.time, "2015-03-03 23:59:55")
+        self.assertEqual(record.date, "2015-03-03")
+        self.assertEqual(record.year, 2015)
+        self.assertEqual(record.hour, 23)
+
+        self.assertEqual(record.local_time, "2015-03-04 04:59:55")
+        self.assertEqual(record.local_date, "2015-03-04")
+        self.assertEqual(record.local_year, 2015)
+        self.assertEqual(record.local_hour, 4)
+
+        self.assertEqual(record.referer, "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127")
+        self.assertEqual(record.referer_host, "www.bing.com")
+
+        self.assertEqual(record.user_ip, "52.16.55.221")
+        self.assertEqual(record.continent, "EU")
+        self.assertEqual(record.country, "Ireland")
+        self.assertEqual(record.geo_coordinates, "53.3331, -6.2489")
+        self.assertEqual(record.timezone, "Europe/Dublin")
+
         self.assertEqual(record.proxy_ip, "52.16.55.221")
         self.assertEqual(record.http_method, "GET")
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
@@ -24,20 +43,12 @@ class TestExtract(TestCase):
         self.assertEqual(record.issue, "n1")
         self.assertEqual(record.article_id, "031091")
 
-        self.assertEqual(record.user_ip, "52.16.55.221")
-        self.assertEqual(record.country, "Ireland")
-        self.assertEqual(record.continent, "EU")
-        self.assertEqual(record.timezone, "Europe/Dublin")
-        self.assertEqual(record.geo_coordinates, "53.3331, -6.2489")
-
         self.assertEqual(record.raw_user_agent, "curl/7.35.0")
         self.assertEqual(record.browser, "Other")
         self.assertEqual(record.os, "Other")
         self.assertEqual(record.device, "Other")
         self.assertFalse(record.is_bot)
 
-        self.assertEqual(record.raw_referer, "-")
-        self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
 
 
@@ -62,7 +73,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.device, "Spider")
         self.assertTrue(record.is_bot)
 
-        self.assertEqual(record.raw_referer, "-")
         self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
 
@@ -89,7 +99,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.device, "Other")
         self.assertFalse(record.is_bot)
 
-        self.assertEqual(record.raw_referer, "-")
         self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 400)
 
@@ -116,7 +125,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.device, "")
         self.assertFalse(record.is_bot)
 
-        self.assertEqual(record.raw_referer, "-")
         self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
 
