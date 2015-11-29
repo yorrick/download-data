@@ -89,31 +89,6 @@ def compute_user_agent(raw_user_agent):
     return parse(raw_user_agent)
 
 
-
-def get_geo_location_info(geo_location):
-    if geo_location is not None:
-        location_string = ", ".join([str(loc) for loc in geo_location.location]) if geo_location.location is not None else ""
-
-        tz = '' if geo_location.timezone == 'None' else geo_location.timezone
-        country = COUNTRIES.get(geo_location.country, geo_location.country)
-
-        return [
-            ("user_ip", geo_location.ip),
-            ("continent", geo_location.continent),
-            ("country", country),
-            ("geo_coordinates", location_string),
-            ("timezone", tz),
-        ]
-    else:
-        return [
-            ("user_ip", ""),
-            ("continent", ""),
-            ("country", ""),
-            ("geo_coordinates", ""),
-            ("timezone", ""),
-        ]
-
-
 def get_user_agent_info(user_agent):
     if user_agent is not None:
         return [
@@ -171,8 +146,12 @@ def to_csv_row(record):
             ('url', record.url),
             ('referer', record.referer),
             ('referer_host', record.referer_host),
+
+            ('continent', record.continent),
+            ('country', record.country),
+            ('geo_coordinates', record.geo_coordinates),
+            ('timezone', record.timezone),
         ] + \
-        get_geo_location_info(record.geo_location) + \
         [("user_agent", record.raw_user_agent)] + \
         get_user_agent_info(record.user_agent) + \
         get_journal_info(record.journal) + \

@@ -4,6 +4,7 @@ from datetime_utils import *
 from urlparse import urlparse
 from geoip import geolite2
 from datetime import datetime
+from countries import COUNTRIES
 
 
 class Record():
@@ -43,24 +44,23 @@ class Record():
 
     @cached_property
     def local_timestamp(self):
-        local_tz = self.geo_location.timezone if self.geo_location is not None else None
-        return to_local_time(self.timestamp, local_tz)
+        return to_local_time(self.timestamp, self.timezone) if self.timezone else ''
 
     @cached_property
     def local_time(self):
-        return self.local_timestamp.strftime(TIMESTAMP_FORMAT)
+        return self.local_timestamp.strftime(TIMESTAMP_FORMAT) if self.local_timestamp else ''
 
     @cached_property
     def local_date(self):
-        return self.local_timestamp.strftime(DATE_FORMAT)
+        return self.local_timestamp.strftime(DATE_FORMAT) if self.local_timestamp else ''
 
     @cached_property
     def local_year(self):
-        return self.local_timestamp.year
+        return self.local_timestamp.year if self.local_timestamp else ''
 
     @cached_property
     def local_hour(self):
-        return self.local_timestamp.hour
+        return self.local_timestamp.hour if self.local_timestamp else ''
 
     @cached_property
     def referer(self):
@@ -75,8 +75,33 @@ class Record():
             return urlparse(self.referer).netloc
 
     @cached_property
-    def geo_location(self):
+    def _geo_location(self):
         return compute_ip_geo_location(self.user_ip)
+
+    @cached_property
+    def continent(self):
+        return self._geo_location.continent if self._geo_location else ''
+
+    @cached_property
+    def country(self):
+        return COUNTRIES.get(self._geo_location.country, self._geo_location.country) if self._geo_location else ''
+
+
+    @cached_property
+    def geo_coordinates(self):
+        if self._geo_location:
+            location = self._geo_location.location
+            return ", ".join([str(loc) for loc in location]) if location is not None else ""
+        else:
+            return ''
+
+    @cached_property
+    def timezone(self):
+        if self._geo_location:
+            timezone = self._geo_location.timezone
+            return '' if timezone == 'None' else timezone
+        else:
+            return ''
 
 
 class Journal():

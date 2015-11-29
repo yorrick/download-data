@@ -25,10 +25,10 @@ class TestExtract(TestCase):
         self.assertEqual(record.journal.article_id, "031091")
 
         self.assertEqual(record.user_ip, "52.16.55.221")
-        self.assertEqual(record.geo_location.country, "IE")
-        self.assertEqual(record.geo_location.continent, "EU")
-        self.assertEqual(record.geo_location.timezone, "Europe/Dublin")
-        self.assertEqual(record.geo_location.location, (53.3331, -6.2489))
+        self.assertEqual(record.country, "Ireland")
+        self.assertEqual(record.continent, "EU")
+        self.assertEqual(record.timezone, "Europe/Dublin")
+        self.assertEqual(record.geo_coordinates, "53.3331, -6.2489")
 
         self.assertEqual(record.raw_user_agent, "curl/7.35.0")
         self.assertEqual(record.user_agent.browser.family, "Other")
@@ -51,10 +51,10 @@ class TestExtract(TestCase):
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.user_ip, "100.43.91.4")
-        self.assertEqual(record.geo_location.country, "US")
-        self.assertEqual(record.geo_location.continent, "NA")
-        self.assertEqual(record.geo_location.timezone, "America/Los_Angeles")
-        self.assertEqual(record.geo_location.location, (37.4135, -122.1312))
+        self.assertEqual(record.country, "United States of America")
+        self.assertEqual(record.continent, "NA")
+        self.assertEqual(record.timezone, "America/Los_Angeles")
+        self.assertEqual(record.geo_coordinates, "37.4135, -122.1312")
 
         self.assertEqual(record.raw_user_agent, "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)")
         self.assertEqual(record.user_agent.browser.family, "YandexBot")
@@ -76,10 +76,10 @@ class TestExtract(TestCase):
         self.assertEqual(record.http_method, "GET")
 
         self.assertEqual(record.user_ip, "222.33.68.117")
-        self.assertEqual(record.geo_location.country, "CN")
-        self.assertEqual(record.geo_location.continent, "AS")
-        self.assertEqual(record.geo_location.timezone, "Asia/Shanghai")
-        self.assertEqual(record.geo_location.location, (39.9289, 116.3883))
+        self.assertEqual(record.country, "China")
+        self.assertEqual(record.continent, "AS")
+        self.assertEqual(record.timezone, "Asia/Shanghai")
+        self.assertEqual(record.geo_coordinates, "39.9289, 116.3883")
 
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
@@ -103,10 +103,10 @@ class TestExtract(TestCase):
         self.assertEqual(record.http_method, "POST")
 
         self.assertEqual(record.user_ip, "125.122.116.68")
-        self.assertEqual(record.geo_location.country, "CN")
-        self.assertEqual(record.geo_location.continent, "AS")
-        self.assertEqual(record.geo_location.timezone, "Asia/Shanghai")
-        self.assertEqual(record.geo_location.location, (30.2936, 120.1614))
+        self.assertEqual(record.country, "China")
+        self.assertEqual(record.continent, "AS")
+        self.assertEqual(record.timezone, "Asia/Shanghai")
+        self.assertEqual(record.geo_coordinates, "30.2936, 120.1614")
 
         self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
 
@@ -200,26 +200,6 @@ class TestExtract(TestCase):
         )
 
         self.assertFalse(is_pdf_download(record))
-
-    def test_get_ip_info(self):
-        ip_info = get_geo_location_info(compute_ip_geo_location("202.112.50.77"))
-        self.assertEquals(ip_info, [
-            ("user_ip", "202.112.50.77"),
-            ("continent", "AS"),
-            ("country", "China"),
-            ("geo_coordinates", "23.1167, 113.25"),
-            ("timezone", "Asia/Shanghai"),
-        ])
-
-    def test_none_get_ip_info(self):
-        ip_info = get_geo_location_info(None)
-        self.assertEquals(ip_info, [
-            ("user_ip", ""),
-            ("continent", ""),
-            ("country", ""),
-            ("geo_coordinates", ""),
-            ("timezone", ""),
-        ])
 
     def test_get_user_agent_info(self):
         ip_info = get_user_agent_info(compute_user_agent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0"))
