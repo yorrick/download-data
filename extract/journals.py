@@ -10,6 +10,7 @@ class JournalReferential():
         self.journals = journals
         self._journal_names = self.build_reverse_dict(self.journals, _get_journal_names, _get_journal_id)
         self._journal_domains = self.build_reverse_dict(self.journals, _get_journal_id, _get_journal_domains)
+        self._journal_full_oa = self.build_reverse_dict(self.journals, _get_journal_id, _get_journal_full_oa)
 
     @classmethod
     def build_reverse_dict(cls, iterable, key_extractor, value_extractor = lambda x: x):
@@ -34,6 +35,9 @@ class JournalReferential():
     def get_journal_first_domain(self, journal_id):
         return self._journal_domains.get(journal_id, [''])[0]
 
+    def is_journal_full_oa(self, journal_id):
+        return self._journal_full_oa.get(journal_id, '')
+
 
 def build_journal_referential(file_path):
     with codecs.open(file_path, "r", "utf-8") as journal_file:
@@ -46,6 +50,10 @@ def _get_journal_names(journal):
 
 def _get_journal_domains(journal):
     return [domain.lower() for domain in journal["domains"]]
+
+
+def _get_journal_full_oa(journal):
+    return journal["full_oa"]
 
 
 def _get_journal_id(journal):

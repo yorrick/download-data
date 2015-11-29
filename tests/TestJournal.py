@@ -12,12 +12,6 @@ class TestExtract(TestCase):
         referential = build_journal_referential(path.join(BASE_DIR, "test-journals.json"))
         self.assertEquals(len(referential.journals), 3)
         self.assertEquals(len(referential._journal_names), 4)
-        self.assertEquals(referential._journal_names, {
-            "ac": "crimino",
-            "crimino": "crimino",
-            "acadiensis": "acadiensis",
-            "ae": "ae",
-        })
 
         self.assertEquals(referential.get_journal_id("ae"), "ae")
         self.assertEquals(referential.get_journal_id("toto"), "toto")
@@ -25,6 +19,11 @@ class TestExtract(TestCase):
 
         self.assertEquals(referential.get_journal_first_domain("ae"), u"économie")
         self.assertEquals(referential.get_journal_first_domain("crimino"), "droit")
+        self.assertEquals(referential.get_journal_first_domain("toto"), "")
+
+        self.assertTrue(referential.is_journal_full_oa("ae"))
+        self.assertFalse(referential.is_journal_full_oa("crimino"))
+        self.assertEquals(referential.is_journal_full_oa("toto"), "")
 
     def test_build_full_referential(self):
         # tests that no fail happens

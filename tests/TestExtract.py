@@ -19,7 +19,7 @@ class TestExtract(TestCase):
         "domains": [
           "Droit", "Sociologie"
         ],
-        "full_oa": False
+        "full_oa": True
     }])
 
     def test_line_extract_1(self):
@@ -260,6 +260,7 @@ class TestExtract(TestCase):
             ("device", 'Other'),
             ("journal_name", 'crimino'),
             ("journal_domain", 'droit'),
+            ("full_oa", 'True'),
             ("publication_year", 1995),
             ("volume", 'v6'),
             ("issue", 'n1'),

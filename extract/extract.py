@@ -96,6 +96,7 @@ def to_csv_row(record):
 
             ('journal_name', record.journal_name),
             ('journal_domain', record.journal_domain),
+            ('full_oa', str(record.full_oa)),
             ('publication_year', record.publication_year),
             ('volume', record.volume),
             ('issue', record.issue),

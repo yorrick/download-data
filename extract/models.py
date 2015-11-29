@@ -149,6 +149,10 @@ class Record():
         return self.journal_referential.get_journal_first_domain(self.journal_name) if self.journal_name else ''
 
     @cached_property
+    def full_oa(self):
+        return self.journal_referential.is_journal_full_oa(self.journal_name) if self.journal_name else ''
+
+    @cached_property
     def publication_year(self):
         return int(self._journal_match["year"]) if self._journal_match else ''
 
