@@ -156,6 +156,10 @@ class Record():
     def age(self):
         return self.year - self.publication_year if self.publication_year else ''
 
+    @cached_property
+    def embargo(self):
+        return self.age <= 2
+
 
 @memoize_single_arg
 def compute_ip_geo_location(raw_ip):

@@ -96,5 +96,6 @@ def to_csv_row(record):
             ('article_id', record.article_id),
 
             ('age', record.age),
+            ('embargo', str(record.embargo)),
         ]
     )

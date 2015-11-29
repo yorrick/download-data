@@ -51,15 +51,18 @@ class TestExtract(TestCase):
 
         self.assertEqual(record.http_response_code, 200)
 
+        self.assertEqual(record.age, 20)
+        self.assertFalse(record.embargo)
+
 
     def test_line_extract_2(self):
-        line = """2015-03-04 02:17:29 100.43.91.4 GET /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 100.43.91.4 "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)" "-" 200 6387"""
+        line = """2015-03-04 02:17:29 100.43.91.4 GET /revue/JCHA/2013/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 100.43.91.4 "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)" "-" 200 6387"""
         record = extract(line)
 
         self.assertEqual(record.timestamp, get_montreal_time(datetime(2015, 3, 4, 2, 17, 29)))
         self.assertEqual(record.proxy_ip, "100.43.91.4")
         self.assertEqual(record.http_method, "GET")
-        self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
+        self.assertEqual(record.url, "/revue/JCHA/2013/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.user_ip, "100.43.91.4")
         self.assertEqual(record.country, "United States of America")
@@ -76,9 +79,12 @@ class TestExtract(TestCase):
         self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
 
+        self.assertEqual(record.age, 2)
+        self.assertTrue(record.embargo)
+
 
     def test_line_extract_3(self):
-        line = """2015-03-04 00:29:36 222.33.68.117 GET /revue/JCHA/1995/v6/n1/031091ar.pdf - 80 - 222.33.68.117 "-" "-" 400 460"""
+        line = """2015-03-04 00:29:36 222.33.68.117 GET /revue/JCHA/2015/v6/n1/031091ar.pdf - 80 - 222.33.68.117 "-" "-" 400 460"""
         record = extract(line)
 
         self.assertEqual(record.timestamp, get_montreal_time(datetime(2015, 3, 4, 0, 29, 36)))
@@ -91,7 +97,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.timezone, "Asia/Shanghai")
         self.assertEqual(record.geo_coordinates, "39.9289, 116.3883")
 
-        self.assertEqual(record.url, "/revue/JCHA/1995/v6/n1/031091ar.pdf")
+        self.assertEqual(record.url, "/revue/JCHA/2015/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.raw_user_agent, "-")
         self.assertEqual(record.browser, "Other")
@@ -101,6 +107,9 @@ class TestExtract(TestCase):
 
         self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 400)
+
+        self.assertEqual(record.age, 0)
+        self.assertTrue(record.embargo)
 
 
     def test_line_extract_4(self):
@@ -236,4 +245,5 @@ class TestExtract(TestCase):
             ("issue", 'n1'),
             ("article_id", '031091'),
             ("age", 20),
+            ("embargo", "False"),
         ])
