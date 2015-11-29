@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from common import TIMESTAMP_FORMAT, DATE_FORMAT, cached_property
 
 
 class Record():
@@ -6,6 +7,7 @@ class Record():
     def __init__(self, timestamp, proxy_ip, http_method, url, journal,
                  user_agent, raw_user_agent, user_ip, geo_location, referer, http_response_code):
         self.timestamp = timestamp
+
         self.proxy_ip = proxy_ip
         self.http_method = http_method
         self.url = url
@@ -16,6 +18,22 @@ class Record():
         self.geo_location = geo_location
         self.referer = referer
         self.http_response_code = http_response_code
+
+    @cached_property
+    def time(self):
+        return self.timestamp.strftime(TIMESTAMP_FORMAT)
+
+    @cached_property
+    def date(self):
+        return self.timestamp.strftime(DATE_FORMAT)
+
+    @cached_property
+    def year(self):
+        return self.timestamp.year
+
+    @cached_property
+    def hour(self):
+        return self.timestamp.hour
 
 
 class Journal():
