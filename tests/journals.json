@@ -1,0 +1,35 @@
+[
+  {
+    "id": "crimino",
+    "names": [
+      {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
+      {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
+    ],
+    "domains": [
+      "Droit", "Sociologie"
+    ],
+    "full_oa": false
+  },
+ 
+  {
+    "id": "acadiensis",
+    "names": [
+      {"url_name": "acadiensis", "full_name": "Acadiensis : Journal of the History of the Atlantic Region / Acadiensis: Revue d'histoire de la région Atlantique", "start_year": 1971}
+    ],
+    "domains": [
+      "Histoire", "Sciences humaines et sociales"
+    ],
+    "full_oa": false
+  },
+
+  {
+    "id": "ae",
+    "names": [
+      {"url_name": "ae", "full_name": "L'Actualité économique", "start_year": 1955}
+    ],
+    "domains": [
+      "Économie"
+    ],
+    "full_oa": false
+  }
+]
