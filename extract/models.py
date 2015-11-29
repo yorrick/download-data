@@ -137,7 +137,11 @@ class Record():
 
     @cached_property
     def journal_name(self):
-        return self._journal_match["name"].lower() if self._journal_match else ''
+        if self._journal_match:
+            journal_name = self._journal_match["name"].lower()
+            return self.journal_referential.get_journal_id(journal_name)
+        else:
+            return ''
 
     @cached_property
     def publication_year(self):
