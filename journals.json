@@ -1,0 +1,1326 @@
+[
+  {
+    id: "crimino",
+    names: [
+      {url_name: "ac", full_name: "Acta Criminologica", start_year: 1968, stop_year: 1974},
+      {url_name: "crimino", full_name: "Criminologie", start_year: 1975},
+    ],
+    domains: [
+      "Droit", "Sociologie"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "acadiensis",
+    names: [
+      {url_name: "acadiensis", full_name: "Acadiensis : Journal of the History of the Atlantic Region / Acadiensis: Revue d'histoire de la région Atlantique", start_year: 1971},
+    ],
+    domains: [
+      "Histoire", "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ae",
+    names: [
+      {url_name: "ae", full_name: "L'Actualité économique", start_year: 1955},
+    ],
+    domains: [
+      "Économie"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ageo",
+    names: [
+      {url_name: "ageo", full_name: "Atlantic Geology : Journal of the Atlantic Geoscience Society / Atlantic Geology : Revue de la Société Géoscientifique de l'Atlantique", start_year: 1965},
+    ],
+    domains: [
+      "Sciences de la terre"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "annuaire",
+    names: [
+      {url_name: "annuaire", full_name: "L'Annuaire théâtral : Revue québécoise d'études théâtrales", start_year: 1985},
+    ],
+    domains: [
+      "Arts"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "aor",
+    names: [
+      {url_name: "aor", full_name: "Algorithmic Operations Research", start_year: 2006, stop_year: 9999},
+    ],
+    domains: [
+      "Mathématiques"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "approchesind",
+    names: [
+      {url_name: "approchesind", full_name: "Approches inductives : Travail intellectuel et construction des connaissances", start_year: 2014},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "arbo",
+    names: [
+      {url_name: "arbo", full_name: "Arborescences : Revue d'études françaises", start_year: 2011},
+    ],
+    domains: [
+      "Études des langues", "Études littéraires"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "as",
+    names: [
+      {url_name: "as", full_name: "Anthropologie et Sociétés", start_year: 1976},
+    ],
+    domains: [
+      "Anthropologie et ethnologie"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ateliers",
+    names: [
+      {url_name: "ateliers", full_name: "Les ateliers de l'éthique / The Ethics Forum", start_year: 2011},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "cqd",
+    names: [
+      {url_name: "badq", full_name: "Bulletin de l'Association des démographes du Québec", start_year: 1971, stop_year: 1974},
+      {url_name: "cqd", full_name: "Cahiers québécois de démographie", start_year: 1975},
+    ],
+    domains: [
+      "Démographie"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "bhp",
+    names: [
+      {url_name: "bhp", full_name: "Bulletin d'histoire politique", start_year: 2012},
+    ],
+    domains: [
+      "Histoire", "Sciences politiques"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "bshg",
+    names: [
+      {url_name: "bshg", full_name: "Bulletin de la Société d'Histoire de la Guadeloupe", start_year: 2013},
+    ],
+    domains: [
+      "Histoire"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "cd",
+    names: [
+      {url_name: "cd", full_name: "Les Cahiers de droit", start_year: 1954},
+    ],
+    domains: [
+      "Droit"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "cdd",
+    names: [
+      {url_name: "cdd", full_name: "Les Cahiers des dix", start_year: 1970},
+    ],
+    domains: [
+      "Histoire", "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "cfco",
+    names: [
+      {url_name: "cfco", full_name: "Cahiers franco-canadiens de l'Ouest", start_year: 2006},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "cgq",
+    names: [
+      {url_name: "cgq", full_name: "Cahiers de géographie du Québec", start_year: 1956},
+    ],
+    domains: [
+      "Géographie"
+    ],
+    full_oa: false
+  },
+
+{
+    id: "cine",
+    names: [
+      {url_name: "cine", full_name: "Cinémas : Revue d'études cinématographiques / Cinémas : Journal of Film Studies", start_year: 1990},
+    ],
+    domains: [
+      "Arts"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "circuit",
+    names: [
+      {url_name: "circuit", full_name: "Circuit : Musiques contemporaines", start_year: 1990},
+    ],
+    domains: [
+      "Arts"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "rql",
+    names: [
+      {url_name: "cl", full_name: "Cahier de linguistique", start_year: 1971, stop_year: 1980},
+      {url_name: "rql", full_name: "Revue québécoise de linguistique", start_year: 1981, stop_year: 2003},
+    ],
+    domains: [
+      "Études des langues"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "crs",
+    names: [
+      {url_name: "crs", full_name: "Cahiers de recherche sociologique", start_year: 1983},
+    ],
+    domains: [
+      "Sociologie"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "cuizine",
+    names: [
+      {url_name: "cuizine", full_name: "Cuizine : The Journal of Canadian Food Cultures / Cuizine : Revue des cultures culinaires au Canada", start_year: 2008},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "is",
+    names: [
+      {url_name: "cumr", full_name: "Canadian University Music Review / Revue de musique des universités canadiennes", start_year: 1980, stop_year: 2004},
+      {url_name: "is", full_name: "Intersections : Canadian Journal of Music / Intersections : Revue canadienne de musique", start_year: 2005},
+    ],
+    domains: [
+      "Arts"
+    ],
+    full_oa: false
+  },
+{
+    id: "documentation",
+    names: [
+      {url_name: "documentation", full_name: "Documentation et bibliothèques", start_year: 2008},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "dss",
+    names: [
+      {url_name: "dss", full_name: "Drogues, santé et société", start_year: 2002},
+    ],
+    domains: [
+      "Sciences de la santé", "Service social"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "ef",
+    names: [
+      {url_name: "ef", full_name: "Éducation et francophonie", start_year: 2008},
+    ],
+    domains: [
+      "Éducation"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "efg",
+    names: [
+      {url_name: "efg", full_name: "Enfances, Familles, Générations", start_year: 2004},
+    ],
+    domains: [
+      "Sociologie"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "ehr",
+    names: [
+      {url_name: "schec", full_name: "Rapport - Société canadienne d'histoire de l'Église catholique", start_year: 1956, stop_year: 1965},
+      {url_name: "sessions", full_name: "Sessions d'étude - Société canadienne d'histoire de l'Église catholique", start_year: 1966, stop_year: 1989},
+      {url_name: "ehr", full_name: "Études d'histoire religieuse", start_year: 1990},      
+    ],
+    domains: [
+      "Histoire", "Théologie"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ei",
+    names: [
+      {url_name: "ei", full_name: "Études internationales", start_year: 1970},
+    ],
+    domains: [
+      "Sciences politiques"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ela",
+    names: [
+      {url_name: "ela", full_name: "Études littéraires africaines", start_year: 2009},
+    ],
+    domains: [
+      "Études littéraires"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "enfance",
+    names: [
+      {url_name: "enfance", full_name: "Enfance en difficulté", start_year: 2012},
+    ],
+    domains: [
+      "Sciences humaines et sociales", "Service social"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "es",
+    names: [
+      {url_name: "es", full_name: "Économie et Solidarités", start_year: 2008},
+    ],
+    domains: [
+      "Économie"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "ethno",
+    names: [
+      {url_name: "ethno", full_name: "Ethnologies", start_year: 2002},
+    ],
+    domains: [
+      "Anthropologie et ethnologie"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "etudfr",
+    names: [
+      {url_name: "etudfr", full_name: "Études françaises", start_year: 1965},
+    ],
+    domains: [
+      "Études littéraires"
+    ],
+    full_oa: false
+  },
+{
+    id: "etudinuit",
+    names: [
+      {url_name: "etudinuit", full_name: "Études/Inuit/Studies", start_year: 2002},
+    ],
+    domains: [
+      "Anthropologie et ethnologie"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "etudlitt",
+    names: [
+      {url_name: "etudlitt", full_name: "Études littéraires", start_year: 1968},
+    ],
+    domains: [
+      "Études littéraires"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "eue",
+    names: [
+      {url_name: "eue", full_name: "Environnement urbain / Urban Environment", start_year: 2008},
+    ],
+    domains: [
+      "Études urbaines", "Géographie"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "euro",
+    names: [
+      {url_name: "euro", full_name: "Eurostudia", start_year: 2006},
+    ],
+    domains: [
+      "Sciences politiques"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "fa",
+    names: [
+      {url_name: "fa", full_name: "Francophonies d'Amérique", start_year: 1991},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "fili",
+    names: [
+      {url_name: "fili", full_name: "Filigrane : Écoutes psychanalytiques", start_year: 2006},
+    ],
+    domains: [
+      "Sciences de la santé"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "fr",
+    names: [
+      {url_name: "fr", full_name: "Frontières", start_year: 2006},
+    ],
+    domains: [
+      "Sciences humaines et sociales", "Service social", "Sociologie"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "geocan",
+    names: [
+      {url_name: "geocan", full_name: "Geoscience Canada : Journal of the Geological Association of Canada / Geoscience Canada : Journal de l'Association Géologique du Canada", start_year: 1974},
+    ],
+    domains: [
+      "Sciences de la terre"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "globe",
+    names: [
+      {url_name: "globe", full_name: "Globe : Revue internationale d'études québécoises", start_year: 1998},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "gpq",
+    names: [
+      {url_name: "gpq", full_name: "Géographie physique et Quaternaire", start_year: 1977, stop_year: 2007},
+    ],
+    domains: [
+      "Géographie", "Sciences de la terre"
+    ],
+    full_oa: false
+  },
+
+   {
+    id: "haf",
+    names: [
+      {url_name: "haf", full_name: "Revue d'histoire de l'Amérique française", start_year: 1947},
+    ],
+    domains: [
+      "Histoire"
+    ],
+    full_oa: false
+  },
+   
+  {
+    id: "histoire",
+    names: [
+      {url_name: "histoire", full_name: "Cahiers d'histoire", start_year: 2012},
+    ],
+    domains: [
+      "Histoire"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "jcha",
+    names: [
+      {url_name: "ram", full_name: "Report of the Annual Meeting of the Canadian Historical Association / Rapports annuels de la Société historique du Canada", start_year: 1922, stop_year: 1965},
+      {url_name: "hp", full_name: "Historical Papers / Communications historiques", start_year: 1966, stop_year: 1989},
+      {url_name: "jcha", full_name: "Journal of the Canadian Historical Association / Revue de la Société historique du Canada", start_year: 1990},
+    ],
+    domains: [
+      "Histoire"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "hphi",
+    names: [
+      {url_name: "hphi", full_name: "Horizons philosophiques", start_year: 1990, stop_year: 2007},
+    ],
+    domains: [
+      "Philosophie"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "scientia",
+    names: [
+      {url_name: "hstc", full_name: "HSTC Bulletin : Journal of the History of Canadian Science, Technology and Medecine / HSTC Bulletin : Revue d'histoire des sciences, des techniques et de la médecine au Canada", start_year: 1981, stop_year: 1984},
+      {url_name: "scientia", full_name: "Scientia Canadensis : Canadian Journal of the History of Science, Technology and Medicine / Scientia Canadensis : Revue canadienne d'histoire des sciences, des techniques et de la médecine", start_year: 1985},
+    ],
+    domains: [
+      "Histoire"
+    ],
+    full_oa: false
+  },
+  
+   {
+    id: "ijcs",
+    names: [
+      {url_name: "ijcs", full_name: "International Journal of Canadian Studies / Revue internationale d'études canadiennes", start_year: 2007, stop_year: 2012},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+   
+  {
+    id: "ijfe",
+    names: [
+      {url_name: "ijfe", full_name: "International Journal of Forest Engineering", start_year: 1989, stop_year: 2012},
+    ],
+    domains: [
+      "Génie"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "im",
+    names: [
+      {url_name: "im", full_name: "Intermédialités : Histoire et théorie des arts, des lettres et des techniques / Intermediality : History and Theory of the Arts, Literature and Technologies", start_year: 2003},
+    ],
+    domains: [
+      "Arts", "Histoire"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ipme",
+    names: [
+      {url_name: "ipme", full_name: "Revue internationale P.M.E. : Économie et gestion de la petite et moyenne entreprise", start_year: 1988},
+    ],
+    domains: [
+      "Économie", "Sciences de la gestion"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "jcim",
+    names: [
+      {url_name: "jcim", full_name: "Journal of Comparative International Management", start_year: 1998},
+    ],
+    domains: [
+      "Sciences de la gestion"
+    ],
+    full_oa: false
+  },
+  
+   {
+    id: "jcs",
+    names: [
+      {url_name: "jcs", full_name: "Journal of Conflict Studies", start_year: 1995, stop_year: 2009},
+    ],
+    domains: [
+      "Sciences politiques"
+    ],
+    full_oa: false
+  },
+   
+  {
+    id: "du",
+    names: [
+      {url_name: "lcg", full_name: "Les Cahiers du Gres", start_year: 2000, stop_year: 2006},
+      {url_name: "du", full_name: "Diversité urbaine", start_year: 2007},
+    ],
+    domains: [
+      "Anthropologie et ethnologie", "Sociologie"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "lex",
+    names: [
+      {url_name: "lex", full_name: "Lex Electronica", start_year: 2013},
+    ],
+    domains: [
+      "Droit"
+    ],
+    full_oa: true
+  },
+
+  {
+    id: "llt",
+    names: [
+      {url_name: "llt", full_name: "Labour : Journal of Canadian Labour Studies / Le Travail : Revue d'études ouvrières canadiennes", start_year: 1976},
+    ],
+    domains: [
+      "Histoire"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ls",
+    names: [
+      {url_name: "ls", full_name: "Loisir et Société / Society and Leisure", start_year: 2001, stop_year: 2001},
+    ],
+    domains: [
+      "Sociologie"
+    ],
+    full_oa: false
+  },
+  
+   {
+    id: "lsp",
+    names: [
+      {url_name: "lsp", full_name: "Lien social et Politiques", start_year: 1994},
+    ],
+    domains: [
+      "Sciences politiques", "Sociologie"
+    ],
+    full_oa: false
+  },
+   
+  {
+    id: "ltp",
+    names: [
+      {url_name: "ltp", full_name: "Laval théologique et philosophique", start_year: 1945},
+    ],
+    domains: [
+      "Philosophie", "Théologie"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "lumen",
+    names: [
+      {url_name: "man", full_name: "Man and Nature / L'homme et la nature", start_year: 1982, stop_year: 1992},
+      {url_name: "lumen", full_name: "Lumen : Selected Proceedings from the Canadian Society for Eighteenth-Century Studies / Lumen : Travaux choisis de la Société canadienne d'étude du dix-huitième siècle", start_year: 1993},
+    ],
+    domains: [
+      "Histoire", "Études littéraires"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "mcr",
+    names: [
+      {url_name: "mcr", full_name: "Material Culture Review / Revue de la culture matérielle", start_year: 2010},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "mee",
+    names: [
+      {url_name: "mee", full_name: "Mesure et évaluation en éducation", start_year: 2008},
+    ],
+    domains: [
+      "Éducation"
+    ],
+    full_oa: false
+  },
+  
+   {
+    id: "memoires",
+    names: [
+      {url_name: "memoires", full_name: "Mémoires du livre / Studies in Book Culture", start_year: 2009},
+    ],
+    domains: [
+      "Études littéraires", "Histoire"
+    ],
+    full_oa: true
+  },
+   
+  {
+    id: "mens",
+    names: [
+      {url_name: "mensaf", full_name: "Mens : revue d'histoire intellectuelle de l'Amérique française", start_year: 2000, stop_year: 2011},
+      {url_name: "mens", full_name: "Mens : Revue d'histoire intellectuelle et culturelle", start_year: 2011},
+    ],
+    domains: [
+      "Histoire", "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "meta",
+    names: [
+      {url_name: "meta", full_name: "Meta : Journal des traducteurs / Meta : Translators' Journal", start_year: 1966},
+    ],
+    domains: [
+      "Études des langues", "Histoire"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "mi",
+    names: [
+      {url_name: "mi", full_name: "Management international / Gestiòn Internacional", start_year: 2009},
+    ],
+    domains: [
+      "Sciences de la gestion"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "minling",
+    names: [
+      {url_name: "minling", full_name: "Minorités linguistiques et société / Linguistic Minorities and Society", start_year: 2012},
+    ],
+    domains: [
+      "Études des langues", "Sciences humaines et sociales"
+    ],
+    full_oa: true
+  },
+  
+   {
+    id: "mje",
+    names: [
+      {url_name: "mje", full_name: "McGill Journal of Education / Revue des sciences de l'éducation de McGill", start_year: 2008},
+    ],
+    domains: [
+      "Éducation"
+    ],
+    full_oa: true
+  },
+   
+  {
+    id: "mlj",
+    names: [
+      {url_name: "mlj", full_name: "McGill Law Journal / Revue de droit de McGill", start_year: 2009},
+    ],
+    domains: [
+      "Droit"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "ms",
+    names: [
+      {url_name: "ms", full_name: "M/S : Médecine sciences", start_year: 2002, stop_year: 2006},
+    ],
+    domains: [
+      "Sciences de la santé"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "museo",
+    names: [
+      {url_name: "museo", full_name: "Muséologies : Les cahiers d'études supérieures", start_year: 2006},
+    ],
+    domains: [
+      "Arts"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "natcan",
+    names: [
+      {url_name: "natcan", full_name: "Le Naturaliste canadien", start_year: 2012},
+    ],
+    domains: [
+      "Eau et environnement"
+    ],
+    full_oa: false
+  },
+  
+   {
+    id: "ncre",
+    names: [
+      {url_name: "ncre", full_name: "Nouveaux c@hiers de la recherche en éducation", start_year: 1994},
+    ],
+    domains: [
+      "Éducation"
+    ],
+    full_oa: true
+  },
+   
+  {
+    id: "nflds",
+    names: [
+      {url_name: "nflds", full_name: "Newfoundland and Labrador Studies", start_year: 1985},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "nps",
+    names: [
+      {url_name: "nps", full_name: "Nouvelles pratiques sociales", start_year: 1988},
+    ],
+    domains: [
+      "Service social"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "npss",
+    names: [
+      {url_name: "npss", full_name: "Nouvelles perspectives en sciences sociales : Revue internationale de systémique complexe et d'études relationnelles", start_year: 2005},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "nw",
+    names: [
+      {url_name: "nw", full_name: "Narrative Works", start_year: 2011},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: true
+  },
+  
+   {
+    id: "pa",
+    names: [
+      {url_name: "pa", full_name: "Port Acadie : Revue interdisciplinaire en études acadiennes / Port Acadie : An Interdisciplinary Review in Acadian Studies", start_year: 2006},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+   
+  {
+    id: "philoso",
+    names: [
+      {url_name: "philoso", full_name: "Philosophiques", start_year: 1974},
+    ],
+    domains: [
+      "Philosophie"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "phro",
+    names: [
+      {url_name: "phro", full_name: "Phronesis", start_year: 2012},
+    ],
+    domains: [
+      "Éducation"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "phyto",
+    names: [
+      {url_name: "phyto", full_name: "Phytoprotection", start_year: 1990},
+    ],
+    domains: [
+      "Biologie", "Eau et environnement"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ps",
+    names: [
+      {url_name: "po", full_name: "Politique", start_year: 1982, stop_year: 1993},
+      {url_name: "rqsp", full_name: "Revue québécoise de science politique", start_year: 1993, stop_year: 1995},
+      {url_name: "ps", full_name: "Politique et Sociétés", start_year: 1995},
+    ],
+    domains: [
+      "Sciences politiques"
+    ],
+    full_oa: false
+  },
+  
+   {
+    id: "pr",
+    names: [
+      {url_name: "pr", full_name: "Protée", start_year: 1998, stop_year: 2011},
+    ],
+    domains: [
+      "Arts", "Études littéraires"
+    ],
+    full_oa: false
+  },
+   
+  {
+    id: "pv",
+    names: [
+      {url_name: "pv", full_name: "Psychiatrie et violence", start_year: 2008},
+    ],
+    domains: [
+      "Sciences de la santé"
+    ],
+    full_oa: true
+  },
+ 
+  {
+    id: "rabaska",
+    names: [
+      {url_name: "rabaska", full_name: "Rabaska : Revue d'ethnologie de l'Amérique française", start_year: 2003},
+    ],
+    domains: [
+      "Anthropologie et ethnologie"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "racar",
+    names: [
+      {url_name: "racar", full_name: "RACAR : Revue d'art canadienne / Canadian Art Review", start_year: 2013},
+    ],
+    domains: [
+      "Arts"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "raq",
+    names: [
+      {url_name: "raq", full_name: "Recherches amérindiennes au Québec", start_year: 2008},
+    ],
+    domains: [
+      "Anthropologie et ethnologie"
+    ],
+    full_oa: false
+  },
+  
+   {
+    id: "ravon",
+    names: [
+      {url_name: "ron", full_name: "Romanticism on the Net", start_year: 1996, stop_year: 2007},
+      {url_name: "ravon", full_name: "Romanticism and Victorianism on the Net", start_year: 2007},
+    ],
+    domains: [
+      "Études littéraires"
+    ],
+    full_oa: true
+  },
+   
+  {
+    id: "rbanq",
+    names: [
+      {url_name: "rbanq", full_name: "Revue de Bibliothèque et Archives nationales du Québec", start_year: 2011},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "recma",
+    names: [
+      {url_name: "recma", full_name: "Revue internationale de l'économie sociale : Recma", start_year: 2000},
+    ],
+    domains: [
+      "Économie", "Sciences humaines et sociales", "Sciences politiques"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ref",
+    names: [
+      {url_name: "ref", full_name: "Reflets : Revue d'intervention sociale et communautaire", start_year: 1995},
+    ],
+    domains: [
+      "Service social"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "remest",
+    names: [
+      {url_name: "remest", full_name: "Revue multidisciplinaire sur l'emploi, le syndicalisme et le travail", start_year: 2009},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: true
+  },
+  
+   {
+    id: "rf",
+    names: [
+      {url_name: "rf", full_name: "Recherches féministes", start_year: 1988},
+    ],
+    domains: [
+      "Études féministes"
+    ],
+    full_oa: false
+  },
+   
+  {
+    id: "rfdi",
+    names: [
+      {url_name: "rfdi", full_name: "Revue francophone de la déficience intellectuelle", start_year: 2012},
+    ],
+    domains: [
+      "Sciences de la santé", "Sciences humaines et sociales", "Service social"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "rgd",
+    names: [
+      {url_name: "rgd", full_name: "Revue générale de droit", start_year: 1999},
+    ],
+    domains: [
+      "Droit"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ri",
+    names: [
+      {url_name: "ri", full_name: "Relations industrielles / Industrial Relations", start_year: 1964},
+    ],
+    domains: [
+      "Relations industrielles"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "ritpu",
+    names: [
+      {url_name: "ritpu", full_name: "Revue internationale des technologies en pédagogie universitaire / International Journal of Technologies in Higher Education", start_year: 2008, stop_year: 2012},
+    ],
+    domains: [
+      "Éducation"
+    ],
+    full_oa: false
+  },
+  
+   {
+    id: "rno",
+    names: [
+      {url_name: "rno", full_name: "Revue du Nouvel-Ontario", start_year: 2008},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+   
+  {
+    id: "rs",
+    names: [
+      {url_name: "rs", full_name: "Recherches sociographiques", start_year: 1960},
+    ],
+    domains: [
+      "Sociologie"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "rse",
+    names: [
+      {url_name: "rse", full_name: "Revue des sciences de l'éducation", start_year: 1975},
+    ],
+    domains: [
+      "Éducation"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "rseau",
+    names: [
+      {url_name: "rseau", full_name: "Revue des sciences de l'eau / Journal of Water Science", start_year: 1988},
+    ],
+    domains: [
+      "Biologie", "Eau et environnement"
+    ],
+    full_oa: false
+  },
+
+  {
+    id: "rssi",
+    names: [
+      {url_name: "rssi", full_name: "Recherches sémiotiques / Semiotic Inquiry", start_year: 2008},
+    ],
+    domains: [
+      "Sémiologie"
+    ],
+    full_oa: false
+  },
+ 
+  {
+    id: "rum",
+    names: [
+      {url_name: "rum", full_name: "Revue de l'Université de Moncton", start_year: 2004},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "scl",
+    names: [
+      {url_name: "scl", full_name: "Studies in Canadian Literature / Études en littérature canadienne", start_year: 1976},
+    ],
+    domains: [
+      "Études littéraires"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "smq",
+    names: [
+      {url_name: "smq", full_name: "Santé mentale au Québec", start_year: 1976},
+    ],
+    domains: [
+      "Sciences de la santé", "Service social"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "socsoc",
+    names: [
+      {url_name: "socsoc", full_name: "Sociologie et sociétés", start_year: 1969},
+    ],
+    domains: [
+      "Sociologie"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "sqrm",
+    names: [
+      {url_name: "sqrm", full_name: "Les Cahiers de la Société québécoise de recherche en musique", start_year: 2012},
+    ],
+    domains: [
+      "Arts"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "ss",
+    names: [
+      {url_name: "ss", full_name: "Service social", start_year: 1985},
+    ],
+    domains: [
+      "Service social"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "tce",
+    names: [
+      {url_name: "urces", full_name: "Urgences", start_year: 1981, stop_year: 1991},
+      {url_name: "tce", full_name: "Tangence", start_year: 1992},
+    ],
+    domains: [
+      "Études littéraires"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "telescope",
+    names: [
+      {url_name: "telescope", full_name: "Télescope : Revue d'analyse comparée en administration publique", start_year: 2012, stop_year: 2013},
+    ],
+    domains: [
+      "Sciences de la gestion", "Sciences politiques"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "teoros",
+    names: [
+      {url_name: "teoros", full_name: "Téoros : Revue de recherche en tourisme", start_year: 2009},
+    ],
+    domains: [
+      "Sciences humaines et sociales"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "theologi",
+    names: [
+      {url_name: "theologi", full_name: "Théologiques", start_year: 1993},
+    ],
+    domains: [
+      "Théologie"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "tric",
+    names: [
+      {url_name: "tric", full_name: "Theatre Research in Canada / Recherches théâtrales au Canada", start_year: 1980},
+    ],
+    domains: [
+      "Arts"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "ttr",
+    names: [
+      {url_name: "ttr", full_name: "TTR : Traduction, terminologie, rédaction", start_year: 1988},
+    ],
+    domains: [
+      "Études des langues"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "uhr",
+    names: [
+      {url_name: "uhr", full_name: "Urban History Review / Revue d'histoire urbaine", start_year: 1972},
+    ],
+    domains: [
+      "Études urbaines", "Histoire"
+    ],
+    full_oa: false
+  },
+      
+  {
+    id: "vertigo",
+    names: [
+      {url_name: "vertigo", full_name: "[VertigO] La revue électronique en sciences de l'environnement", start_year: 2008},
+    ],
+    domains: [
+      "Eau et environnement"
+    ],
+    full_oa: true
+  },
+      
+  {
+    id: "vi",
+    names: [
+      {url_name: "vip", full_name: "Voix et images du pays", start_year: 1967, stop_year: 1975},
+      {url_name: "vi", full_name: "Voix et Images", start_year: 1975},
+    ],
+    domains: [
+      "Études littéraires"
+    ],
+    full_oa: false
+  },
+            
+]
