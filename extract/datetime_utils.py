@@ -15,5 +15,5 @@ def to_local_time(dt, tz):
         return local_tz.normalize(dt.astimezone(local_tz))
 
 
-def get_log_time(dt):
+def get_montreal_time(dt):
     return MONTREAL_TIMEZONE.localize(dt, is_dst=False)

@@ -3,14 +3,14 @@ from common import *
 from datetime_utils import *
 from urlparse import urlparse
 from geoip import geolite2
+from datetime import datetime
 
 
 class Record():
 
-    def __init__(self, timestamp, proxy_ip, http_method, url, journal,
+    def __init__(self, raw_timestamp, proxy_ip, http_method, url, journal,
                  user_agent, raw_user_agent, user_ip, raw_referer, http_response_code):
-        self.timestamp = timestamp
-
+        self.raw_timestamp = raw_timestamp  ## string version of timestamp
         self.proxy_ip = proxy_ip
         self.http_method = http_method
         self.url = url
@@ -18,8 +18,12 @@ class Record():
         self.user_agent = user_agent
         self.raw_user_agent = raw_user_agent
         self.user_ip = user_ip
-        self.raw_referer = raw_referer
+        self.raw_referer = raw_referer  # raw version of user agent
         self.http_response_code = http_response_code
+
+    @cached_property
+    def timestamp(self):
+        return get_montreal_time(datetime.strptime(self.raw_timestamp, TIMESTAMP_FORMAT))
 
     @cached_property
     def time(self):

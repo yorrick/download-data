@@ -2,12 +2,10 @@
 from __future__ import print_function
 import re
 from models import *
-from datetime import datetime
 import codecs
 from user_agents import parse
 from collections import OrderedDict
 from countries import COUNTRIES
-from datetime_utils import *
 
 
 TIMESTAMP_REGEX = "\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
@@ -24,8 +22,8 @@ HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
 JOURNAL_REGEX = re.compile("/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)")
 
-LOG_REGEX = re.compile("""^(?P<timestamp>{timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<raw_referer>{raw_referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
-    timestamp = TIMESTAMP_REGEX,
+LOG_REGEX = re.compile("""^(?P<raw_timestamp>{raw_timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{user_agent})\" \"(?P<raw_referer>{raw_referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
+    raw_timestamp = TIMESTAMP_REGEX,
     ip = IP_REGEX,
     http_method = HTTP_METHOD_REGEX,
     port = PORT_REGEX,
@@ -54,8 +52,6 @@ def extract(log_line):
     if match is not None:
         groups = match.groupdict()
         # parse timestamp
-        # do not handle ambiguous timestamps, due to time changes of 1 hour between seasons
-        groups["timestamp"] = get_log_time(datetime.strptime(groups["timestamp"], TIMESTAMP_FORMAT))
         groups["http_response_code"] = int(groups["http_response_code"])
         groups["user_agent"] = compute_user_agent(groups["raw_user_agent"])
         groups["journal"] = extract_journal(groups["url"])
