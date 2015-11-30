@@ -64,7 +64,7 @@ def get_lines(source_file, encoding = "utf-8"):
 
 
 def is_pdf_download(record):
-    return not record.user_agent.is_bot and record.http_response_code == 200 and record.http_method == "GET"
+    return not record.is_bot and record.http_response_code == 200 and record.http_method == "GET"
 
 
 def to_csv_row(record):
