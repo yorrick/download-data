@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 from optparse import OptionParser
+from journals import EMPTY_REFERENTIAL
 
 
 def build_result_log(log_file, total, interesting, extracted, download):
@@ -29,9 +30,10 @@ def build_top_ips_logs(top_ips):
 
 
 class Parameters():
-    def __init__(self, log_files, detect_downloads_above):
+    def __init__(self, log_files, detect_downloads_above, journal_referential):
         self.log_files = log_files
         self.detect_downloads_above = detect_downloads_above
+        self.journal_referential = journal_referential
 
     def __str__(self):
         return "log_files: {}, detect_downloads_above: {}".format(self.log_files, self.detect_downloads_above)
@@ -51,7 +53,8 @@ def parse_argv(argv):
 
     return Parameters(
         log_files=args[1:],
-        detect_downloads_above=detect_downloads_above
+        detect_downloads_above=detect_downloads_above,
+        journal_referential=EMPTY_REFERENTIAL
     )
 
 
