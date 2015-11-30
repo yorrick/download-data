@@ -14,7 +14,7 @@
   {
     "id": "acadiensis",
     "names": [
-      {"url_name": "acadiensis", "full_name": "Acadiensis : Journal of the History of the Atlantic Region / Acadiensis: Revue d'histoire de la région Atlantique", "start_year": 1971}
+      {"url_name": "acadiensis", "full_name": "Acadiensis : Journal of the History of the Atlantic Region / Acadiensis: Revue d'histoire de la region Atlantique", "start_year": 1971}
     ],
     "domains": [
       "Histoire", "Sciences humaines et sociales"
@@ -25,10 +25,10 @@
   {
     "id": "ae",
     "names": [
-      {"url_name": "ae", "full_name": "L'Actualité économique", "start_year": 1955}
+      {"url_name": "ae", "full_name": "L'Actualite economique", "start_year": 1955}
     ],
     "domains": [
-      "Économie"
+      "Economie"
     ],
     "full_oa": true
   }

@@ -17,7 +17,7 @@ class TestExtract(TestCase):
         self.assertEquals(referential.get_journal_id("toto"), "toto")
         self.assertEquals(referential.get_journal_id("ac"), "crimino")
 
-        self.assertEquals(referential.get_journal_first_domain("ae"), u"économie")
+        self.assertEquals(referential.get_journal_first_domain("ae"), "economie")
         self.assertEquals(referential.get_journal_first_domain("crimino"), "droit")
         self.assertEquals(referential.get_journal_first_domain("toto"), "")
 
