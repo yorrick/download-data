@@ -174,7 +174,10 @@ class Record():
 
     @cached_property
     def embargo(self):
-        return self.age <= 2
+        if self.full_oa:
+            return False
+        else:
+            return self.age <= 2
 
 
 @memoize_single_arg
