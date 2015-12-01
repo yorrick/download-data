@@ -71,13 +71,13 @@ class TestExtract(TestCase):
 
 
     def test_line_extract_2(self):
-        line = """2015-03-04 02:17:29 100.43.91.4 GET /revue/JCHA/2013/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 100.43.91.4 "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)" "-" 200 6387"""
+        line = """2015-03-04 02:17:29 100.43.91.4 GET /revue/JCHA/2014/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 100.43.91.4 "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)" "-" 200 6387"""
         record = extract(line)
 
         self.assertEqual(record.timestamp, get_montreal_time(datetime(2015, 3, 4, 2, 17, 29)))
         self.assertEqual(record.proxy_ip, "100.43.91.4")
         self.assertEqual(record.http_method, "GET")
-        self.assertEqual(record.url, "/revue/JCHA/2013/v6/n1/031091ar.pdf")
+        self.assertEqual(record.url, "/revue/JCHA/2014/v6/n1/031091ar.pdf")
 
         self.assertEqual(record.user_ip, "100.43.91.4")
         self.assertEqual(record.country, "United States of America")
@@ -97,7 +97,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
 
-        self.assertEqual(record.age, 2)
+        self.assertEqual(record.age, 1)
         self.assertTrue(record.embargo)
 
 

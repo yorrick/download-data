@@ -177,7 +177,7 @@ class Record():
         if self.full_oa:
             return False
         else:
-            return self.age <= 2
+            return self.age <= 1
 
 
 @memoize_single_arg
