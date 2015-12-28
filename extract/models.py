@@ -12,7 +12,11 @@ from collections import OrderedDict
 
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
 JOURNAL_REGEX = re.compile("/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)")
-
+IMAGE_EXTENSIONS = (
+    '.png',
+    '.jpeg',
+    '.jpg',
+)
 
 class Record():
 
@@ -123,6 +127,18 @@ class Record():
     @cached_property
     def is_good_robot(self):
         return self.user_agent.is_bot if self.user_agent else ''
+
+    @cached_property
+    def is_css_download(self):
+        return self.url.endswith(".css")
+
+    @cached_property
+    def is_javascript_download(self):
+        return self.url.endswith(".js")
+
+    @cached_property
+    def is_image_download(self):
+        return any(True for extension in IMAGE_EXTENSIONS if self.url.endswith(".js"))
 
     @cached_property
     def _journal_match(self):

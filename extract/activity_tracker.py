@@ -6,18 +6,22 @@ from collections import OrderedDict
 
 class Activity():
 
-    def __init__(self, user_ip, total_activity, download_activity, good_robot_activity, other_activity):
+    def __init__(self, user_ip, total, download, good_robot, maybe_human,
+                 css, javascript, image):
         self.user_ip = user_ip
-        self.total_activity = total_activity
-        self.download_activity = download_activity
-        self.good_robot_activity = good_robot_activity
-        self.other_activity = other_activity
-        self.ratio = download_activity * 100.0 / self.total_activity
+        self.total = total
+        self.download = download
+        self.good_robot = good_robot
+        self.maybe_human = maybe_human
+        self.css = css
+        self.javascript = javascript
+        self.image = image
+        self.download_ratio = self.download * 100.0 / self.total
 
     def __str__(self):
-        return "Activity({:15}, total_activity: {:5}, download_activity: {:5} (ratio: {:4.2f}%), good_robot_activity: {:5}, other_activity: {:5})".format(
-            self.user_ip, self.total_activity, self.download_activity,
-            self.ratio, self.good_robot_activity, self.other_activity)
+        return "Activity({:15}, total: {:5}, download: {:5} (download_ratio: {:4.2f}%), good_robot: {:5}, other: {:5})".format(
+            self.user_ip, self.total, self.download,
+            self.download_ratio, self.good_robot, self.other)
 
     def __repr__(self):
         return str(self)
@@ -26,11 +30,14 @@ class Activity():
         return OrderedDict(
             [
                 ('user_ip', self.user_ip),
-                ('total_activity', self.total_activity),
-                ('download_activity', self.download_activity),
-                ('good_robot_activity', self.good_robot_activity),
-                ('other_activity', self.other_activity),
-                ('ratio', self.ratio),
+                ('total', self.total),
+                ('download', self.download),
+                ('good_robot', self.good_robot),
+                ('maybe_human', self.maybe_human),
+                ('download', self.download),
+                ('css', self.css),
+                ('javascript', self.javascript),
+                ('image', self.image),
             ]
         )
 
@@ -38,33 +45,42 @@ class Activity():
 class ActivityTracker():
 
     def __init__(self):
-        self.total_activity = defaultdict(lambda: 0)
-        """{167.2.3.4: 99}"""
-        self.download_activity = defaultdict(lambda: 0)
-        """{167.2.3.4: 12}"""
-        self.good_robot_activity = defaultdict(lambda: 0)
-        """{167.2.3.4: 12}"""
-        self.other_activity = defaultdict(lambda: 0)
-        """{167.2.3.4: 12}"""
+        self.total = defaultdict(lambda: 0)
+        self.download = defaultdict(lambda: 0)
+        self.good_robot = defaultdict(lambda: 0)
+        self.other = defaultdict(lambda: 0)
+        self.css = defaultdict(lambda: 0)
+        self.javascript = defaultdict(lambda: 0)
+        self.image = defaultdict(lambda: 0)
 
     def register_activity(self, record):
-        self.total_activity[record.user_ip] += 1
+        self.total[record.user_ip] += 1
 
         if record.is_article_download:
-            self.download_activity[record.user_ip] += 1
+            self.download[record.user_ip] += 1
+
+        if record.is_css_download:
+            self.css[record.user_ip] += 1
+
+        if record.is_javascript_download:
+            self.javascript[record.user_ip] += 1
+
+        if record.is_image_download:
+            self.image[record.user_ip] += 1
 
         if record.is_good_robot:
-            self.good_robot_activity[record.user_ip] += 1
+            self.good_robot[record.user_ip] += 1
         else:
-            self.other_activity[record.user_ip] += 1
+            self.other[record.user_ip] += 1
 
     def get_activities(self):
-        results = [Activity(
+        return [Activity(
             user_ip,
-            total_activity,
-            self.download_activity[user_ip],
-            self.good_robot_activity[user_ip],
-            self.other_activity[user_ip],
-        ) for user_ip, total_activity in self.total_activity.items()]
-
-        return sorted(results, key=lambda activity: -activity.ratio)
+            total,
+            self.download[user_ip],
+            self.good_robot[user_ip],
+            self.other[user_ip],
+            self.css[user_ip],
+            self.javascript[user_ip],
+            self.image[user_ip],
+        ) for user_ip, total in self.total.items()]
