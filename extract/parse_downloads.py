@@ -39,7 +39,6 @@ def process_file(log_file):
 
                 if record.is_article_download:
                     download += 1
-
                     # robot_detector.register_csv_row(csv_row)
                     csv_row = to_csv_row(record)
 
@@ -49,6 +48,11 @@ def process_file(log_file):
                         first_line = False
 
                     csv_writer.writerow(csv_row.values())
+            else:
+                pass
+                # print("=================== cannot parse line")
+                # print(log_line)
+                # print("===================")
 
     print(build_result_log(log_file, total, parsable, download))
 
@@ -57,7 +61,7 @@ if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
     # TODO remove this test!!!!
-    # process_file(params)
+    process_file(params.log_files[0])
 
-    pool = mp.Pool(processes=4)
-    pool.map(process_file, params.log_files)
+    # pool = mp.Pool(processes=4)
+    # pool.map(process_file, params.log_files)

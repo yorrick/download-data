@@ -7,18 +7,23 @@ from collections import OrderedDict
 from journals import EMPTY_REFERENTIAL
 
 
+TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
+DATE_FORMAT = "%Y-%m-%d"
 TIMESTAMP_REGEX = "\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
 IP_REGEX = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
-HTTP_METHOD_REGEX = "([^\s]+)"
+HTTP_METHOD_REGEX = "(GET|POST|HEAD|PUT|DELETE|OPTIONS|TRACE|CONNECT|PROPFIND)"
 PORT_REGEX = "\d{1,5}"
-URL_REGEX = "/revue/[^\s]+ar(.pdf|.html)"
-# URL_REGEX = "/revue/[^\s]+ar.pdf"
-PROTOCOL_REGEX = "HTTP/1.[01] "
-USER_AGENT_REGEX = "[^\"]*"
-REFERER_REGEX = "[^\"]*"
+URL_REGEX = "/[^\s]*"
+PROTOCOL_REGEX = "HTTP/1.[01]"
+# USER_AGENT_REGEX = '(\"|[^\"\s])*'
+USER_AGENT_REGEX = '[^"]*'
+REFERER_REGEX = "(\"|[^\"])*"
 HTTP_RETURN_CODE_REGEX = "[1-5]\d{2}"
 
-LOG_REGEX = re.compile("""^(?P<raw_timestamp>{raw_timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol})?- {port} - (?P<user_ip>{ip}) \"(?P<raw_user_agent>{raw_user_agent})\" \"(?P<raw_referer>{raw_referer})\" (?P<http_response_code>{http_response_code}) .+$""".format(
+# /revue/JCHA/1995/v6/n1/031091ar.pdf
+# JOURNAL_REGEX = "/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/]+)ar(.pdf|.html)"
+
+LOG_REGEX = re.compile("""^(?P<raw_timestamp>{raw_timestamp}) (?P<proxy_ip>{ip}) (?P<http_method>{http_method}) (?P<url>{url}) ({protocol}) - ({port}) - (?P<user_ip>({ip}|-|{ip}, {ip})) \"(?P<raw_user_agent>{raw_user_agent})\" "(?P<raw_referer>{raw_referer})\" (?P<http_response_code>{http_response_code}).+$""".format(
     raw_timestamp = TIMESTAMP_REGEX,
     ip = IP_REGEX,
     http_method = HTTP_METHOD_REGEX,

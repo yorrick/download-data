@@ -176,7 +176,11 @@ class Record():
 
 @memoize_single_arg
 def compute_ip_geo_location(raw_ip):
-    return geolite2.lookup(raw_ip)
+    # some ips look like 129.195.207.79, 129.195.0.205 and are not valid
+    if not "," in raw_ip:
+        return geolite2.lookup(raw_ip)
+    else:
+        return None
 
 
 @memoize_single_arg
