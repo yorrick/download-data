@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 from extract import *
+from argument_parsing import *
 from common import *
 from journals import *
 import csv
