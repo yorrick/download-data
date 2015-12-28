@@ -39,7 +39,7 @@ def process_file(parameters):
 
             if interesting_line(log_line):
                 interesting += 1
-                record = extract(log_line, parameters.journal_referential)
+                record = extract(log_line)
 
                 if record is not None:
                     extracted += 1
@@ -70,12 +70,6 @@ def process_file(parameters):
 if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
-    try:
-        journal_referential = build_journal_referential("journals.json")
-    except Exception as e:
-        print("Could not load journal referential:", e)
-        sys.exit(1)
-
     # TODO remove this test!!!!
     # process_file(params)
 
@@ -83,8 +77,7 @@ if __name__ == "__main__":
 
     all_parameters = [Parameters(
             [log_file],
-            params.detect_downloads_above,
-            journal_referential
+            params.detect_downloads_above
         ) for log_file in params.log_files]
 
     pool.map(process_file, all_parameters)

@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 import argparse
-from journals import EMPTY_REFERENTIAL
 
 
 class Parameters():
-    def __init__(self, log_files, detect_downloads_above, journal_referential):
+    def __init__(self, log_files, detect_downloads_above):
         self.log_files = log_files
         self.detect_downloads_above = detect_downloads_above
-        self.journal_referential = journal_referential
 
     def __str__(self):
         return "log_files: {}, detect_downloads_above: {}".format(self.log_files, self.detect_downloads_above)
@@ -28,6 +26,5 @@ def parse_argv(argv):
 
     return Parameters(
         log_files=args.log_files,
-        detect_downloads_above=args.detect_downloads_above,
-        journal_referential=EMPTY_REFERENTIAL
+        detect_downloads_above=args.detect_downloads_above
     )

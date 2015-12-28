@@ -42,17 +42,11 @@ def interesting_line(log_line):
     return all([filter(log_line) for filter in LINE_FILTERS])
 
 
-def extract(log_line, journal_referential = EMPTY_REFERENTIAL):
+def extract(log_line):
     match = LOG_REGEX.match(log_line)
 
     if match is not None:
-        args = match.groupdict()\
-
-        args.update({
-            "journal_referential": journal_referential
-        })
-
-        return Record(**args)
+        return Record(**match.groupdict())
     else:
         return None
 
@@ -95,8 +89,8 @@ def to_csv_row(record):
             ('device', record.device),
 
             ('journal_name', record.journal_name),
-            ('journal_domain', record.journal_domain),
-            ('full_oa', str(record.full_oa)),
+            # ('journal_domain', record.journal_domain),
+            # ('full_oa', str(record.full_oa)),
             ('publication_year', record.publication_year),
             ('volume', record.volume),
             ('issue', record.issue),
