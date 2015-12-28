@@ -20,6 +20,7 @@ def process_file(log_file):
     total = 0
     parsable = 0
     download = 0
+    considered_human = 0
     first_line = True
 
     # robot_detector = RobotDetector(detect_downloads_above)
@@ -39,6 +40,10 @@ def process_file(log_file):
 
                 if record.is_article_download:
                     download += 1
+
+                    if not record.is_good_robot:
+                        considered_human += 1
+
                     # robot_detector.register_csv_row(csv_row)
                     csv_row = to_csv_row(record)
 
@@ -54,16 +59,16 @@ def process_file(log_file):
                 # print(log_line)
                 # print("===================")
 
-    print(build_result_log(log_file, total, parsable, download))
+    print(build_result_log(log_file, total, parsable, download, considered_human))
 
 
 if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
-    # debig mode enables single process execution to have access to stack traces
+    # debug mode enables single process execution to have access to stack traces
     if params.debug:
         for log_file in params.log_files:
             process_file(log_file)
     else:
-        pool = mp.Pool(processes=4)
+        pool = mp.Pool(processes=params.processes)
         pool.map(process_file, params.log_files)

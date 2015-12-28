@@ -2,17 +2,19 @@
 from __future__ import print_function
 
 
-def build_result_log(log_file, total, parsable, download):
+def build_result_log(log_file, total, parsable, download, considered_human):
     metrics = {
         "log_file": log_file,
         "total": total,
         "parsable": parsable,
         "parsable_percent": (parsable / float(total)) * 100,
         "download": download,
-        "download_percent": (download / float(total)) * 100
+        "download_percent": (download / float(total)) * 100,
+        "considered_human": considered_human,
+        "considered_human_percent": (considered_human / float(total)) * 100
     }
 
-    return "{log_file}: Total: {total} => parsable: {parsable} ({parsable_percent:4.2f}%) => download: {download} ({download_percent:4.2f}%)".format(**metrics)
+    return "{log_file}: Total: {total} => parsable: {parsable} ({parsable_percent:4.2f}%) => download: {download} ({download_percent:4.2f}%) => considered_human: {considered_human} ({considered_human_percent:4.2f}%)".format(**metrics)
 
 
 def build_top_ips_logs(top_ips):
