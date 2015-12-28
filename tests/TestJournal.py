@@ -6,7 +6,7 @@ from os import path
 BASE_DIR = path.dirname(path.abspath(__file__))
 
 
-class TestExtract(TestCase):
+class TestJournal(TestCase):
 
     def test_journal_referential(self):
         referential = build_journal_referential(path.join(BASE_DIR, "test-journals.json"))
