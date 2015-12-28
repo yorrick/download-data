@@ -121,17 +121,17 @@ class Record():
         return self.user_agent.device.family if self.user_agent else ''
 
     @cached_property
-    def is_bot(self):
-        return self.user_agent.is_bot if self.user_agent else ''
-
-    @cached_property
-    def is_bot(self):
+    def is_good_robot(self):
         return self.user_agent.is_bot if self.user_agent else ''
 
     @cached_property
     def _journal_match(self):
         match = JOURNAL_REGEX.match(self.url)
         return match.groupdict() if match else {}
+
+    @cached_property
+    def is_article_download(self):
+        return bool(self._journal_match)
 
     @cached_property
     def journal_name(self):

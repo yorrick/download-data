@@ -18,8 +18,7 @@ def process_file(log_file):
     output_file = "{}.csv".format(log_file)
 
     total = 0
-    interesting = 0
-    extracted = 0
+    parsable = 0
     download = 0
     first_line = True
 
@@ -33,30 +32,25 @@ def process_file(log_file):
         for log_line in get_lines(log_file, LOG_FILE_ENCODING):
             total += 1
 
-            if interesting_line(log_line):
-                interesting += 1
-                record = extract(log_line)
+            record = extract(log_line)
 
-                if record is not None:
-                    extracted += 1
+            if record is not None:
+                parsable += 1
 
-                    if is_pdf_download(record):
-                        download += 1
-                        csv_row = to_csv_row(record)
+                if record.is_article_download:
+                    download += 1
 
-                        # robot_detector.register_csv_row(csv_row)
+                    # robot_detector.register_csv_row(csv_row)
+                    csv_row = to_csv_row(record)
 
-                        # write header using first line data
-                        if first_line:
-                            csv_writer.writerow(csv_row.keys())
-                            first_line = False
+                    # write header using first line data
+                    if first_line:
+                        csv_writer.writerow(csv_row.keys())
+                        first_line = False
 
-                        csv_writer.writerow(csv_row.values())
-                else:
-                    pass
-                    # print(log_line, end="")
+                    csv_writer.writerow(csv_row.values())
 
-    print(build_result_log(log_file, total, interesting, extracted, download))
+    print(build_result_log(log_file, total, parsable, download))
 
 
 if __name__ == "__main__":

@@ -50,7 +50,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.browser, "Other")
         self.assertEqual(record.os, "Other")
         self.assertEqual(record.device, "Other")
-        self.assertFalse(record.is_bot)
+        self.assertFalse(record.is_good_robot)
 
         self.assertEqual(record.http_response_code, 200)
 
@@ -80,7 +80,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.browser, "YandexBot")
         self.assertEqual(record.os, "Other")
         self.assertEqual(record.device, "Spider")
-        self.assertTrue(record.is_bot)
+        self.assertTrue(record.is_good_robot)
 
         self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
@@ -109,7 +109,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.browser, "Other")
         self.assertEqual(record.os, "Other")
         self.assertEqual(record.device, "Other")
-        self.assertFalse(record.is_bot)
+        self.assertFalse(record.is_good_robot)
 
         self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 400)
@@ -138,7 +138,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.browser, "")
         self.assertEqual(record.os, "")
         self.assertEqual(record.device, "")
-        self.assertFalse(record.is_bot)
+        self.assertFalse(record.is_good_robot)
 
         self.assertEqual(record.referer, "")
         self.assertEqual(record.http_response_code, 200)
@@ -166,22 +166,22 @@ class TestExtract(TestCase):
         line = """2015-03-03 23:59:55 52.16.55.221 GET /favico HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
         record = extract(line)
         self.assertIsNone(record)
-
+    #
     def test_get_lines(self):
         lines = get_lines(path.join(BASE_DIR, "test-log.log"))
         self.assertEquals(len(list(lines)), 4)
 
-    def test_non_interesting_lines_are_discarded(self):
-        line = """2015-03-04 04:12:09 202.112.50.77 quit - 80 - 202.112.50.77 "-" "-" 200 6387"""
-        self.assertFalse(interesting_line(line))
-
-    def test_interesting_lines_are_kept(self):
-        line = """2015-03-03 23:59:55 52.16.55.221 GET  /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
-        self.assertTrue(interesting_line(line))
-
-    def test_html_lines_are_kept(self):
-        line = """2015-03-03 23:59:55 52.16.55.221 GET  /revue/JCHA/1995/v6/n1/031091ar.html HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
-        self.assertTrue(interesting_line(line))
+    # def test_non_interesting_lines_are_discarded(self):
+    #     line = """2015-03-04 04:12:09 202.112.50.77 quit - 80 - 202.112.50.77 "-" "-" 200 6387"""
+    #     self.assertFalse(interesting_line(line))
+    #
+    # def test_interesting_lines_are_kept(self):
+    #     line = """2015-03-03 23:59:55 52.16.55.221 GET  /revue/JCHA/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
+    #     self.assertTrue(interesting_line(line))
+    #
+    # def test_html_lines_are_kept(self):
+    #     line = """2015-03-03 23:59:55 52.16.55.221 GET  /revue/JCHA/1995/v6/n1/031091ar.html HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "-" 200 1306973"""
+    #     self.assertTrue(interesting_line(line))
 
     def test_record_is_download(self):
         record = Record(

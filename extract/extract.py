@@ -31,17 +31,6 @@ LOG_REGEX = re.compile("""^(?P<raw_timestamp>{raw_timestamp}) (?P<proxy_ip>{ip})
 ))
 
 
-LINE_FILTERS = [
-    lambda line: "/revue/" in line and ("ar.html" in line or "ar.pdf" in line),
-    lambda line: "GET" in line,
-    lambda line: "200" in line,
-]
-
-
-def interesting_line(log_line):
-    return all([filter(log_line) for filter in LINE_FILTERS])
-
-
 def extract(log_line):
     match = LOG_REGEX.match(log_line)
 
@@ -58,7 +47,7 @@ def get_lines(source_file, encoding = "utf-8"):
 
 
 def is_pdf_download(record):
-    return not record.is_bot and record.http_response_code == 200 and record.http_method == "GET"
+    return not record.is_good_robot and record.http_response_code == 200 and record.http_method == "GET"
 
 
 def to_csv_row(record):
