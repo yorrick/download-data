@@ -3,8 +3,6 @@ from __future__ import print_function
 import re
 from models import *
 import codecs
-from collections import OrderedDict
-from journals import EMPTY_REFERENTIAL
 
 
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -46,44 +44,3 @@ def get_lines(source_file, encoding = "utf-8"):
     with codecs.open(source_file, "r", encoding=encoding) as f:
         for line in f:
             yield line
-
-
-def to_csv_row(record):
-    return OrderedDict(
-        [
-            ('time', record.time),
-            ('date', record.date),
-            ('year', record.year),
-            ('hour', record.hour),
-            ('local_time', record.local_time),
-            ('local_date', record.local_date),
-            ('local_year', record.local_year),
-            ('local_hour', record.local_hour),
-            ('proxy_ip', record.proxy_ip),
-            ('user_ip', record.user_ip),
-            ('url', record.url),
-            ('referer', record.referer),
-            ('referer_host', record.referer_host),
-
-            ('continent', record.continent),
-            ('country', record.country),
-            ('geo_coordinates', record.geo_coordinates),
-            ('timezone', record.timezone),
-
-            ('user_agent', record.raw_user_agent),
-            ('browser', record.browser),
-            ('os', record.os),
-            ('device', record.device),
-
-            ('journal_name', record.journal_name),
-            # ('journal_domain', record.journal_domain),
-            # ('full_oa', str(record.full_oa)),
-            ('publication_year', record.publication_year),
-            ('volume', record.volume),
-            ('issue', record.issue),
-            ('article_id', record.article_id),
-
-            ('age', record.age),
-            ('embargo', str(record.embargo)),
-        ]
-    )

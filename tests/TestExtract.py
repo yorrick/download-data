@@ -232,7 +232,7 @@ class TestExtract(TestCase):
             http_response_code="100"
         )
 
-        self.assertEquals(to_csv_row(record).items(), [
+        self.assertEquals(record.to_csv_row().items(), [
             ("time", "2015-03-03 23:59:55"),
             ("date", "2015-03-03"),
             ("year", 2015),

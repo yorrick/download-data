@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from collections import defaultdict
+from collections import OrderedDict
 
 
 class Activity():
@@ -20,6 +21,18 @@ class Activity():
 
     def __repr__(self):
         return str(self)
+
+    def to_csv_row(self):
+        return OrderedDict(
+            [
+                ('user_ip', self.user_ip),
+                ('total_activity', self.total_activity),
+                ('download_activity', self.download_activity),
+                ('good_robot_activity', self.good_robot_activity),
+                ('other_activity', self.other_activity),
+                ('ratio', self.ratio),
+            ]
+        )
 
 
 class ActivityTracker():

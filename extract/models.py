@@ -7,7 +7,7 @@ from datetime import datetime
 from countries import COUNTRIES
 from user_agents import parse
 import re
-from journals import EMPTY_REFERENTIAL
+from collections import OrderedDict
 
 
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
@@ -172,6 +172,46 @@ class Record():
         # else:
         #     return self.age <= 1
         return self.age <= 1
+
+    def to_csv_row(self):
+        return OrderedDict(
+            [
+                ('time', self.time),
+                ('date', self.date),
+                ('year', self.year),
+                ('hour', self.hour),
+                ('local_time', self.local_time),
+                ('local_date', self.local_date),
+                ('local_year', self.local_year),
+                ('local_hour', self.local_hour),
+                ('proxy_ip', self.proxy_ip),
+                ('user_ip', self.user_ip),
+                ('url', self.url),
+                ('referer', self.referer),
+                ('referer_host', self.referer_host),
+
+                ('continent', self.continent),
+                ('country', self.country),
+                ('geo_coordinates', self.geo_coordinates),
+                ('timezone', self.timezone),
+
+                ('user_agent', self.raw_user_agent),
+                ('browser', self.browser),
+                ('os', self.os),
+                ('device', self.device),
+
+                ('journal_name', self.journal_name),
+                # ('journal_domain', self.journal_domain),
+                # ('full_oa', str(self.full_oa)),
+                ('publication_year', self.publication_year),
+                ('volume', self.volume),
+                ('issue', self.issue),
+                ('article_id', self.article_id),
+
+                ('age', self.age),
+                ('embargo', str(self.embargo)),
+            ]
+        )
 
 
 @memoize_single_arg
