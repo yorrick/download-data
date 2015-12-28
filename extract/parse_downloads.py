@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 from extract import *
+from activity_tracker import *
 from argument_parsing import *
 from common import *
 from journals import *
@@ -23,7 +24,7 @@ def process_file(log_file):
     considered_human = 0
     first_line = True
 
-    # robot_detector = RobotDetector(detect_downloads_above)
+    activity_tracker = ActivityTracker()
 
     with codecs.open(output_file, "w", 'utf-8') as result_file:
         result_file.write("sep=,\n")
@@ -38,13 +39,14 @@ def process_file(log_file):
             if record is not None:
                 parsable += 1
 
+                activity_tracker.register_activity(record)
+
                 if record.is_article_download:
                     download += 1
 
                     if not record.is_good_robot:
                         considered_human += 1
 
-                    # robot_detector.register_csv_row(csv_row)
                     csv_row = to_csv_row(record)
 
                     # write header using first line data
@@ -60,6 +62,7 @@ def process_file(log_file):
                 # print("===================")
 
     print(build_result_log(log_file, total, parsable, download, considered_human))
+    print("\n".join([str(a) for a in activity_tracker.get_activities() if a.total_activity > 10]))
 
 
 if __name__ == "__main__":
