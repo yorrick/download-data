@@ -60,8 +60,10 @@ def process_file(log_file):
 if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
-    # TODO remove this test!!!!
-    process_file(params.log_files[0])
-
-    # pool = mp.Pool(processes=4)
-    # pool.map(process_file, params.log_files)
+    # debig mode enables single process execution to have access to stack traces
+    if params.debug:
+        for log_file in params.log_files:
+            process_file(log_file)
+    else:
+        pool = mp.Pool(processes=4)
+        pool.map(process_file, params.log_files)

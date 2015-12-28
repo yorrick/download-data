@@ -19,8 +19,10 @@ nosetests
 
 ## Run log filtering
 
+--debug enables single process execution for easier debugging.
+
 ```
-./extract/parse_downloads.py data/*.log
+./extract/parse_downloads.py [--debug] data/*.log
 ```
 
 

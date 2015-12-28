@@ -131,7 +131,7 @@ class Record():
 
     @cached_property
     def is_article_download(self):
-        return bool(self._journal_match)
+        return bool(self._journal_match) and self.http_response_code == 200
 
     @cached_property
     def journal_name(self):
