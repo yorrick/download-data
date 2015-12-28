@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-from optparse import OptionParser
+import argparse
 from journals import EMPTY_REFERENTIAL
 
 
@@ -43,17 +43,17 @@ class Parameters():
 
 
 def parse_argv(argv):
-    parser = OptionParser()
-    parser.add_option("-r", "--detect-downloads-above", dest="detect_downloads_above",
-                  help="Detect download above this threshold", default=None)
+    parser = argparse.ArgumentParser(description='Parse filter logs arguments')
+    parser.add_argument('--detect-downloads-above', dest='detect_downloads_above', default=None, type=int,
+                   help='Detect download above this threshold (in number of downloads)')
+    parser.add_argument('log_files', metavar='F', type=str, nargs='+',
+                   help='Name of log files that must be processed')
 
-    (options, args) = parser.parse_args(argv)
-
-    detect_downloads_above = int(options.detect_downloads_above) if options.detect_downloads_above else None
+    args = parser.parse_args(argv[1:])
 
     return Parameters(
-        log_files=args[1:],
-        detect_downloads_above=detect_downloads_above,
+        log_files=args.log_files,
+        detect_downloads_above=args.detect_downloads_above,
         journal_referential=EMPTY_REFERENTIAL
     )
 
