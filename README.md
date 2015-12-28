@@ -20,7 +20,7 @@ nosetests
 ## Run log filtering
 
 ```
-./extract/filter_logs.py data/*.log
+./extract/parse_downloads.py data/*.log
 ```
 
 
