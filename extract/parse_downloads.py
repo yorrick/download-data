@@ -39,6 +39,9 @@ def process_file(log_file):
             if record is not None:
                 parsable += 1
 
+                if not record.http_response_code == 200:
+                    continue
+
                 activity_tracker.register_activity(record)
 
                 if record.is_article_download:

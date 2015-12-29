@@ -138,7 +138,7 @@ class Record():
 
     @cached_property
     def is_image_download(self):
-        return any(True for extension in IMAGE_EXTENSIONS if self.url.endswith(".js"))
+        return any(True for extension in IMAGE_EXTENSIONS if self.url.endswith(extension))
 
     @cached_property
     def _journal_match(self):
@@ -147,7 +147,7 @@ class Record():
 
     @cached_property
     def is_article_download(self):
-        return bool(self._journal_match) and self.http_response_code == 200
+        return bool(self._journal_match)
 
     @cached_property
     def journal_name(self):
