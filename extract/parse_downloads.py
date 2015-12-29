@@ -27,7 +27,7 @@ def process_file(log_file):
     activity_tracker = ActivityTracker()
 
     with codecs.open(download_output_file, "w", 'utf-8') as download_result_file:
-        download_result_file.write("sep=,\n")
+        # download_result_file.write("sep=,\n")
 
         csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
@@ -50,12 +50,12 @@ def process_file(log_file):
                     if not record.is_good_robot:
                         considered_human += 1
 
-                    # write header using first line data
-                    if download_first_line:
-                        csv_writer.writerow(record.to_csv_row().keys())
-                        download_first_line = False
+                        # write header using first line data
+                        # if download_first_line:
+                        #     csv_writer.writerow(record.to_csv_row().keys())
+                        #     download_first_line = False
 
-                    csv_writer.writerow(record.to_csv_row().values())
+                        csv_writer.writerow(record.to_csv_row().values())
             else:
                 pass
                 # print("=================== cannot parse line")
