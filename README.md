@@ -85,9 +85,11 @@ select journal, volume, issue, publication_year, online_year, (online_year - pub
 from issue, volume, journal
 where 
     publication_year <> online_year
-    and publication_year >= 2010
+    and publication_year >= (SELECT MIN(download_year) FROM download)
     and issue.volume_id = volume.id
     and volume.journal_id = journal.id
 order by journal, volume, issue;
 ```
 
+
+select count(*) from issue where publication_year <> online_year;

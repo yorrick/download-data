@@ -9,14 +9,15 @@ from journals import *
 import csv
 import multiprocessing as mp
 import sys
+from collections import namedtuple
 
 
 LOG_FILE_ENCODING = "us-ascii"
 
 
-def process_file(log_file):
-    print("Parsing file {}".format(log_file))
-    download_output_file = "{}.csv".format(log_file)
+def process_file(params):
+    print("Parsing file {}".format(params.log_file))
+    download_output_file = "{}.csv".format(params.log_file)
 
     total = 0
     parsable = 0
@@ -28,7 +29,7 @@ def process_file(log_file):
     with codecs.open(download_output_file, "w", 'utf-8') as download_result_file:
         csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-        for log_line in get_lines(log_file, LOG_FILE_ENCODING):
+        for log_line in get_lines(params.log_file, LOG_FILE_ENCODING):
             total += 1
 
             record = extract(log_line)
@@ -44,9 +45,10 @@ def process_file(log_file):
                 if record.is_article_download:
                     download += 1
 
-                    # TODO add an option to filter out robots or not!!
                     if not record.is_good_robot:
                         considered_human += 1
+
+                    if params.keep_robots or (not params.keep_robots and not record.is_good_robot):
                         csv_writer.writerow(record.to_csv_row().values())
             else:
                 pass
@@ -54,9 +56,9 @@ def process_file(log_file):
                 # print(log_line)
                 # print("===================")
 
-    print(build_result_log(log_file, total, parsable, download, considered_human))
+    print(build_result_log(params.log_file, total, parsable, download, considered_human))
 
-    activity_output_file = "{}.activity.csv".format(log_file)
+    activity_output_file = "{}.activity.csv".format(params.log_file)
     activity_first_line = True
 
 
@@ -72,13 +74,21 @@ def process_file(log_file):
             csv_writer.writerow(activity.to_csv_row().values())
 
 
+ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots'])
+
+
+def build_process_file_param_list(params):
+    return [ProcessFileParam(log_file, params.keep_robots) for log_file in params.log_files]
+
+
 if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
     # debug mode enables single process execution to have access to stack traces
     if params.debug:
-        for log_file in params.log_files:
-            process_file(log_file)
+        for param in build_process_file_param_list(params):
+            process_file(param)
     else:
         pool = mp.Pool(processes=params.processes)
-        pool.map(process_file, params.log_files)
+        # pool.map(process_file, [(log_file, params.keep_robots) for log_file in params.log_files])
+        pool.map(process_file, build_process_file_param_list(params))
