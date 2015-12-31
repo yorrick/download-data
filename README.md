@@ -144,5 +144,11 @@ UPDATE article SET issue_id = issue.id FROM issue where article.issue = issue.is
 UPDATE download SET article_id = article.id FROM article where download.article = article.article and download.issue = article.issue and download.volume = article.volume and download.journal = article.journal;
 ```
 
-TODO fill FKs
-TODO set FK to not nullable
+```
+ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
+ALTER TABLE article ALTER COLUMN issue_id SET NOT NULL;
+ALTER TABLE issue ALTER COLUMN volume_id SET NOT NULL;
+ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
+```
+
+
