@@ -78,6 +78,7 @@ CREATE TABLE download
 );
 
 CREATE INDEX ON download (download_year);
+CREATE INDEX ON download (publication_year);
 CREATE INDEX ON download (article);
 CREATE INDEX ON download (issue);
 CREATE INDEX ON download (volume);

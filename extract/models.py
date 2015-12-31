@@ -209,7 +209,6 @@ class Record():
                 ('article_id', self.article_id[:20]),
 
                 ('age', self.age),
-                # ('embargo', str(self.embargo)),
             ]
         )
 
