@@ -69,9 +69,11 @@ CREATE TABLE download
     journal VARCHAR(20) not null,
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
-    publication_year integer not null,
     article VARCHAR(20) not null,
+    publication_year integer not null,
     age integer not null,
+    download_year integer,
+    online_year integer,
     embargo boolean
 );
 
@@ -97,14 +99,33 @@ UPDATE download SET article_id = article.id FROM article where download.article 
 UPDATE download SET issue_id = article.issue_id FROM article where download.article_id = article.id;
 UPDATE download SET volume_id = issue.volume_id FROM issue where download.issue_id = issue.id;
 UPDATE download SET journal_id = volume.journal_id FROM volume where download.volume_id = volume.id;
+UPDATE download SET download_year = EXTRACT(YEAR FROM time);
 
 
--- compute publication_year for issue using download publication_year (MIN(publication_year) is just a way to select a single year, we could have used MAX also as all year are the same)
-UPDATE issue SET publication_year = publication_data.year FROM (SELECT MIN(publication_year) AS year, issue_id FROM download GROUP BY issue_id) AS publication_data WHERE issue.id = publication_data.issue_id;
+-- compute publication_year for issue using download publication_year (extracted from url)
+-- (MIN(publication_year) is just a way to select a single year, we could have used MAX also as all year are the same)
+UPDATE issue SET publication_year = publication_data.year
+FROM (SELECT MIN(publication_year) AS year, issue_id FROM download GROUP BY issue_id) AS publication_data
+WHERE issue.id = publication_data.issue_id;
 
 
 -- compute online_year for each issue (articles in the same issue are all published at the same time)
-UPDATE issue SET online_year = online_data.year FROM (SELECT MIN(EXTRACT(YEAR FROM time)) AS year, issue_id FROM download GROUP BY issue_id) AS online_data WHERE issue.id = online_data.issue_id;
+-- for issues that where published after earliest download date (2010)
+-- before that, we have no data to compute a more accurate online_year, we'll just consider that online_year = publication_year
+UPDATE issue SET online_year = online_data.year
+FROM (SELECT MIN(download_year) AS year, issue_id FROM download GROUP BY issue_id) AS online_data
+WHERE issue.id = online_data.issue_id and issue.publication_year >= (SELECT MIN(download_year) FROM download);
+-- set online_year for issues that were published before 2010
+UPDATE issue SET online_year = publication_year
+WHERE publication_year < (SELECT MIN(download_year) FROM download);
+
+
+-- compute embargo flag for downloads: true means downloaded article is under embargo, false means article was freely available
+-- embargo is computed using issue's online year: publication are often late, and using publication year would lead to wrong results
+UPDATE download SET online_year = issue.online_year
+FROM issue
+WHERE download.issue_id = issue.id;
+UPDATE download SET embargo = (EXTRACT(YEAR FROM time) - online_year) <= 1;
 
 
 -- enforce constraints
@@ -112,8 +133,13 @@ ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN issue_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN volume_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN journal_id SET NOT NULL;
+ALTER TABLE download ALTER COLUMN download_year SET NOT NULL;
+ALTER TABLE download ALTER COLUMN online_year SET NOT NULL;
+ALTER TABLE download ALTER COLUMN embargo SET NOT NULL;
 ALTER TABLE article ALTER COLUMN issue_id SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN volume_id SET NOT NULL;
+ALTER TABLE issue ALTER COLUMN publication_year SET NOT NULL;
+ALTER TABLE issue ALTER COLUMN online_year SET NOT NULL;
 ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
 
 
