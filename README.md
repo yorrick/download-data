@@ -134,10 +134,6 @@ INSERT INTO article(article, issue, volume, journal) SELECT DISTINCT article, is
 INSERT INTO issue(issue, volume, journal) SELECT DISTINCT issue, volume, journal FROM article;
 INSERT INTO volume(volume, journal) SELECT DISTINCT volume, journal FROM issue;
 INSERT INTO journal(journal) SELECT DISTINCT journal FROM volume;
-```
-
-
-```
 UPDATE volume SET journal_id = journal.id FROM journal where volume.journal = journal.journal;
 UPDATE issue SET volume_id = volume.id FROM volume where issue.volume = volume.volume and issue.journal = volume.journal;
 UPDATE article SET issue_id = issue.id FROM issue where article.issue = issue.issue and article.volume = issue.volume and article.journal = issue.journal;
