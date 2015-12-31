@@ -39,7 +39,7 @@ def process_file(log_file):
             if record is not None:
                 parsable += 1
 
-                if not record.http_response_code == 200:
+                if not record.http_response_code == 200 and record.http_method == "GET":
                     continue
 
                 activity_tracker.register_activity(record)

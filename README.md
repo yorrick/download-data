@@ -56,9 +56,44 @@ docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPA
 
 
 ```
-DROP TABLE downloads;
-CREATE TABLE downloads
+DROP TABLE IF EXISTS download;
+DROP TABLE IF EXISTS article;
+DROP TABLE IF EXISTS issue;
+DROP TABLE IF EXISTS volume;
+DROP TABLE IF EXISTS journal;
+CREATE TABLE journal
 (
+    id SERIAL PRIMARY KEY,
+    journal VARCHAR(20) not null
+);
+CREATE TABLE volume
+(
+    id SERIAL PRIMARY KEY,
+    journal_id integer references journal(id),
+    journal VARCHAR(20) not null,
+    volume VARCHAR(20) not null
+);
+CREATE TABLE issue
+(
+    id SERIAL PRIMARY KEY,
+    volume_id integer references volume(id),
+    journal VARCHAR(20) not null,
+    volume VARCHAR(20) not null,
+    issue VARCHAR(20) not null
+);
+CREATE TABLE article
+(
+    id SERIAL PRIMARY KEY,
+    issue_id integer references issue(id),
+    journal VARCHAR(20) not null,
+    volume VARCHAR(20) not null,
+    issue VARCHAR(20) not null,
+    article VARCHAR(20) not null
+);
+CREATE TABLE download
+(
+    id SERIAL PRIMARY KEY,
+    article_id integer references article(id),
     time VARCHAR(30) not null,
     local_time VARCHAR(30),
     proxy_ip VARCHAR(20) not null,
@@ -74,16 +109,18 @@ CREATE TABLE downloads
     browser VARCHAR(200),
     os VARCHAR(200),
     device VARCHAR(200),
-    journal_name VARCHAR(20) not null,
+    journal VARCHAR(20) not null,
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
-    article_id VARCHAR(20) not null,
+    article VARCHAR(20) not null,
     age integer not null
 );
 ```
 
+TODO add FKs (nullable)
 
 ### Load data into table
+
 
 ```
 docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPASSWORD=postgres --volume $PWD/data:/data postgres:9.4 bash 
@@ -91,6 +128,14 @@ psql --dbname=logs --host=download_data_postgres --username=postgres
 ```
  
 ```
-\copy downloads(journal_name, volume, issue, article_id) from /data/110302-sample.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, article, age) from /data/110302-sample.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 ```
 
+```
+INSERT INTO articles(id, issue, volume, journal) SELECT DISTINCT article_id, issue, volume, journal_name FROM downloads;
+INSERT INTO issue(id, volume, journal) SELECT DISTINCT issue, volume, journal FROM articles;
+```
+
+
+TODO fill FKs
+TODO set FK to not nullable
