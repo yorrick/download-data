@@ -117,8 +117,6 @@ CREATE TABLE download
 );
 ```
 
-TODO add FKs (nullable)
-
 ### Load data into table
 
 
@@ -132,10 +130,19 @@ psql --dbname=logs --host=download_data_postgres --username=postgres
 ```
 
 ```
-INSERT INTO articles(id, issue, volume, journal) SELECT DISTINCT article_id, issue, volume, journal_name FROM downloads;
-INSERT INTO issue(id, volume, journal) SELECT DISTINCT issue, volume, journal FROM articles;
+INSERT INTO article(article, issue, volume, journal) SELECT DISTINCT article, issue, volume, journal FROM download;
+INSERT INTO issue(issue, volume, journal) SELECT DISTINCT issue, volume, journal FROM article;
+INSERT INTO volume(volume, journal) SELECT DISTINCT volume, journal FROM issue;
+INSERT INTO journal(journal) SELECT DISTINCT journal FROM volume;
 ```
 
+
+```
+UPDATE volume SET journal_id = journal.id FROM journal where volume.journal = journal.journal;
+UPDATE issue SET volume_id = volume.id FROM volume where issue.volume = volume.volume and issue.journal = volume.journal;
+UPDATE article SET issue_id = issue.id FROM issue where article.issue = issue.issue and article.volume = issue.volume and article.journal = issue.journal;
+UPDATE download SET article_id = article.id FROM article where download.article = article.article and download.issue = article.issue and download.volume = article.volume and download.journal = article.journal;
+```
 
 TODO fill FKs
 TODO set FK to not nullable
