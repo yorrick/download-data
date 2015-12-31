@@ -71,7 +71,8 @@ CREATE TABLE download
     issue VARCHAR(20) not null,
     publication_year integer not null,
     article VARCHAR(20) not null,
-    age integer not null
+    age integer not null,
+    embargo boolean
 );
 
 

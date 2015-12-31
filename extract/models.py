@@ -181,25 +181,11 @@ class Record():
     def age(self):
         return self.year - self.publication_year if self.publication_year else ''
 
-    @cached_property
-    def embargo(self):
-        # if self.full_oa:
-        #     return False
-        # else:
-        #     return self.age <= 1
-        return self.age <= 1
-
     def to_csv_row(self):
         return OrderedDict(
             [
                 ('time', self.time),
-                # ('date', self.date),
-                # ('year', self.year),
-                # ('hour', self.hour),
                 ('local_time', self.local_time),
-                # ('local_date', self.local_date),
-                # ('local_year', self.local_year),
-                # ('local_hour', self.local_hour),
                 ('proxy_ip', self.proxy_ip),
                 ('user_ip', self.user_ip),
                 ('url', self.url),

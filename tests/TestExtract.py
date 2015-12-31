@@ -55,7 +55,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.http_response_code, 200)
 
         self.assertEqual(record.age, 20)
-        self.assertFalse(record.embargo)
 
 
     def test_line_extract_2(self):
@@ -87,7 +86,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.http_response_code, 200)
 
         self.assertEqual(record.age, 1)
-        self.assertTrue(record.embargo)
 
 
     def test_line_extract_3(self):
@@ -117,7 +115,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.http_response_code, 400)
 
         self.assertEqual(record.age, 0)
-        self.assertTrue(record.embargo)
 
 
     def test_line_extract_4(self):
@@ -234,13 +231,7 @@ class TestExtract(TestCase):
 
         self.assertEquals(record.to_csv_row().items(), [
             ("time", "2015-03-03 23:59:55"),
-            ("date", "2015-03-03"),
-            ("year", 2015),
-            ("hour", 23),
             ("local_time", "2015-03-04 12:59:55"),
-            ("local_date", "2015-03-04"),
-            ("local_year", 2015),
-            ("local_hour", 12),
             ("proxy_ip", '202.112.50.77'),
             ("user_ip", '202.112.50.77'),
             ("url", '/revue/ac/1995/v6/n1/031091ar.pdf'),
@@ -255,12 +246,11 @@ class TestExtract(TestCase):
             ("os", 'Mac OS X'),
             ("device", 'Other'),
             ("journal_name", 'ac'),
-            # ("journal_domain", 'droit'),
-            # ("full_oa", 'True'),
-            ("publication_year", 1995),
             ("volume", 'v6'),
             ("issue", 'n1'),
+            ("publication_year", 1995),
             ("article_id", '031091'),
             ("age", 20),
-            ("embargo", "False"),
+            # ("journal_domain", 'droit'),
+            # ("full_oa", 'True'),
         ])
