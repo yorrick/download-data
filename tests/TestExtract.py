@@ -217,6 +217,36 @@ class TestExtract(TestCase):
 
         self.assertFalse(record.is_article_download)
 
+    def test_simple_extract_article_id(self):
+        record = Record(
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
+            "202.112.50.77",
+            "GET",
+            "/revue/ltp/1987/v43/n3/400333ar.pdf",
+            "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+            "202.112.50.77",
+            "-",
+            200,
+        )
+
+        self.assertTrue(record.is_article_download)
+        self.assertEquals(record.article_id, "400333")
+
+    def test_extract_article_id_does_not_capture_url_params(self):
+        record = Record(
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
+            "202.112.50.77",
+            "GET",
+            "/revue/ltp/1987/v43/n3/400333ar.pdf?_ult=sec%3Dweb%26slk%3Dweb%26pos%3D4%26linkstr%3Dhttp%253A%252F%252Fwww.erudit.org%252Frevue%252Fltp%252F1987%252Fv43%252Fn3%252F400333ar.pdf",
+            "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+            "202.112.50.77",
+            "-",
+            200,
+        )
+
+        self.assertTrue(record.is_article_download)
+        self.assertEquals(record.article_id, "400333")
+
     def test_to_csv_row(self):
         record = Record(
             raw_timestamp="2015-03-03 23:59:55",

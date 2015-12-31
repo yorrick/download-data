@@ -54,9 +54,9 @@ CREATE TABLE download
     time TIMESTAMP not null,
     local_time TIMESTAMP,
     proxy_ip VARCHAR(20) not null,
-    user_ip VARCHAR(30) not null,
+    user_ip VARCHAR(32) not null,
     url VARCHAR(500) not null,
-    referer VARCHAR(1000),
+    referer VARCHAR(1500),
     referer_host VARCHAR(1000),
     continent VARCHAR(10),
     country VARCHAR(100),
@@ -79,7 +79,8 @@ CREATE TABLE download
 
 
 -- client copy of CSV file, to download table
-\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age) from /data/110302-sample.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age) from /data/130206.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+--\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age) from /data/110302-sample.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
 INSERT INTO article(article, issue, volume, journal) SELECT DISTINCT article, issue, volume, journal FROM download;

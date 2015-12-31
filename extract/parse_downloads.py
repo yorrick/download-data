@@ -44,7 +44,7 @@ def process_file(log_file):
                 if record.is_article_download:
                     download += 1
 
-                    TODO add an option to filter out robots or not
+                    # TODO add an option to filter out robots or not!!
                     if not record.is_good_robot:
                         considered_human += 1
                         csv_writer.writerow(record.to_csv_row().values())
