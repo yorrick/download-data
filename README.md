@@ -145,6 +145,17 @@ ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
 ALTER TABLE article ALTER COLUMN issue_id SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN volume_id SET NOT NULL;
 ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
+ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue;
+ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
+ALTER TABLE volume DROP COLUMN journal;
 ```
 
+
+See downloads of articles that can be accessed by multiple urls paths (we consider them as different):
+
+```
+select url, article from download
+where article in (select article from article GROUP BY article HAVING count(article) > 1)
+order by article;
+```
 
