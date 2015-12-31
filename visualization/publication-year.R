@@ -21,3 +21,4 @@ plot <- ggplot(downloadAges, aes(x=publication_year, y=number)) +
 
 print(plot)
 
+dbDisconnect(con)

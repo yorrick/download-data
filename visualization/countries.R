@@ -25,3 +25,4 @@ plot <- ggplot(downloadCountries, aes(x=country, y=number)) +
 
 print(plot)
 
+dbDisconnect(con)

@@ -73,17 +73,41 @@ CREATE TABLE download
     publication_year integer not null,
     age integer not null,
     download_year integer,
+    download_hour integer,  -- local hour in IP's timezone: can be null, since geo location sometimes cannot find a timezone
     online_year integer,
     embargo boolean
 );
 
 CREATE INDEX ON download (download_year);
+CREATE INDEX ON download (download_hour);
 CREATE INDEX ON download (publication_year);
 CREATE INDEX ON download (article);
+CREATE INDEX ON download (article_id);
 CREATE INDEX ON download (issue);
+CREATE INDEX ON download (issue_id);
 CREATE INDEX ON download (volume);
+CREATE INDEX ON download (volume_id);
 CREATE INDEX ON download (journal);
+CREATE INDEX ON download (journal_id);
 CREATE INDEX ON download (country);
+
+CREATE INDEX ON article (journal);
+CREATE INDEX ON article (volume);
+CREATE INDEX ON article (issue);
+CREATE INDEX ON article (issue_id);
+CREATE INDEX ON article (article);
+
+CREATE INDEX ON issue (journal);
+CREATE INDEX ON issue (volume);
+CREATE INDEX ON issue (volume_id);
+CREATE INDEX ON issue (issue);
+
+CREATE INDEX ON volume (journal);
+CREATE INDEX ON volume (journal_id);
+CREATE INDEX ON volume (volume);
+
+CREATE INDEX ON journal (journal);
+
 
 -- client copy of CSV file, to download table
 \copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
@@ -108,6 +132,7 @@ UPDATE download SET issue_id = article.issue_id FROM article where download.arti
 UPDATE download SET volume_id = issue.volume_id FROM issue where download.issue_id = issue.id;
 UPDATE download SET journal_id = volume.journal_id FROM volume where download.volume_id = volume.id;
 UPDATE download SET download_year = EXTRACT(YEAR FROM time);
+UPDATE download SET download_hour = EXTRACT(HOUR FROM local_time);
 
 
 -- compute publication_year for issue using download publication_year (extracted from url)
