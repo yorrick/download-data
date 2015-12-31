@@ -84,7 +84,9 @@ CREATE TABLE issue
     volume_id integer references volume(id),
     journal VARCHAR(20) not null,
     volume VARCHAR(20) not null,
-    issue VARCHAR(20) not null
+    issue VARCHAR(20) not null,
+    publication_year integer,
+    online_year integer
 );
 CREATE TABLE article
 (
@@ -120,21 +122,27 @@ CREATE TABLE download
     journal VARCHAR(20) not null,
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
+    publication_year integer not null,
     article VARCHAR(20) not null,
     age integer not null
 );
-\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, article, age) from /data/110302-sample.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age) from /data/110302-sample.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 INSERT INTO article(article, issue, volume, journal) SELECT DISTINCT article, issue, volume, journal FROM download;
 INSERT INTO issue(issue, volume, journal) SELECT DISTINCT issue, volume, journal FROM article;
 INSERT INTO volume(volume, journal) SELECT DISTINCT volume, journal FROM issue;
 INSERT INTO journal(journal) SELECT DISTINCT journal FROM volume;
+-- set FK to volume, issue and article tables
 UPDATE volume SET journal_id = journal.id FROM journal where volume.journal = journal.journal;
 UPDATE issue SET volume_id = volume.id FROM volume where issue.volume = volume.volume and issue.journal = volume.journal;
 UPDATE article SET issue_id = issue.id FROM issue where article.issue = issue.issue and article.volume = issue.volume and article.journal = issue.journal;
+-- set all foreign keys to download table
 UPDATE download SET article_id = article.id FROM article where download.article = article.article and download.issue = article.issue and download.volume = article.volume and download.journal = article.journal;
 UPDATE download SET issue_id = article.issue_id FROM article where download.article_id = article.id;
 UPDATE download SET volume_id = issue.volume_id FROM issue where download.issue_id = issue.id;
 UPDATE download SET journal_id = volume.journal_id FROM volume where download.volume_id = volume.id;
+-- compute online date for each issue (articles in the same issue are all published at the same time)
+UPDATE issue SET online_year = online_data.year FROM (SELECT MIN(EXTRACT(YEAR FROM time)) AS year, issue_id FROM download GROUP BY issue_id) AS online_data WHERE issue.id = online_data.issue_id;
+-- enforce constraints
 ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN issue_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN volume_id SET NOT NULL;
@@ -142,6 +150,7 @@ ALTER TABLE download ALTER COLUMN journal_id SET NOT NULL;
 ALTER TABLE article ALTER COLUMN issue_id SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN volume_id SET NOT NULL;
 ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
+-- cleanup columns
 ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
@@ -158,4 +167,7 @@ order by article;
 
 
 
-select min(
+See issues that have been published late:
+
+TODO add publication_year to issue table (use first aggregate)
+

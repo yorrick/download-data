@@ -217,9 +217,9 @@ class Record():
                 ('device', self.device),
 
                 ('journal_name', self.journal_name),
-                # ('publication_year', self.publication_year),
                 ('volume', self.volume),
                 ('issue', self.issue),
+                ('publication_year', self.publication_year),
                 ('article_id', self.article_id),
 
                 ('age', self.age),
