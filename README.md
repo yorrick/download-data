@@ -140,7 +140,9 @@ UPDATE download SET article_id = article.id FROM article where download.article 
 UPDATE download SET issue_id = article.issue_id FROM article where download.article_id = article.id;
 UPDATE download SET volume_id = issue.volume_id FROM issue where download.issue_id = issue.id;
 UPDATE download SET journal_id = volume.journal_id FROM volume where download.volume_id = volume.id;
--- compute online date for each issue (articles in the same issue are all published at the same time)
+-- compute publication_year for issue using download publication_year
+UPDATE issue SET publication_year = publication_data.year FROM (SELECT FIRST(publication_year) AS year, issue_id FROM download GROUP BY issue_id) AS publication_data WHERE issue.id = publication_data.issue_id;
+-- compute online_year for each issue (articles in the same issue are all published at the same time)
 UPDATE issue SET online_year = online_data.year FROM (SELECT MIN(EXTRACT(YEAR FROM time)) AS year, issue_id FROM download GROUP BY issue_id) AS online_data WHERE issue.id = online_data.issue_id;
 -- enforce constraints
 ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
@@ -166,8 +168,17 @@ order by article;
 ```
 
 
+Check issue publication year consistence (this query should return no results)
+```
+select issue_id from download GROUP BY issue_id having COUNT(DISTINCT(publication_year)) > 1;
+```
+
 
 See issues that have been published late:
-
-TODO add publication_year to issue table (use first aggregate)
+```
+select issue, (online_year - publication_year) as delay
+from issue 
+where publication_year <> online_year 
+order by delay desc;
+```
 

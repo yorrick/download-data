@@ -22,13 +22,10 @@ def process_file(log_file):
     parsable = 0
     download = 0
     considered_human = 0
-    download_first_line = True
 
     activity_tracker = ActivityTracker()
 
     with codecs.open(download_output_file, "w", 'utf-8') as download_result_file:
-        # download_result_file.write("sep=,\n")
-
         csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         for log_line in get_lines(log_file, LOG_FILE_ENCODING):
@@ -47,14 +44,9 @@ def process_file(log_file):
                 if record.is_article_download:
                     download += 1
 
+                    TODO add an option to filter out robots or not
                     if not record.is_good_robot:
                         considered_human += 1
-
-                        # write header using first line data
-                        # if download_first_line:
-                        #     csv_writer.writerow(record.to_csv_row().keys())
-                        #     download_first_line = False
-
                         csv_writer.writerow(record.to_csv_row().values())
             else:
                 pass
