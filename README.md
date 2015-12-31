@@ -52,9 +52,14 @@ docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPA
 ```
 
 
-### Create table
+### Create table, and load data
 
 
+```
+docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPASSWORD=postgres --volume $PWD/data:/data postgres:9.4 bash 
+psql --dbname=logs --host=download_data_postgres --username=postgres
+```
+ 
 ```
 DROP TABLE IF EXISTS download;
 DROP TABLE IF EXISTS article;
@@ -94,8 +99,11 @@ CREATE TABLE download
 (
     id SERIAL PRIMARY KEY,
     article_id integer references article(id),
-    time VARCHAR(30) not null,
-    local_time VARCHAR(30),
+    issue_id integer references issue(id),
+    volume_id integer references volume(id),
+    journal_id integer references journal(id),
+    time TIMESTAMP not null,
+    local_time TIMESTAMP,
     proxy_ip VARCHAR(20) not null,
     user_ip VARCHAR(30) not null,
     url VARCHAR(500) not null,
@@ -115,21 +123,7 @@ CREATE TABLE download
     article VARCHAR(20) not null,
     age integer not null
 );
-```
-
-### Load data into table
-
-
-```
-docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPASSWORD=postgres --volume $PWD/data:/data postgres:9.4 bash 
-psql --dbname=logs --host=download_data_postgres --username=postgres
-```
- 
-```
 \copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, article, age) from /data/110302-sample.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
-```
-
-```
 INSERT INTO article(article, issue, volume, journal) SELECT DISTINCT article, issue, volume, journal FROM download;
 INSERT INTO issue(issue, volume, journal) SELECT DISTINCT issue, volume, journal FROM article;
 INSERT INTO volume(volume, journal) SELECT DISTINCT volume, journal FROM issue;
@@ -138,10 +132,13 @@ UPDATE volume SET journal_id = journal.id FROM journal where volume.journal = jo
 UPDATE issue SET volume_id = volume.id FROM volume where issue.volume = volume.volume and issue.journal = volume.journal;
 UPDATE article SET issue_id = issue.id FROM issue where article.issue = issue.issue and article.volume = issue.volume and article.journal = issue.journal;
 UPDATE download SET article_id = article.id FROM article where download.article = article.article and download.issue = article.issue and download.volume = article.volume and download.journal = article.journal;
-```
-
-```
+UPDATE download SET issue_id = article.issue_id FROM article where download.article_id = article.id;
+UPDATE download SET volume_id = issue.volume_id FROM issue where download.issue_id = issue.id;
+UPDATE download SET journal_id = volume.journal_id FROM volume where download.volume_id = volume.id;
 ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
+ALTER TABLE download ALTER COLUMN issue_id SET NOT NULL;
+ALTER TABLE download ALTER COLUMN volume_id SET NOT NULL;
+ALTER TABLE download ALTER COLUMN journal_id SET NOT NULL;
 ALTER TABLE article ALTER COLUMN issue_id SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN volume_id SET NOT NULL;
 ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
@@ -159,3 +156,6 @@ where article in (select article from article GROUP BY article HAVING count(arti
 order by article;
 ```
 
+
+
+select min(
