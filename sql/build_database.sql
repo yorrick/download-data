@@ -83,6 +83,7 @@ CREATE INDEX ON download (article);
 CREATE INDEX ON download (issue);
 CREATE INDEX ON download (volume);
 CREATE INDEX ON download (journal);
+CREATE INDEX ON download (country);
 
 -- client copy of CSV file, to download table
 \copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
