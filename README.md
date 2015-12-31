@@ -85,7 +85,7 @@ select journal, volume, issue, publication_year, online_year, (online_year - pub
 from issue, volume, journal
 where 
     publication_year <> online_year
-    and publication_year >= 2011
+    and publication_year >= 2010
     and issue.volume_id = volume.id
     and volume.journal_id = journal.id
 order by journal, volume, issue;

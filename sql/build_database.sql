@@ -56,8 +56,8 @@ CREATE TABLE download
     proxy_ip VARCHAR(20) not null,
     user_ip VARCHAR(32) not null,
     url VARCHAR(500) not null,
-    referer VARCHAR(1500),
-    referer_host VARCHAR(1000),
+    referer VARCHAR(500),
+    referer_host VARCHAR(500),
     continent VARCHAR(10),
     country VARCHAR(100),
     geo_coordinates VARCHAR(100),
@@ -79,7 +79,7 @@ CREATE TABLE download
 
 
 -- client copy of CSV file, to download table
-\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age) from /data/130206.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age) from /data/150304.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 --\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age) from /data/110302-sample.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
@@ -111,14 +111,14 @@ WHERE issue.id = publication_data.issue_id;
 
 
 -- compute online_year for each issue (articles in the same issue are all published at the same time)
--- for issues that where published after earliest download date (2010)
+-- for issues that where published after earliest year of sample (2010)
 -- before that, we have no data to compute a more accurate online_year, we'll just consider that online_year = publication_year
 UPDATE issue SET online_year = online_data.year
 FROM (SELECT MIN(download_year) AS year, issue_id FROM download GROUP BY issue_id) AS online_data
-WHERE issue.id = online_data.issue_id and issue.publication_year >= (SELECT MIN(download_year) FROM download);
--- set online_year for issues that were published before 2010
+WHERE issue.id = online_data.issue_id and issue.publication_year >= 2010;
+-- set online_year for issues that were published before earliest year of sample (2010)
 UPDATE issue SET online_year = publication_year
-WHERE publication_year < (SELECT MIN(download_year) FROM download);
+WHERE publication_year < 2010;
 
 
 -- compute embargo flag for downloads: true means downloaded article is under embargo, false means article was freely available

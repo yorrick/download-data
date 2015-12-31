@@ -189,7 +189,7 @@ class Record():
                 ('proxy_ip', self.proxy_ip),
                 ('user_ip', self.user_ip),
                 ('url', self.url),
-                ('referer', self.referer),
+                ('referer', self.referer[:500]),
                 ('referer_host', self.referer_host),
 
                 ('continent', self.continent),
