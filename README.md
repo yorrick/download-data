@@ -22,7 +22,7 @@ nosetests
 --debug enables single process execution for easier debugging.
 
 ```
-./extract/parse_downloads.py [--debug] data/*.log
+./extract/parse_downloads.py [--debug] data/*.log && cat data/*.log.csv > data/all.log.csv
 ```
 
 
