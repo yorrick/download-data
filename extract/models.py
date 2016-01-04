@@ -192,10 +192,10 @@ class Record():
                 ('referer', self.referer[:500]),
                 ('referer_host', self.referer_host[:100]),
 
-                ('continent', self.continent[:10]),
-                ('country', self.country[:100]),
-                ('geo_coordinates', self.geo_coordinates[:100]),
-                ('timezone', self.timezone[:100]),
+                ('continent', self.continent[:10] if self.continent else ''),
+                ('country', self.country[:100] if self.country else ''),
+                ('geo_coordinates', self.geo_coordinates[:100] if self.geo_coordinates else ''),
+                ('timezone', self.timezone[:100] if self.timezone else ''),
 
                 ('user_agent', self.raw_user_agent[:100]),
                 ('browser', self.browser[:200]),
