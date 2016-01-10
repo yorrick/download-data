@@ -6,6 +6,7 @@ import argparse
 def parse_argv(argv):
     parser = argparse.ArgumentParser(description='Parse filter logs arguments')
     parser.add_argument('--debug', action='store_true', default=False)
+    parser.add_argument('--verbose', action='store_true', default=False)
     parser.add_argument('--keep-robots', dest="keep_robots", action='store_true', default=False)
     parser.add_argument('--processes', dest='processes', type=int, default=4, help="Number of parallel processes to use for log parsing")
     parser.add_argument('log_files', metavar='F', type=str, nargs='+',

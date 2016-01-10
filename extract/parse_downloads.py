@@ -35,16 +35,20 @@ def process_file(params):
                 considered_human += 1
 
             if params.keep_robots or (not params.keep_robots and not is_robot):
-                csv_writer.writerow(record.to_csv_row().values())
+                csv_writer.writerow(record.to_csv_row() + [is_robot])
 
     print(build_result_log(params.log_file, total, parsable, len(downloads), considered_human))
 
+    if params.verbose:
+        print("Detected User ips of robots that were detected:")
+        print(activity_tracker.get_bots_user_ips)
 
-ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots'])
+
+ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots', 'verbose'])
 
 
 def build_process_file_param_list(params):
-    return [ProcessFileParam(log_file, params.keep_robots) for log_file in params.log_files]
+    return [ProcessFileParam(log_file, params.keep_robots, params.verbose) for log_file in params.log_files]
 
 
 if __name__ == "__main__":
