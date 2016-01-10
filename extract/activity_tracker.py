@@ -72,15 +72,3 @@ class ActivityTracker():
             self.good_robot[record.user_ip] += 1
         else:
             self.other[record.user_ip] += 1
-
-    def get_activities(self):
-        return [Activity(
-            user_ip,
-            total,
-            self.download[user_ip],
-            self.good_robot[user_ip],
-            self.other[user_ip],
-            self.css[user_ip],
-            self.javascript[user_ip],
-            self.image[user_ip],
-        ) for user_ip, total in self.total.items()]
