@@ -31,6 +31,12 @@ nosetests
 Postgres is used as a test database.
 Using docker 1.9 and volume support:
 
+
+```
+docker volume create --name=download_data
+```
+
+
 ### Run DB
 
 ```
@@ -48,7 +54,7 @@ jdbc:postgresql://localdocker:5432/logs
 With docker only (command line), use
 
 ```
-docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPASSWORD=postgres postgres:9.4 sh -c 'exec psql --dbname=logs --host=download_data_postgres --username=postgres --command="select * from downloads"'
+docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPASSWORD=postgres postgres:9.4 psql --dbname=logs --host=download_data_postgres --username=postgres --command="select * from download limit 10"
 ```
 
 
@@ -56,11 +62,7 @@ docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPA
 
 
 ```
-docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPASSWORD=postgres --volume $PWD/data:/data --volume $PWD/sql:/sql postgres:9.4 bash
-```
- 
-```
-psql --dbname=logs --host=download_data_postgres --username=postgres -f /sql/build_database.sql
+docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPASSWORD=postgres --volume $PWD/data:/data --volume $PWD/sql:/sql postgres:9.4 psql --dbname=logs --host=download_data_postgres --username=postgres -v ON_ERROR_STOP=1 -f /sql/build_database.sql
 ```
 
 
