@@ -19,9 +19,6 @@ def process_file(params):
     print("Parsing file {}".format(params.log_file))
     download_output_file = "{}.csv".format(params.log_file)
 
-    total = 0
-    parsable = 0
-    download = 0
     considered_human = 0
 
     activity_tracker = ActivityTracker()
@@ -29,34 +26,16 @@ def process_file(params):
     with codecs.open(download_output_file, "w", 'utf-8') as download_result_file:
         csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-        for log_line in get_lines(params.log_file, LOG_FILE_ENCODING):
-            total += 1
+        downloads, total, parsable = build_download_list(get_lines(params.log_file, LOG_FILE_ENCODING), activity_tracker)
 
-            record = extract(log_line)
+        for record in downloads:
+            if record.user_ip not in activity_tracker.get_bots_user_ips:
+                considered_human += 1
 
-            if record is not None:
-                parsable += 1
+            if params.keep_robots or (not params.keep_robots and not record.is_good_robot):
+                csv_writer.writerow(record.to_csv_row().values())
 
-                if not record.http_response_code == 200 and record.http_method == "GET":
-                    continue
-
-                activity_tracker.register_activity(record)
-
-                if record.is_article_download:
-                    download += 1
-
-                    if not record.is_good_robot:
-                        considered_human += 1
-
-                    if params.keep_robots or (not params.keep_robots and not record.is_good_robot):
-                        csv_writer.writerow(record.to_csv_row().values())
-            else:
-                pass
-                # print("=================== cannot parse line")
-                # print(log_line)
-                # print("===================")
-
-    print(build_result_log(params.log_file, total, parsable, download, considered_human))
+    print(build_result_log(params.log_file, total, parsable, len(downloads), considered_human))
 
 
 ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots'])

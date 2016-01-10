@@ -7,6 +7,8 @@ from extract.models import *
 
 class TestCommon(TestCase):
 
+# if a session contains a request for robots.txt OR its IP address is in the robot IP list OR its user-agent field is in the robot user-agent list OR the HEAD method is used OR (the referring field is unassigned AND no images are requested) then classify the session as a Web robot (Geens et al. en 2006 (à consulter))
+
     def test_good_robot_are_detected(self):
         activity_tracker = ActivityTracker()
 
@@ -21,4 +23,4 @@ class TestCommon(TestCase):
             200,
         ))
 
-        self.assertEquals(activity_tracker.get_bots_user_ips(), {"202.112.50.77"})
+        self.assertEquals(activity_tracker.get_bots_user_ips, {"202.112.50.77"})
