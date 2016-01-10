@@ -44,15 +44,25 @@ class ActivityTracker():
             self.image_fetched[record.user_ip] += 1
 
     @cached_property
-    def get_bots_user_ips(self):
+    def good_bots_user_ips(self):
+        return set(self.good_robot.keys())
+
+    @cached_property
+    def bad_bots_user_ips(self):
         no_referer = set(self.total.keys()).difference(self.referer_set.keys())
         no_images = set(self.total.keys()).difference(self.image_fetched.keys())
         lots_of_downloads = {user_ip for user_ip, count in self.downloads.items() if count > self.download_number_threshold}
 
         robot_behaviour_user_ips = no_referer.intersection(no_images).intersection(lots_of_downloads)
 
-        return set(
-            self.good_robot.keys() +
+        bad_bots_user_ips = set(
             self.fetch_robots_txt.keys() +
             self.head_used.keys()
         ).union(robot_behaviour_user_ips)
+
+        return bad_bots_user_ips.difference(self.good_bots_user_ips)
+
+    @cached_property
+    def bots_user_ips(self):
+        return self.good_bots_user_ips.union(self.bad_bots_user_ips)
+

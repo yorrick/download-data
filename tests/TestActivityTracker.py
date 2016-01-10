@@ -28,7 +28,9 @@ class TestCommon(TestCase):
         activity_tracker = ActivityTracker(0)
         activity_tracker.register_activity(self.human_record())
 
-        self.assertEquals(activity_tracker.get_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bots_user_ips, set())
+        self.assertEquals(activity_tracker.good_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bad_bots_user_ips, set())
 
     def test_robots_declared_in_user_agent_are_detected(self):
         activity_tracker = ActivityTracker(0)
@@ -37,7 +39,9 @@ class TestCommon(TestCase):
         robot_activity.raw_user_agent = "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)"
         activity_tracker.register_activity(self.human_record(), robot_activity)
 
-        self.assertEquals(activity_tracker.get_bots_user_ips, {"202.112.50.77"})
+        self.assertEquals(activity_tracker.bots_user_ips, {"202.112.50.77"})
+        self.assertEquals(activity_tracker.good_bots_user_ips, {"202.112.50.77"})
+        self.assertEquals(activity_tracker.bad_bots_user_ips, set())
 
     def test_requests_fetching_robots_txt_are_detected(self):
         activity_tracker = ActivityTracker(0)
@@ -47,7 +51,9 @@ class TestCommon(TestCase):
         activity_tracker.register_activity(self.human_record(), robot_activity)
 
 
-        self.assertEquals(activity_tracker.get_bots_user_ips, {"202.112.50.77"})
+        self.assertEquals(activity_tracker.bots_user_ips, {"202.112.50.77"})
+        self.assertEquals(activity_tracker.good_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bad_bots_user_ips, {"202.112.50.77"})
 
     def test_using_heads_is_detected(self):
         activity_tracker = ActivityTracker(0)
@@ -56,7 +62,9 @@ class TestCommon(TestCase):
         robot_activity.http_method = "HEAD"
         activity_tracker.register_activity(self.human_record(), robot_activity)
 
-        self.assertEquals(activity_tracker.get_bots_user_ips, {"202.112.50.77"})
+        self.assertEquals(activity_tracker.bots_user_ips, {"202.112.50.77"})
+        self.assertEquals(activity_tracker.good_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bad_bots_user_ips, {"202.112.50.77"})
 
     def test_no_referer_no_image(self):
         activity_tracker = ActivityTracker(0)
@@ -65,7 +73,9 @@ class TestCommon(TestCase):
         robot_activity.raw_referer = "-"
         activity_tracker.register_activity(robot_activity)
 
-        self.assertEquals(activity_tracker.get_bots_user_ips, {"202.112.50.77"})
+        self.assertEquals(activity_tracker.bots_user_ips, {"202.112.50.77"})
+        self.assertEquals(activity_tracker.good_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bad_bots_user_ips, {"202.112.50.77"})
 
     def test_no_referer_no_image_but_below_threshold_is_not_detected(self):
         activity_tracker = ActivityTracker(2)
@@ -74,7 +84,9 @@ class TestCommon(TestCase):
         robot_activity.raw_referer = "-"
         activity_tracker.register_activity(robot_activity)
 
-        self.assertEquals(activity_tracker.get_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bots_user_ips, set())
+        self.assertEquals(activity_tracker.good_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bad_bots_user_ips, set())
 
     def test_setting_referer_once_is_considered_human(self):
         activity_tracker = ActivityTracker(0)
@@ -83,7 +95,9 @@ class TestCommon(TestCase):
         robot_activity.raw_referer = "-"
         activity_tracker.register_activity(self.human_record(), robot_activity)
 
-        self.assertEquals(activity_tracker.get_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bots_user_ips, set())
+        self.assertEquals(activity_tracker.good_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bad_bots_user_ips, set())
 
     def test_fetching_one_image_is_considered_human(self):
         activity_tracker = ActivityTracker(0)
@@ -95,4 +109,6 @@ class TestCommon(TestCase):
         robot_activity.raw_referer = "-"
         activity_tracker.register_activity(image_activity, robot_activity)
 
-        self.assertEquals(activity_tracker.get_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bots_user_ips, set())
+        self.assertEquals(activity_tracker.good_bots_user_ips, set())
+        self.assertEquals(activity_tracker.bad_bots_user_ips, set())
