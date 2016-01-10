@@ -29,10 +29,12 @@ def process_file(params):
         downloads, total, parsable = build_download_list(get_lines(params.log_file, LOG_FILE_ENCODING), activity_tracker)
 
         for record in downloads:
-            if record.user_ip not in activity_tracker.get_bots_user_ips:
+            is_robot = record.user_ip in activity_tracker.get_bots_user_ips
+
+            if not is_robot:
                 considered_human += 1
 
-            if params.keep_robots or (not params.keep_robots and not record.is_good_robot):
+            if params.keep_robots or (not params.keep_robots and not is_robot):
                 csv_writer.writerow(record.to_csv_row().values())
 
     print(build_result_log(params.log_file, total, parsable, len(downloads), considered_human))
