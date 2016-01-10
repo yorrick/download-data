@@ -40,6 +40,7 @@ CREATE TABLE article
     journal VARCHAR(20) not null,
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
+    publication_year integer not null,
     article VARCHAR(20) not null
 );
 
@@ -115,20 +116,38 @@ CREATE INDEX ON journal (journal);
 \copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
-INSERT INTO article(article, issue, volume, journal) SELECT DISTINCT article, issue, volume, journal FROM download;
-INSERT INTO issue(issue, volume, journal) SELECT DISTINCT issue, volume, journal FROM article;
+INSERT INTO article(article, issue, volume, journal, publication_year) SELECT DISTINCT article, issue, volume, journal, publication_year FROM download;
+INSERT INTO issue(issue, volume, journal, publication_year) SELECT DISTINCT issue, volume, journal, publication_year FROM article;
 INSERT INTO volume(volume, journal) SELECT DISTINCT volume, journal FROM issue;
 INSERT INTO journal(journal) SELECT DISTINCT journal FROM volume;
 
 
 -- set FK to volume, issue and article tables
-UPDATE volume SET journal_id = journal.id FROM journal where volume.journal = journal.journal;
-UPDATE issue SET volume_id = volume.id FROM volume where issue.volume = volume.volume and issue.journal = volume.journal;
-UPDATE article SET issue_id = issue.id FROM issue where article.issue = issue.issue and article.volume = issue.volume and article.journal = issue.journal;
+UPDATE volume SET journal_id = journal.id
+FROM journal where volume.journal = journal.journal;
+
+UPDATE issue SET volume_id = volume.id
+FROM volume where issue.volume = volume.volume and issue.journal = volume.journal;
+
+UPDATE article SET issue_id = issue.id
+FROM issue
+where
+    article.issue = issue.issue
+    and article.publication_year = issue.publication_year
+    and article.volume = issue.volume
+    and article.journal = issue.journal;
 
 
 -- set all foreign keys to download table
-UPDATE download SET article_id = article.id FROM article where download.article = article.article and download.issue = article.issue and download.volume = article.volume and download.journal = article.journal;
+UPDATE download SET article_id = article.id
+FROM article
+WHERE
+    download.publication_year = article.publication_year
+    and download.article = article.article
+    and download.issue = article.issue
+    and download.volume = article.volume
+    and download.journal = article.journal;
+
 UPDATE download SET issue_id = article.issue_id FROM article where download.article_id = article.id;
 UPDATE download SET volume_id = issue.volume_id FROM issue where download.issue_id = issue.id;
 UPDATE download SET journal_id = volume.journal_id FROM volume where download.volume_id = volume.id;
@@ -138,17 +157,21 @@ UPDATE download SET download_hour = EXTRACT(HOUR FROM local_time);
 
 -- compute publication_year for issue using download publication_year (extracted from url)
 -- (MIN(publication_year) is just a way to select a single year, we could have used MAX also as all year are the same)
-UPDATE issue SET publication_year = publication_data.year
-FROM (SELECT MIN(publication_year) AS year, issue_id FROM download GROUP BY issue_id) AS publication_data
-WHERE issue.id = publication_data.issue_id;
+--UPDATE issue SET publication_year = publication_data.year
+--FROM (SELECT MIN(publication_year) AS year, issue_id FROM download GROUP BY issue_id) AS publication_data
+--WHERE issue.id = publication_data.issue_id;
 
 
 -- compute online_year for each issue (articles in the same issue are all published at the same time)
 -- for issues that where published after earliest year of sample (2010, or (SELECT MIN(download_year) FROM download))
 -- before that, we have no data to compute a more accurate online_year, we'll just consider that online_year = publication_year
 UPDATE issue SET online_year = online_data.year
-FROM (SELECT MIN(download_year) AS year, issue_id FROM download GROUP BY issue_id) AS online_data
-WHERE issue.id = online_data.issue_id and issue.publication_year >= (SELECT MIN(download_year) FROM download);
+FROM
+    (SELECT MIN(download_year) AS year, issue_id FROM download GROUP BY issue_id) AS online_data
+WHERE
+    issue.id = online_data.issue_id
+    and issue.publication_year >= (SELECT MIN(download_year) FROM download);
+
 -- set online_year for issues that were published before earliest year of sample (2010, or (SELECT MIN(download_year) FROM download))
 UPDATE issue SET online_year = publication_year
 WHERE publication_year < (SELECT MIN(download_year) FROM download);
@@ -159,7 +182,8 @@ WHERE publication_year < (SELECT MIN(download_year) FROM download);
 UPDATE download SET online_year = issue.online_year
 FROM issue
 WHERE download.issue_id = issue.id;
-UPDATE download SET embargo = (EXTRACT(YEAR FROM time) - online_year) <= 1;
+
+UPDATE download SET embargo = (download_year - online_year) <= 1;
 
 
 -- enforce constraints
@@ -178,30 +202,6 @@ ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
 
 
 -- cleanup columns that were only used to build schema
-ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue;
+ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
-
-
-
-
--- TODO setup indexes, using typical queries
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

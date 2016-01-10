@@ -16,7 +16,7 @@ before_install:
 
 script:
      - nosetests --with-coverage
-     - ./extract/parse_downloads.py data/110302-sample && mv data/110302-sample.csv data/all.log.csv && docker run --link postgres:postgres --rm -e PGPASSWORD=postgres --volume $PWD/sql:/sql --volume $PWD/data:/data postgres:9.4 psql --dbname=logs --host=postgres --username=postgres -v ON_ERROR_STOP=1 -f /sql/build_database.sql
+     - ./extract/parse_downloads.py data/110302-sample && mv data/110302-sample.csv data/all.log.csv && docker run --link postgres:postgres --rm -e PGPASSWORD=postgres --volume $PWD/sql:/sql --volume $PWD/data:/data postgres:9.4 psql --dbname=logs --host=postgres --username=postgres -v ON_ERROR_STOP=1 -f /sql/build_database.sql && docker run --link postgres:postgres --rm -e PGPASSWORD=postgres --volume $PWD/sql:/sql --volume $PWD/data:/data postgres:9.4 psql --dbname=logs --host=postgres --username=postgres -v ON_ERROR_STOP=1 -f /sql/tests.sql
 
 after_success:
   - coveralls
