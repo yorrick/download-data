@@ -16,7 +16,11 @@ class ActivityTracker():
         self.javascript = defaultdict(lambda: 0)
         self.image = defaultdict(lambda: 0)
 
-    def register_activity(self, record):
+    def register_activity(self, *records):
+        for record in records:
+            self._register_activity(record)
+
+    def _register_activity(self, record):
         self.total[record.user_ip] += 1
 
         if record.is_article_download:
