@@ -1,14 +1,17 @@
+-- test online years on dowloads
+
 do
 $$
 declare
-  l_count integer;
+  wrong_online_year integer;
 begin
   select count(*)
-    into l_count
-  from foo
-  where is_bad_foo;
-  if (l_count > 0) then
-    raise exception 'too may rows';
+  into wrong_online_year
+  from download
+  where online_year < publication_year;
+
+  if (wrong_online_year > 0) then
+    raise exception 'No download should have an online year before publication year';
   end if;
 end;
 $$
