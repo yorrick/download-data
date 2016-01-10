@@ -29,19 +29,22 @@ def process_file(params):
         downloads, total, parsable = build_download_list(get_lines(params.log_file, LOG_FILE_ENCODING), activity_tracker)
 
         for record in downloads:
-            is_robot = record.user_ip in activity_tracker.get_bots_user_ips
+            is_robot = record.user_ip in activity_tracker.bots_user_ips
+            bad_robot = record.user_ip in activity_tracker.bad_bots_user_ips
 
             if not is_robot:
                 considered_human += 1
 
             if params.keep_robots or (not params.keep_robots and not is_robot):
-                csv_writer.writerow(record.to_csv_row() + [is_robot])
+                csv_writer.writerow(record.to_csv_row() + [is_robot, bad_robot])
 
     print(build_result_log(params.log_file, total, parsable, len(downloads), considered_human))
 
     if params.verbose:
-        print("Detected User ips of robots that were detected:")
-        print("\n",join(activity_tracker.get_bots_user_ips))
+        print("Good robots user ips: {}".format(len(activity_tracker.good_bots_user_ips)))
+        print(" ".join(activity_tracker.good_bots_user_ips))
+        print("Bad robots user ips: {}".format(len(activity_tracker.bad_bots_user_ips)))
+        print(" ".join(activity_tracker.bad_bots_user_ips))
 
 
 ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots', 'verbose', 'download_number_threshold'])

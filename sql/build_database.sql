@@ -73,6 +73,7 @@ CREATE TABLE download
     publication_year integer not null,
     age integer not null,
     is_robot boolean,
+    is_bad_robot boolean,
     download_year integer,
     download_hour integer,  -- local hour in IP's timezone: can be null, since geo location sometimes cannot find a timezone
     online_year integer,
@@ -111,7 +112,7 @@ CREATE INDEX ON journal (journal);
 
 
 -- client copy of CSV file, to download table
-\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age, is_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
 INSERT INTO article(article, issue, volume, journal) SELECT DISTINCT article, issue, volume, journal FROM download;
