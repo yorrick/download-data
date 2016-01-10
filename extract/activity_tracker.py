@@ -72,3 +72,6 @@ class ActivityTracker():
             self.good_robot[record.user_ip] += 1
         else:
             self.other[record.user_ip] += 1
+
+    def get_bots_user_ips(self):
+        return {}
