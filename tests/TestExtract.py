@@ -15,7 +15,7 @@ class TestExtract(TestCase):
             """2015-03-03 23:59:55 52.16.55.221 GET /revue/ac/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973""",
             """2015-03-03 23:59:55 - - 52.16.55.221 GET /revue/ac/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973""",
             """2015-03-03 23:59:55 52.16.55.221 GET /revue/ac/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 404 1306973""",
-        ], ActivityTracker())
+        ], ActivityTracker(0))
 
         self.assertEquals(total, 3)
         self.assertEquals(parsable, 2)

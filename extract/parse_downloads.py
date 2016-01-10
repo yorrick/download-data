@@ -21,7 +21,7 @@ def process_file(params):
 
     considered_human = 0
 
-    activity_tracker = ActivityTracker()
+    activity_tracker = ActivityTracker(params.download_number_threshold)
 
     with codecs.open(download_output_file, "w", 'utf-8') as download_result_file:
         csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -41,14 +41,15 @@ def process_file(params):
 
     if params.verbose:
         print("Detected User ips of robots that were detected:")
-        print(activity_tracker.get_bots_user_ips)
+        print("\n",join(activity_tracker.get_bots_user_ips))
 
 
-ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots', 'verbose'])
+ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots', 'verbose', 'download_number_threshold'])
 
 
 def build_process_file_param_list(params):
-    return [ProcessFileParam(log_file, params.keep_robots, params.verbose) for log_file in params.log_files]
+    return [ProcessFileParam(log_file, params.keep_robots, params.verbose, params.download_number_threshold)
+            for log_file in params.log_files]
 
 
 if __name__ == "__main__":

@@ -6,8 +6,11 @@ from common import *
 
 class ActivityTracker():
 
-    def __init__(self):
+    def __init__(self, download_number_threshold):
+        self.download_number_threshold = download_number_threshold
+
         self.total = defaultdict(lambda: 0)
+        self.downloads = defaultdict(lambda: 0)
 
         self.good_robot = defaultdict(lambda: 0)
         self.fetch_robots_txt = defaultdict(lambda: 0)
@@ -21,6 +24,9 @@ class ActivityTracker():
 
     def _register_activity(self, record):
         self.total[record.user_ip] += 1
+
+        if record.is_article_download:
+            self.downloads[record.user_ip] += 1
 
         if record.is_good_robot:
             self.good_robot[record.user_ip] += 1
@@ -41,11 +47,12 @@ class ActivityTracker():
     def get_bots_user_ips(self):
         no_referer = set(self.total.keys()).difference(self.referer_set.keys())
         no_images = set(self.total.keys()).difference(self.image_fetched.keys())
+        lots_of_downloads = {user_ip for user_ip, count in self.downloads.items() if count > self.download_number_threshold}
 
-        no_referer_no_image = no_referer.intersection(no_images)
+        robot_behaviour_user_ips = no_referer.intersection(no_images).intersection(lots_of_downloads)
 
         return set(
             self.good_robot.keys() +
             self.fetch_robots_txt.keys() +
             self.head_used.keys()
-        ).union(no_referer_no_image)
+        ).union(robot_behaviour_user_ips)
