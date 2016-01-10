@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
+import codecs
 
 
 def build_result_log(log_file, total, parsable, download, considered_human):
@@ -57,3 +58,9 @@ def memoize_single_arg(f):
             return ret
 
     return memodict().__getitem__
+
+
+def get_lines(source_file, encoding = "utf-8"):
+    with codecs.open(source_file, "r", encoding=encoding) as f:
+        for line in f:
+            yield line

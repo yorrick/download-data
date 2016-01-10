@@ -28,7 +28,7 @@ class Record():
         self.url = url
         self.raw_user_agent = raw_user_agent
         self.user_ip = user_ip
-        self.referer = '' if raw_referer == '-' else raw_referer
+        self.raw_referer = raw_referer
         self.http_response_code = int(http_response_code)
 
     @cached_property
@@ -70,6 +70,10 @@ class Record():
     @cached_property
     def local_hour(self):
         return self.local_timestamp.hour if self.local_timestamp else ''
+
+    @cached_property
+    def referer(self):
+        return '' if self.raw_referer == '-' else self.raw_referer
 
     @cached_property
     def referer_host(self):
@@ -147,7 +151,7 @@ class Record():
 
     @cached_property
     def is_article_download(self):
-        return bool(self._journal_match)
+        return bool(self._journal_match) and self.http_response_code == 200 and self.http_method == "GET"
 
     @cached_property
     def journal_name(self):
@@ -182,35 +186,33 @@ class Record():
         return self.year - self.publication_year if self.publication_year else ''
 
     def to_csv_row(self):
-        return OrderedDict(
-            [
-                ('time', self.time),
-                ('local_time', self.local_time),
-                ('proxy_ip', self.proxy_ip[:20]),
-                ('user_ip', self.user_ip[:32]),
-                ('url', self.url[:500]),
-                ('referer', self.referer[:500]),
-                ('referer_host', self.referer_host[:100]),
+        return [
+            self.time,
+            self.local_time,
+            self.proxy_ip[:20],
+            self.user_ip[:32],
+            self.url[:500],
+            self.referer[:500],
+            self.referer_host[:100],
 
-                ('continent', self.continent[:10] if self.continent else ''),
-                ('country', self.country[:100] if self.country else ''),
-                ('geo_coordinates', self.geo_coordinates[:100] if self.geo_coordinates else ''),
-                ('timezone', self.timezone[:100] if self.timezone else ''),
+            self.continent[:10] if self.continent else '',
+            self.country[:100] if self.country else '',
+            self.geo_coordinates[:100] if self.geo_coordinates else '',
+            self.timezone[:100] if self.timezone else '',
 
-                ('user_agent', self.raw_user_agent[:100]),
-                ('browser', self.browser[:200]),
-                ('os', self.os[:200]),
-                ('device', self.device[:200]),
+            self.raw_user_agent[:100],
+            self.browser[:200],
+            self.os[:200],
+            self.device[:200],
 
-                ('journal_name', self.journal_name[:20]),
-                ('volume', self.volume[:20]),
-                ('issue', self.issue[:20]),
-                ('publication_year', self.publication_year),
-                ('article_id', self.article_id[:20]),
+            self.journal_name[:20],
+            self.volume[:20],
+            self.issue[:20],
+            self.publication_year,
+            self.article_id[:20],
 
-                ('age', self.age),
-            ]
-        )
+            self.age,
+        ]
 
 
 @memoize_single_arg

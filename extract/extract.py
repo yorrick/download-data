@@ -2,7 +2,6 @@
 from __future__ import print_function
 import re
 from models import *
-import codecs
 
 
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -40,7 +39,26 @@ def extract(log_line):
         return None
 
 
-def get_lines(source_file, encoding = "utf-8"):
-    with codecs.open(source_file, "r", encoding=encoding) as f:
-        for line in f:
-            yield line
+def build_download_list(log_lines, activity_tracker):
+    downloads = []
+    total = 0
+    parsable = 0
+
+    for log_line in log_lines:
+        total += 1
+
+        record = extract(log_line)
+
+        if record is not None:
+            parsable += 1
+            activity_tracker.register_activity(record)
+
+            if record.is_article_download:
+                downloads.append(record)
+        else:
+            pass
+            # print("=================== cannot parse line")
+            # print(log_line)
+            # print("===================")
+
+    return (downloads, total, parsable)
