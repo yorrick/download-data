@@ -65,6 +65,12 @@ docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPA
 docker run -it --link download_data_postgres:download_data_postgres --rm -e PGPASSWORD=postgres --volume $PWD/data:/data --volume $PWD/sql:/sql postgres:9.4 psql --dbname=logs --host=download_data_postgres --username=postgres -v ON_ERROR_STOP=1 -f /sql/build_database.sql
 ```
 
+OR
+
+```
+/Applications/Postgres.app/Contents/Versions/9.4/bin/psql -f sql/build_database.sql
+```
+
 
 See downloads of articles that can be accessed by multiple urls paths (we consider them as different):
 
