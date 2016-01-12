@@ -17,6 +17,8 @@ class ActivityTracker():
         self.head_used = defaultdict(lambda: 0)
         self.referer_set = defaultdict(lambda: 0)
         self.image_fetched = defaultdict(lambda: 0)
+        self.javascript_fetched = defaultdict(lambda: 0)
+        self.css_fetched = defaultdict(lambda: 0)
 
     def register_activity(self, *records):
         for record in records:
@@ -43,6 +45,12 @@ class ActivityTracker():
         if record.is_image_download:
             self.image_fetched[record.user_ip] += 1
 
+        if record.is_javascript_download:
+            self.javascript_fetched[record.user_ip] += 1
+
+        if record.is_css_download:
+            self.css_fetched[record.user_ip] += 1
+
     @cached_property
     def good_bots_user_ips(self):
         return set(self.good_robot.keys())
@@ -51,7 +59,8 @@ class ActivityTracker():
     def bad_bots_user_ips(self):
         no_referer = set(self.total.keys()).difference(self.referer_set.keys())
         no_images = set(self.total.keys()).difference(self.image_fetched.keys())
-        lots_of_downloads = {user_ip for user_ip, count in self.downloads.items() if count > self.download_number_threshold}
+        lots_of_downloads = {user_ip for user_ip, count in self.downloads.items()
+                             if count > self.download_number_threshold}
 
         robot_behaviour_user_ips = no_referer.intersection(no_images).intersection(lots_of_downloads)
 
@@ -76,6 +85,8 @@ class ActivityTracker():
         Head used: {}
         Referer set: {}
         Image fetched: {}
+        Javascript fetched: {}
+        Css fetched: {}
         """.format(
             user_ip,
             self.total[user_ip],
@@ -85,4 +96,6 @@ class ActivityTracker():
             self.head_used[user_ip],
             self.referer_set[user_ip],
             self.image_fetched[user_ip],
+            self.javascript_fetched[user_ip],
+            self.css_fetched[user_ip],
         )
