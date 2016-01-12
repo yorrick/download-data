@@ -142,7 +142,7 @@ class Record():
 
     @cached_property
     def is_image_download(self):
-        return any(True for extension in IMAGE_EXTENSIONS if self.url.endswith(extension))
+        return any(self.url.endswith(extension) for extension in IMAGE_EXTENSIONS)
 
     @cached_property
     def _journal_match(self):

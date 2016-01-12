@@ -66,3 +66,23 @@ class ActivityTracker():
     def bots_user_ips(self):
         return self.good_bots_user_ips.union(self.bad_bots_user_ips)
 
+    def get_info_for_user_ip(self, user_ip):
+        return """
+        Detail for user ip {}
+        Total: {}
+        Download: {}
+        Good robot: {}
+        Fetch robot.txt: {}
+        Head used: {}
+        Referer set: {}
+        Image fetched: {}
+        """.format(
+            user_ip,
+            self.total[user_ip],
+            self.downloads[user_ip],
+            self.good_robot[user_ip],
+            self.fetch_robots_txt[user_ip],
+            self.head_used[user_ip],
+            self.referer_set[user_ip],
+            self.image_fetched[user_ip],
+        )
