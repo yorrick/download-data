@@ -24,10 +24,11 @@ class TestCommon(TestCase):
             "some-referer",
             200)
 
-    def test_regular_activity_is_not_considered_as_robot(self):
-        activity_tracker = ActivityTracker(0)
+    def test_regular_activity_is_not_considered_as_robot_below_threshold(self):
+        activity_tracker = ActivityTracker(10)
         activity_tracker.register_activity(self.human_record())
 
+        self.assertEquals(activity_tracker.lots_of_downloads_user_ips, set())
         self.assertEquals(activity_tracker.bots_user_ips, set())
         self.assertEquals(activity_tracker.good_bots_user_ips, set())
         self.assertEquals(activity_tracker.bad_bots_user_ips, set())
@@ -83,17 +84,6 @@ class TestCommon(TestCase):
         robot_activity = self.human_record()
         robot_activity.raw_referer = "-"
         activity_tracker.register_activity(robot_activity)
-
-        self.assertEquals(activity_tracker.bots_user_ips, set())
-        self.assertEquals(activity_tracker.good_bots_user_ips, set())
-        self.assertEquals(activity_tracker.bad_bots_user_ips, set())
-
-    def test_setting_referer_once_is_considered_human(self):
-        activity_tracker = ActivityTracker(0)
-
-        robot_activity = self.human_record()
-        robot_activity.raw_referer = "-"
-        activity_tracker.register_activity(self.human_record(), robot_activity)
 
         self.assertEquals(activity_tracker.bots_user_ips, set())
         self.assertEquals(activity_tracker.good_bots_user_ips, set())
