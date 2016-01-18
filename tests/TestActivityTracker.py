@@ -112,3 +112,51 @@ class TestCommon(TestCase):
         self.assertEquals(activity_tracker.bots_user_ips, set())
         self.assertEquals(activity_tracker.good_bots_user_ips, set())
         self.assertEquals(activity_tracker.bad_bots_user_ips, set())
+
+    def test_lots_of_downloads_user_ips(self):
+        activity_tracker = ActivityTracker(1)
+
+        activity_1 = self.human_record()
+        activity_1.user_ip = "111.111.111.111"
+
+        activity_2 = self.human_record()
+        activity_2.user_ip = "222.222.222.222"
+
+        activity_tracker.register_activity(activity_1, activity_1, activity_2)
+
+        self.assertEquals(activity_tracker.lots_of_downloads_user_ips, set(["111.111.111.111"]))
+
+    def test_no_referer_no_images_user_ips(self):
+        activity_tracker = ActivityTracker(0)
+
+        image_activity = self.human_record()
+        image_activity.url = "toto.png"
+
+        robot_activity = self.human_record()
+        robot_activity.raw_referer = "-"
+        robot_activity.user_ip = "111.111.111.111"
+        activity_tracker.register_activity(image_activity, robot_activity)
+
+        self.assertEquals(activity_tracker.no_referer_no_images_user_ips, set(["111.111.111.111"]))
+
+    def test_no_images_no_javascript_no_css_user_ips(self):
+        activity_tracker = ActivityTracker(0)
+
+        image_activity = self.human_record()
+        image_activity.url = "toto.png"
+        image_activity.user_ip = "9.9.9.9"
+
+        javascript_activity = self.human_record()
+        javascript_activity.url = "toto.js"
+        javascript_activity.user_ip = "8.8.8.8"
+
+        css_activity = self.human_record()
+        css_activity.url = "toto.css"
+        css_activity.user_ip = "7.7.7.7"
+
+        robot_activity = self.human_record()
+        robot_activity.raw_referer = "-"
+        robot_activity.user_ip = "111.111.111.111"
+        activity_tracker.register_activity(image_activity, javascript_activity, css_activity, robot_activity)
+
+        self.assertEquals(activity_tracker.no_referer_no_images_user_ips, set(["111.111.111.111"]))

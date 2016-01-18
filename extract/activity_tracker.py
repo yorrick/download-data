@@ -56,18 +56,36 @@ class ActivityTracker():
         return set(self.good_robot.keys())
 
     @cached_property
-    def bad_bots_user_ips(self):
-        no_referer = set(self.total.keys()).difference(self.referer_set.keys())
-        no_images = set(self.total.keys()).difference(self.image_fetched.keys())
-        lots_of_downloads = {user_ip for user_ip, count in self.downloads.items()
+    def lots_of_downloads_user_ips(self):
+        return {user_ip for user_ip, count in self.downloads.items()
                              if count > self.download_number_threshold}
 
-        robot_behaviour_user_ips = no_referer.intersection(no_images).intersection(lots_of_downloads)
+    @cached_property
+    def no_referer_no_images_user_ips(self):
+        no_referer = set(self.total.keys()).difference(self.referer_set.keys())
+        no_images = set(self.total.keys()).difference(self.image_fetched.keys())
+        return no_referer.intersection(no_images)
+
+    @cached_property
+    def no_images_no_javascript_no_css_user_ips(self):
+        no_images = set(self.total.keys()).difference(self.image_fetched.keys())
+        no_javascript = set(self.total.keys()).difference(self.javascript_fetched.keys())
+        no_css = set(self.total.keys()).difference(self.css_fetched.keys())
+
+        return no_images.intersection(no_javascript).intersection(no_css)
+
+    @cached_property
+    def bad_bots_user_ips(self):
+        lots_of_downloads = self.lots_of_downloads_user_ips
+        no_referer_no_images = self.no_referer_no_images_user_ips
+        no_images_no_javascript_no_css = self.no_images_no_javascript_no_css_user_ips
 
         bad_bots_user_ips = set(
             self.fetch_robots_txt.keys() +
             self.head_used.keys()
-        ).union(robot_behaviour_user_ips)
+        )\
+            .union(no_referer_no_images.intersection(lots_of_downloads))\
+            .union(no_images_no_javascript_no_css.intersection(lots_of_downloads))
 
         return bad_bots_user_ips.difference(self.good_bots_user_ips)
 

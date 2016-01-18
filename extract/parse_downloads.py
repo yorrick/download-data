@@ -40,7 +40,7 @@ def process_file(params):
 
     print(build_result_log(params.log_file, total, parsable, len(downloads), considered_human))
 
-    # print(activity_tracker.get_info_for_user_ip("41.83.44.215"))
+    print(activity_tracker.get_info_for_user_ip("41.83.44.215"))
 
     if params.verbose:
         print("Good robots user ips: {}".format(len(activity_tracker.good_bots_user_ips)))
