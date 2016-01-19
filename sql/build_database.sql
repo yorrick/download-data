@@ -8,7 +8,8 @@ DROP TABLE IF EXISTS journal;
 CREATE TABLE journal
 (
     id SERIAL PRIMARY KEY,
-    journal VARCHAR(20) not null
+    journal VARCHAR(20) not null,
+    full_oa BOOLEAN
 );
 
 
@@ -130,11 +131,23 @@ CREATE INDEX ON journal (journal);
 \copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
+-- client copy of CSV file, to journal table
+\copy journal(journal, full_oa) from /data/journals.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+
+
 INSERT INTO article(article, issue, volume, journal, publication_year) SELECT DISTINCT article, issue, volume, journal, publication_year FROM download;
 INSERT INTO issue(issue, volume, journal, publication_year) SELECT DISTINCT issue, volume, journal, publication_year FROM article;
 INSERT INTO volume(volume, journal) SELECT DISTINCT volume, journal FROM issue;
-INSERT INTO journal(journal) SELECT DISTINCT journal FROM volume;
 
+-- insert journal that do not exist in csv journal referential
+INSERT INTO journal(journal, full_oa)
+    (
+        SELECT DISTINCT
+            journal,
+            NULL :: BOOLEAN
+        FROM volume
+        WHERE journal NOT IN (SELECT journal FROM journal)
+    );
 
 -- set FK to volume, issue and article tables
 UPDATE volume SET journal_id = journal.id
@@ -190,7 +203,13 @@ UPDATE download SET online_year = issue.online_year
 FROM issue
 WHERE download.issue_id = issue.id;
 
-UPDATE download SET embargo = (download_year - online_year) <= 1;
+UPDATE download SET embargo = (download_year - online_year) <= 1
+FROM journal j
+WHERE journal_id = j.id AND j.full_oa IS FALSE OR j.full_oa IS NULL;
+
+UPDATE download SET embargo = FALSE
+FROM journal j
+WHERE journal_id = j.id AND j.full_oa IS TRUE;
 
 
 -- enforce constraints

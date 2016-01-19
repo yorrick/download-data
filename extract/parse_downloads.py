@@ -36,7 +36,7 @@ def process_file(params):
                 considered_human += 1
 
             if params.keep_robots or (not params.keep_robots and not is_robot):
-                csv_writer.writerow(record.to_csv_row() + [is_robot, bad_robot])
+                csv_writer.writerow(record.to_csv_row(params.journals) + [is_robot, bad_robot])
 
     print(build_result_log(params.log_file, total, parsable, len(downloads), considered_human))
 
@@ -49,22 +49,36 @@ def process_file(params):
         print(" ".join(activity_tracker.bad_bots_user_ips))
 
 
-ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots', 'verbose', 'download_number_threshold'])
+ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots',
+                                                   'verbose', 'download_number_threshold', 'journals'])
 
 
-def build_process_file_param_list(params):
-    return [ProcessFileParam(log_file, params.keep_robots, params.verbose, params.download_number_threshold)
+def build_process_file_param_list(params, journals):
+    return [ProcessFileParam(log_file, params.keep_robots,
+                             params.verbose, params.download_number_threshold, journals)
             for log_file in params.log_files]
+
+
+def write_journals_json_file(journals, file_path):
+    with codecs.open(file_path, "w", 'utf-8') as file:
+        csv_writer = csv.writer(file, delimiter=',',
+                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+        for row in journals.to_csv_rows():
+            csv_writer.writerow(row)
 
 
 if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
+    journals = build_journal_referential("journals.json")
+    write_journals_json_file(journals, "data/journals.csv")
+
     # debug mode enables single process execution to have access to stack traces
     if params.debug:
-        for param in build_process_file_param_list(params):
+        for param in build_process_file_param_list(params, journals):
             process_file(param)
     else:
         pool = mp.Pool(processes=params.processes)
         # pool.map(process_file, [(log_file, params.keep_robots) for log_file in params.log_files])
-        pool.map(process_file, build_process_file_param_list(params))
+        pool.map(process_file, build_process_file_param_list(params, journals))
