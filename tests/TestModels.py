@@ -27,6 +27,57 @@ class TestExtract(TestCase):
         self.assertFalse(record.is_image_download)
         self.assertTrue(record.is_article_download)
 
+    def test_html_is_considered_as_article_download(self):
+        record = Record(
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
+            "202.112.50.77",
+            "GET",
+            "/revue/ltp/1987/v43/n3/400333ar.html",
+            "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+            "202.112.50.77",
+            "-",
+            200,
+        )
+
+        self.assertFalse(record.is_css_download)
+        self.assertFalse(record.is_javascript_download)
+        self.assertFalse(record.is_image_download)
+        self.assertTrue(record.is_article_download)
+
+    def test_html_with_random_parameters_is_not_considered_as_article_download(self):
+        record = Record(
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
+            "202.112.50.77",
+            "GET",
+            "/revue/ltp/1987/v43/n3/400333ar.html?vue=biblio",
+            "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+            "202.112.50.77",
+            "-",
+            200,
+        )
+
+        self.assertFalse(record.is_css_download)
+        self.assertFalse(record.is_javascript_download)
+        self.assertFalse(record.is_image_download)
+        self.assertFalse(record.is_article_download)
+
+    def test_html_with_integral_view_is_considered_as_article_download(self):
+        record = Record(
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
+            "202.112.50.77",
+            "GET",
+            "/revue/ltp/1987/v43/n3/400333ar.html?vue=integral",
+            "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+            "202.112.50.77",
+            "-",
+            200,
+        )
+
+        self.assertFalse(record.is_css_download)
+        self.assertFalse(record.is_javascript_download)
+        self.assertFalse(record.is_image_download)
+        self.assertTrue(record.is_article_download)
+
     def test_download_flags_for_image_download(self):
         record = Record(
             get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
