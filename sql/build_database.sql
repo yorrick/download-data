@@ -57,27 +57,41 @@ CREATE TABLE download
     proxy_ip VARCHAR(20) not null,
     user_ip VARCHAR(32) not null,
     url VARCHAR(500) not null,
+
+    -- TODO remove those fields
     referer VARCHAR(500),
+
     referer_host VARCHAR(500),
     continent VARCHAR(10),
     country VARCHAR(100),
     geo_coordinates VARCHAR(100),
     timezone VARCHAR(100),
+
+    -- TODO remove those fields
     user_agent VARCHAR(100),
+
     browser VARCHAR(200),
     os VARCHAR(200),
     device VARCHAR(200),
+
+    -- TODO remove those fields
     journal VARCHAR(20) not null,
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
     article VARCHAR(20) not null,
+
+    -- TODO remove this column and use issue.publication_year instead
     publication_year integer not null,
+
     age integer not null,
     is_robot boolean,
     is_bad_robot boolean,
     download_year integer,
     download_hour integer,  -- local hour in IP's timezone: can be null, since geo location sometimes cannot find a timezone
+
+    -- TODO remove this column and use issue.online_year instead
     online_year integer,
+    -- TODO move this field to issue table
     embargo boolean
 );
 
@@ -153,13 +167,6 @@ UPDATE download SET volume_id = issue.volume_id FROM issue where download.issue_
 UPDATE download SET journal_id = volume.journal_id FROM volume where download.volume_id = volume.id;
 UPDATE download SET download_year = EXTRACT(YEAR FROM time);
 UPDATE download SET download_hour = EXTRACT(HOUR FROM local_time);
-
-
--- compute publication_year for issue using download publication_year (extracted from url)
--- (MIN(publication_year) is just a way to select a single year, we could have used MAX also as all year are the same)
---UPDATE issue SET publication_year = publication_data.year
---FROM (SELECT MIN(publication_year) AS year, issue_id FROM download GROUP BY issue_id) AS publication_data
---WHERE issue.id = publication_data.issue_id;
 
 
 -- compute online_year for each issue (articles in the same issue are all published at the same time)
