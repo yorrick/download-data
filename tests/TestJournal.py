@@ -28,3 +28,22 @@ class TestJournal(TestCase):
     def test_build_full_referential(self):
         # tests that no fail happens
         build_journal_referential("journals.json")
+
+    def test_to_csv_rows(self):
+        journals = JournalReferential([
+                {
+                "id": "crimino",
+                "names": [
+                  {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
+                  {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
+                ],
+                "domains": [
+                  "Droit", "Sociologie"
+                ],
+                "full_oa": False
+                }
+            ])
+
+        self.assertEquals(list(journals.to_csv_rows()), [
+            ["crimino", False]
+        ])

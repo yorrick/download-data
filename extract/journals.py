@@ -38,6 +38,12 @@ class JournalReferential():
     def is_journal_full_oa(self, journal_id):
         return self._journal_full_oa.get(journal_id, '')
 
+    def to_csv_rows(self):
+        return (
+            [_get_journal_id(j), _get_journal_full_oa(j)]
+            for j in self.journals
+        )
+
 
 def build_journal_referential(file_path):
     with codecs.open(file_path, "r", "utf-8") as journal_file:
