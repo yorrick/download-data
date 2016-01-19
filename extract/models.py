@@ -185,7 +185,7 @@ class Record():
     def age(self):
         return self.year - self.publication_year if self.publication_year else ''
 
-    def to_csv_row(self):
+    def to_csv_row(self, journals):
         return [
             self.time,
             self.local_time,
@@ -205,7 +205,7 @@ class Record():
             self.os[:200],
             self.device[:200],
 
-            self.journal_name[:20],
+            journals.get_journal_id(self.journal_name)[:20],
             self.volume[:20],
             self.issue[:20],
             self.publication_year,

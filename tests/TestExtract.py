@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from extract.extract import *
+from extract.journals import *
 from extract.activity_tracker import *
 from datetime import datetime
 from unittest import TestCase
@@ -256,7 +257,21 @@ class TestExtract(TestCase):
             http_response_code="100"
         )
 
-        self.assertEquals(record.to_csv_row(), [
+        journals = JournalReferential([
+                {
+                "id": "crimino",
+                "names": [
+                  {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
+                  {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
+                ],
+                "domains": [
+                  "Droit", "Sociologie"
+                ],
+                "full_oa": False
+                }
+            ])
+
+        self.assertEquals(record.to_csv_row(journals), [
             "2015-03-03 23:59:55",
             "2015-03-04 12:59:55",
             '202.112.50.77',
@@ -272,7 +287,7 @@ class TestExtract(TestCase):
             'Firefox',
             'Mac OS X',
             'Other',
-            'ac',
+            'crimino',
             'v6',
             'n1',
             1995,
