@@ -14,20 +14,3 @@ def parse_argv(argv):
                    help='Name of log files that must be processed')
 
     return parser.parse_args(argv[1:])
-
-
-do
-$$
-declare
-  wrong_embargo integer;
-begin
-  select count(*)
-  into wrong_embargo
-  from download d, journal j
-  where d.journal_id = j.id and d.embargo is true and j.full_oa is true;
-
-  if (wrong_embargo > 0) then
-    raise exception 'No download from a full oa journal should have embargo = true';
-  end if;
-end;
-$$
