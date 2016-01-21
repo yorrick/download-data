@@ -3,6 +3,7 @@ $$
 declare
   wrong_online_year integer;
   wrong_embargo integer;
+  domain_count integer;
 begin
   select count(*)
   into wrong_online_year
@@ -23,5 +24,16 @@ begin
   if (wrong_embargo > 0) then
     raise exception 'No download from a full oa journal should have embargo = true';
   end if;
+
+
+  select count(*)
+  into domain_count
+  from domain;
+
+  if (domain_count = 0) then
+    raise exception 'No domains have been created';
+  end if;
+
+
 end;
 $$

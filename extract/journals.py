@@ -38,10 +38,16 @@ class JournalReferential():
     def is_journal_full_oa(self, journal_id):
         return self._journal_full_oa.get(journal_id, '')
 
-    def to_csv_rows(self):
+    def to_journal_csv_rows(self):
         return (
-            [_get_journal_id(j), _get_journal_full_oa(j)]
+            [_get_journal_id(j)[:20], _get_journal_full_oa(j)]
             for j in self.journals
+        )
+
+    def to_domain_csv_rows(self):
+        return (
+            [_get_journal_id(j)[:20], domain[:30]]
+            for j in self.journals for domain in _get_journal_domains(j)
         )
 
 
