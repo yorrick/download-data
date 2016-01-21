@@ -59,12 +59,17 @@ def build_process_file_param_list(params, journals):
             for log_file in params.log_files]
 
 
-def write_journals_json_file(journals, file_path):
-    with codecs.open(file_path, "w", 'utf-8') as file:
-        csv_writer = csv.writer(file, delimiter=',',
-                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+def write_journals_json_file(journals, journals_file_path, domains_file_path):
+    with codecs.open(journals_file_path, "w", 'utf-8') as journals_file:
+        csv_writer = csv.writer(journals_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-        for row in journals.to_csv_rows():
+        for row in journals.to_journal_csv_rows():
+            csv_writer.writerow(row)
+
+    with codecs.open(domains_file_path, "w", 'utf-8') as domains_file:
+        csv_writer = csv.writer(domains_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+        for row in journals.to_domain_csv_rows():
             csv_writer.writerow(row)
 
 
@@ -72,7 +77,7 @@ if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
     journals = build_journal_referential("journals.json")
-    write_journals_json_file(journals, "data/journals.csv")
+    write_journals_json_file(journals, "data/journal.csv", "data/journal-domain.csv")
 
     # debug mode enables single process execution to have access to stack traces
     if params.debug:
