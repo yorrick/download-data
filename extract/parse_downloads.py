@@ -40,7 +40,8 @@ def process_file(params):
 
     print(build_result_log(params.log_file, total, parsable, len(downloads), considered_human))
 
-    print(activity_tracker.get_info_for_user_ip("41.83.44.215"))
+    if params.print_stats_for_ip is not None:
+        print(activity_tracker.get_info_for_user_ip(params.print_stats_for_ip))
 
     if params.verbose:
         print("Good robots user ips: {}".format(len(activity_tracker.good_bots_user_ips)))
@@ -50,12 +51,14 @@ def process_file(params):
 
 
 ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots',
-                                                   'verbose', 'download_number_threshold', 'journals'])
+                                                   'verbose', 'download_number_threshold',
+                                                   'journals', 'print_stats_for_ip'])
 
 
 def build_process_file_param_list(params, journals):
     return [ProcessFileParam(log_file, params.keep_robots,
-                             params.verbose, params.download_number_threshold, journals)
+                             params.verbose, params.download_number_threshold,
+                             journals, params.print_stats_for_ip)
             for log_file in params.log_files]
 
 
