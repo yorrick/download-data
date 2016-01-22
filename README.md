@@ -10,6 +10,10 @@ source ~/virtualenvs/download-data/bin/activate
 pip install -r requirements.txt
 ```
 
+## Release notes
+
+See [this file](release-notes.md) to keep track of changes along versions.
+
 
 ## Run tests
 ```
