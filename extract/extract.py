@@ -2,6 +2,7 @@
 from __future__ import print_function
 import re
 from models import *
+from datetime import date
 
 
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -49,7 +50,7 @@ def build_download_list(log_lines, activity_tracker):
 
         record = extract(log_line)
 
-        if record is not None:
+        if record is not None and record.publication_year <= date.today().year:
             parsable += 1
             activity_tracker.register_activity(record)
 

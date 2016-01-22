@@ -22,6 +22,14 @@ class TestExtract(TestCase):
         self.assertEquals(parsable, 2)
         self.assertEquals(len(downloads), 1)
 
+    def test_build_download_list_with_future_dates_are_considered_as_not_parsable(self):
+        downloads, total, parsable = build_download_list([
+            """2015-03-03 23:59:55 52.16.55.221 GET /revue/ac/2033/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973""",
+        ], ActivityTracker(0))
+
+        self.assertEquals(total, 1)
+        self.assertEquals(parsable, 0)
+
     def test_line_extract_1(self):
 
         line = """2015-03-03 23:59:55 52.16.55.221 GET /revue/ac/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973"""
