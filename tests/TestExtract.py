@@ -32,7 +32,7 @@ class TestExtract(TestCase):
 
     def test_line_extract_1(self):
 
-        line = """2015-03-03 23:59:55 52.16.55.221 GET /revue/ac/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973"""
+        line = """2015-03-03 23:59:55 52.16.55.221 GET /revue/ac/1995/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.google.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973"""
         record = extract(line)
         self.assertIsNotNone(record)
 
@@ -47,8 +47,8 @@ class TestExtract(TestCase):
         self.assertEqual(record.local_year, 2015)
         self.assertEqual(record.local_hour, 4)
 
-        self.assertEqual(record.referer, "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127")
-        self.assertEqual(record.referer_host, "www.bing.com")
+        self.assertEqual(record.referer, "http://www.google.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127")
+        self.assertEqual(record.referer_host, "google")
 
         self.assertEqual(record.user_ip, "52.16.55.221")
         self.assertEqual(record.continent, "EU")
@@ -286,7 +286,7 @@ class TestExtract(TestCase):
             '202.112.50.77',
             '/revue/ac/1995/v6/n1/031091ar.pdf',
             'http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127',
-            'www.bing.com',
+            'bing',
             'AS',
             'China',
             "23.1167, 113.25",

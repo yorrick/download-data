@@ -94,3 +94,56 @@ class TestExtract(TestCase):
         self.assertFalse(record.is_javascript_download)
         self.assertTrue(record.is_image_download)
         self.assertFalse(record.is_article_download)
+
+    def test_clean_referer_host_mail(self):
+        self.assertEquals(clean_referer_host("http://mail.google.com"), "email")
+        self.assertEquals(clean_referer_host("http://mail.yahoo.com"), "email")
+
+    def test_clean_referer_host_search_engine(self):
+        self.assertEquals(clean_referer_host("http://www.google.com"), "google")
+        self.assertEquals(clean_referer_host("http://www.google.it"), "google")
+        self.assertEquals(clean_referer_host("http://www.google.tn"), "google")
+        self.assertEquals(clean_referer_host("http://www.google.co.uk"), "google")
+        self.assertEquals(clean_referer_host("http://www.google.co.ma"), "google")
+        self.assertEquals(clean_referer_host("http://www.bing.com"), "bing")
+
+    def test_clean_referer_host_scholar(self):
+        self.assertEquals(clean_referer_host("http://scholar.google.com"), "scholar")
+
+    def test_clean_referer_host_google_images(self):
+        self.assertEquals(clean_referer_host("http://images.google.fr"), "google images")
+
+    def test_clean_referer_host_google_translate(self):
+        self.assertEquals(clean_referer_host("http://translate.google.com.vn/translate_p?hl=vi&langpair=en%7Cvi&u"), "google translate")
+
+    def test_clean_referer_host_erudit(self):
+        self.assertEquals(clean_referer_host("http://www.erudit.org/livre/aidelf/1988/000855co.pdf"), "erudit")
+
+    def test_clean_referer_host_repere(self):
+        self.assertEquals(clean_referer_host("http://repere.sdm.qc.ca/ipac20/ipac.jsp?session=13A11O56428H5.104373&profile=main--2frc&sourc"), "repere")
+        self.assertEquals(clean_referer_host("http://repere2.sdm.qc.ca/ipac20/ipac.jsp?session=13A11O56428H5.104373&profile=main--2frc&sourc"), "repere")
+
+    def test_clean_referer_host_teluq(self):
+        self.assertEquals(clean_referer_host("http://benhur.teluq.uquebec.ca/~carrefou/carrefour310113.html"), "teluq")
+
+    def test_clean_referer_host_facebook(self):
+        self.assertEquals(clean_referer_host("http://www.facebook.com/l.php?u=http%3A%2F%2Fwww.erudit.org%2Frevue%2Fsmq%2F1990%2Fv15%2Fn2%2F031566ar.pdf&h=8cc09"), "facebook.com")
+
+    def test_clean_referer_host_wikipedia(self):
+        self.assertEquals(clean_referer_host("http://en.wikipedia.org"), "wikipedia")
+
+    def test_clean_referer_host_unknown(self):
+        self.assertEquals(clean_referer_host("http://www.toto.org"), "toto.org")
+        self.assertEquals(clean_referer_host("http://www.ncbi.nlm.nih.gov"), "ncbi.nlm.nih.gov")
+        self.assertEquals(clean_referer_host("http://ncbi.nlm.nih.gov"), "ncbi.nlm.nih.gov")
+        self.assertEquals(clean_referer_host("http://ncbi.www.nlm.nih.gov"), "ncbi.www.nlm.nih.gov")
+
+    def test_clean_referer_host_empty_host(self):
+        self.assertEquals(clean_referer_host("http://"), "")
+
+    def test_clean_referer_host_unknown(self):
+        self.assertEquals(clean_referer_host("http://www.toto.org"), "toto.org")
+        self.assertEquals(clean_referer_host("http://www.ncbi.nlm.nih.gov"), "ncbi.nlm.nih.gov")
+        self.assertEquals(clean_referer_host("http://ncbi.nlm.nih.gov"), "ncbi.nlm.nih.gov")
+        self.assertEquals(clean_referer_host("http://ncbi.www.nlm.nih.gov"), "ncbi.www.nlm.nih.gov")
+

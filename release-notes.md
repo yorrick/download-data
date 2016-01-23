@@ -6,3 +6,6 @@
 * Bad robot are detected using per day, IP based activity stats.
 * Domains are associated to domains.
 
+## v0.2
+
+* Referer support: similar referers are grouped into categories

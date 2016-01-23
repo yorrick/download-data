@@ -7,7 +7,7 @@ from datetime import datetime
 from countries import COUNTRIES
 from user_agents import parse
 import re
-from collections import OrderedDict
+from referer_parser import Referer
 
 
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
@@ -81,7 +81,7 @@ class Record():
             return ''
         else:
             # return '' if url could not be parsed
-            return urlparse(self.referer).netloc
+            return clean_referer_host(self.referer)
 
     @cached_property
     def _geo_location(self):
@@ -157,14 +157,6 @@ class Record():
     def journal_name(self):
         return self._journal_match["name"].lower() if self._journal_match else ''
 
-    # @cached_property
-    # def journal_domain(self):
-    #     return self.journal_referential.get_journal_first_domain(self.journal_name) if self.journal_name else ''
-    #
-    # @cached_property
-    # def full_oa(self):
-    #     return self.journal_referential.is_journal_full_oa(self.journal_name) if self.journal_name else ''
-
     @cached_property
     def publication_year(self):
         return int(self._journal_match["year"]) if self._journal_match else ''
@@ -227,3 +219,54 @@ def compute_ip_geo_location(raw_ip):
 @memoize_single_arg
 def compute_user_agent(raw_user_agent):
     return parse(raw_user_agent)
+
+
+SEARCH_MEDIUM_REFERERS = {
+    "scholar.google": "scholar",
+    "translate.google.": "google translate",
+}
+
+
+UNKNOWN_MEDIUM_REFERERS = {
+    "erudit.": "erudit",
+    "repere.sdm.qc.ca": "repere",
+    "repere2.sdm.qc.ca": "repere",
+    "teluq.uquebec.ca": "teluq",
+    "google.tn": "google",
+    "wikipedia.org": "wikipedia",
+}
+
+
+def _strip_www(string):
+    return re.sub(r"""^www.""", "", string)
+
+
+def _replace_referer_with(r, replacement_dict):
+    special_referers = [referer for string, referer in replacement_dict.items()
+                            if string in r.uri.netloc]
+
+    if special_referers:
+        # take first
+        return special_referers[0].lower()
+
+    if r.referer is not None:
+        return r.referer.lower()
+    else:
+        return _strip_www(r.uri.netloc)
+
+
+def clean_referer_host(referer_host):
+    try:
+        r = Referer(referer_host)
+    except Exception as e:
+        return ''
+
+    if r.medium == "email":
+        return "email"
+    elif r.medium == "search":
+        return _replace_referer_with(r, SEARCH_MEDIUM_REFERERS)
+    elif r.medium == "unknown":
+        return _replace_referer_with(r, UNKNOWN_MEDIUM_REFERERS)
+    else:
+        return _strip_www(r.uri.netloc)
+
