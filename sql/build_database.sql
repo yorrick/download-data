@@ -101,7 +101,6 @@ CREATE TABLE download
 
     -- TODO remove this column and use issue.online_year instead
     online_year integer,
-    -- TODO move this field to issue table
     embargo boolean
 );
 
@@ -214,8 +213,12 @@ FROM issue
 WHERE download.issue_id = issue.id;
 
 UPDATE download SET embargo = (download_year - online_year) <= 1
-FROM journal j
-WHERE journal_id = j.id AND j.full_oa IS FALSE OR j.full_oa IS NULL;
+FROM journal j --, issue i
+WHERE
+--    issue_id = i.id
+--    AND
+    journal_id = j.id
+    AND j.full_oa IS FALSE OR j.full_oa IS NULL;
 
 UPDATE download SET embargo = FALSE
 FROM journal j
@@ -238,6 +241,7 @@ ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
 
 
 -- cleanup columns that were only used to build schema
+ALTER TABLE download DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN article;
 ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
