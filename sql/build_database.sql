@@ -84,7 +84,7 @@ CREATE TABLE download
     os VARCHAR(200),
     device VARCHAR(200),
 
-    -- TODO remove those fields
+    -- temporary fields, removed when article, issue, volume, and journal tables are built
     journal VARCHAR(20) not null,
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
@@ -93,19 +93,19 @@ CREATE TABLE download
     -- TODO remove this column and use issue.publication_year instead
     publication_year integer not null,
 
-    age integer not null,
+    age integer not null,  -- age of article, at the moment of download
     is_robot boolean,
     is_bad_robot boolean,
-    download_year integer,
-    download_hour integer,  -- local hour in IP's timezone: can be null, since geo location sometimes cannot find a timezone
 
     -- TODO remove this column and use issue.online_year instead
     online_year integer,
     embargo boolean
 );
 
-CREATE INDEX ON download (download_year);
-CREATE INDEX ON download (download_hour);
+CREATE INDEX download_year ON download (EXTRACT(YEAR FROM time));
+-- local hour in IP's timezone: can be null, since geo location sometimes cannot find a timezone
+CREATE INDEX download_hour ON download (EXTRACT(HOUR FROM local_time));
+
 CREATE INDEX ON download (publication_year);
 CREATE INDEX ON download (article);
 CREATE INDEX ON download (article_id);
@@ -187,23 +187,20 @@ WHERE
 UPDATE download SET issue_id = article.issue_id FROM article where download.article_id = article.id;
 UPDATE download SET volume_id = issue.volume_id FROM issue where download.issue_id = issue.id;
 UPDATE download SET journal_id = volume.journal_id FROM volume where download.volume_id = volume.id;
-UPDATE download SET download_year = EXTRACT(YEAR FROM time);
-UPDATE download SET download_hour = EXTRACT(HOUR FROM local_time);
-
 
 -- compute online_year for each issue (articles in the same issue are all published at the same time)
--- for issues that where published after earliest year of sample (2010, or (SELECT MIN(download_year) FROM download))
+-- for issues that where published after earliest year of sample (2010, or (SELECT MIN(EXTRACT(YEAR FROM time)) FROM download))
 -- before that, we have no data to compute a more accurate online_year, we'll just consider that online_year = publication_year
 UPDATE issue SET online_year = online_data.year
 FROM
-    (SELECT MIN(download_year) AS year, issue_id FROM download GROUP BY issue_id) AS online_data
+    (SELECT MIN(EXTRACT(YEAR FROM time)) AS year, issue_id FROM download GROUP BY issue_id) AS online_data
 WHERE
     issue.id = online_data.issue_id
-    and issue.publication_year >= (SELECT MIN(download_year) FROM download);
+    and issue.publication_year >= (SELECT MIN(EXTRACT(YEAR FROM time)) FROM download);
 
--- set online_year for issues that were published before earliest year of sample (2010, or (SELECT MIN(download_year) FROM download))
+-- set online_year for issues that were published before earliest year of sample (2010, or (SELECT MIN(EXTRACT(YEAR FROM time)) FROM download))
 UPDATE issue SET online_year = publication_year
-WHERE publication_year < (SELECT MIN(download_year) FROM download);
+WHERE publication_year < (SELECT MIN(EXTRACT(YEAR FROM time)) FROM download);
 
 
 -- compute embargo flag for downloads: true means downloaded article is under embargo, false means article was freely available
@@ -212,11 +209,11 @@ UPDATE download SET online_year = issue.online_year
 FROM issue
 WHERE download.issue_id = issue.id;
 
-UPDATE download SET embargo = (download_year - online_year) <= 1
+UPDATE download SET embargo = (EXTRACT(YEAR FROM time) - online_year) <= 1
 FROM journal j --, issue i
 WHERE
---    issue_id = i.id
---    AND
+    --issue_id = i.id
+    --AND
     journal_id = j.id
     AND j.full_oa IS FALSE OR j.full_oa IS NULL;
 
@@ -230,7 +227,6 @@ ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN issue_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN volume_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN journal_id SET NOT NULL;
-ALTER TABLE download ALTER COLUMN download_year SET NOT NULL;
 ALTER TABLE download ALTER COLUMN online_year SET NOT NULL;
 ALTER TABLE download ALTER COLUMN embargo SET NOT NULL;
 ALTER TABLE article ALTER COLUMN issue_id SET NOT NULL;
@@ -245,3 +241,4 @@ ALTER TABLE download DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue,
 ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
+
