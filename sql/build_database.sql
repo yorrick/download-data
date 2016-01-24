@@ -98,31 +98,10 @@ CREATE TABLE download
 CREATE INDEX download_year ON download (EXTRACT(YEAR FROM time));
 -- local hour in IP's timezone: can be null, since geo location sometimes cannot find a timezone
 CREATE INDEX download_hour ON download (EXTRACT(HOUR FROM local_time));
-
--- TODO cleanup indexes
-CREATE INDEX ON download (publication_year);
-CREATE INDEX ON download (article);
-CREATE INDEX ON download (article_id);
-CREATE INDEX ON download (issue);
-CREATE INDEX ON download (volume);
-CREATE INDEX ON download (journal);
 CREATE INDEX ON download (country);
-
-CREATE INDEX ON article (journal);
-CREATE INDEX ON article (volume);
-CREATE INDEX ON article (issue);
-CREATE INDEX ON article (issue_id);
 CREATE INDEX ON article (article);
-
-CREATE INDEX ON issue (journal);
-CREATE INDEX ON issue (volume);
-CREATE INDEX ON issue (volume_id);
 CREATE INDEX ON issue (issue);
-
-CREATE INDEX ON volume (journal);
-CREATE INDEX ON volume (journal_id);
 CREATE INDEX ON volume (volume);
-
 CREATE INDEX ON journal (full_oa);
 
 
@@ -213,7 +192,6 @@ WHERE
 
 -- enforce constraints
 ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
---ALTER TABLE download ALTER COLUMN online_year SET NOT NULL;
 ALTER TABLE download ALTER COLUMN embargo SET NOT NULL;
 ALTER TABLE article ALTER COLUMN issue_id SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN volume_id SET NOT NULL;
