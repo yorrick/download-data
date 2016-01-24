@@ -23,7 +23,7 @@ def process_file(params):
 
     activity_tracker = ActivityTracker(params.download_number_threshold)
 
-    with codecs.open(download_output_file, "w", 'utf-8') as download_result_file:
+    with codecs.open(download_output_file, "wb") as download_result_file:
         csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         downloads, total, parsable = build_download_list(get_lines(params.log_file, LOG_FILE_ENCODING), activity_tracker)
@@ -36,7 +36,7 @@ def process_file(params):
                 considered_human += 1
 
             if params.keep_robots or (not params.keep_robots and not is_robot):
-                csv_writer.writerow(record.to_csv_row(params.journals) + [is_robot, bad_robot])
+                csv_writer.writerow(to_byte_string(record.to_csv_row(params.journals)) + [is_robot, bad_robot])
 
     print(build_result_log(params.log_file, total, parsable, len(downloads), considered_human))
 
@@ -62,18 +62,22 @@ def build_process_file_param_list(params, journals):
             for log_file in params.log_files]
 
 
+def to_byte_string(row):
+    return [unicode(v).encode("utf-8") for v in row]
+
+
 def write_journals_json_file(journals, journals_file_path, domains_file_path):
-    with codecs.open(journals_file_path, "w", 'utf-8') as journals_file:
+    with codecs.open(journals_file_path, "wb") as journals_file:
         csv_writer = csv.writer(journals_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         for row in journals.to_journal_csv_rows():
-            csv_writer.writerow(row)
+            csv_writer.writerow(to_byte_string(row))
 
-    with codecs.open(domains_file_path, "w", 'utf-8') as domains_file:
+    with codecs.open(domains_file_path, "wb") as domains_file:
         csv_writer = csv.writer(domains_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         for row in journals.to_domain_csv_rows():
-            csv_writer.writerow(row)
+            csv_writer.writerow(to_byte_string(row))
 
 
 if __name__ == "__main__":
