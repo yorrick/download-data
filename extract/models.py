@@ -184,7 +184,6 @@ class Record():
             self.proxy_ip[:20],
             self.user_ip[:32],
             self.url[:500],
-            self.referer[:500],
             self.referer_host[:100],
 
             self.continent[:10] if self.continent else '',
@@ -192,7 +191,6 @@ class Record():
             self.geo_coordinates[:100] if self.geo_coordinates else '',
             self.timezone[:100] if self.timezone else '',
 
-            self.raw_user_agent[:100],
             self.browser[:200],
             self.os[:200],
             self.device[:200],

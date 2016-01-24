@@ -65,17 +65,11 @@ CREATE TABLE download
     user_ip VARCHAR(32) not null,
     url VARCHAR(500) not null,
 
-    -- TODO remove those fields
-    referer VARCHAR(500),
-
     referer_host VARCHAR(500),
     continent VARCHAR(10),
     country VARCHAR(100),
     geo_coordinates VARCHAR(100),
     timezone VARCHAR(100),
-
-    -- TODO remove those fields
-    user_agent VARCHAR(100),
 
     browser VARCHAR(200),
     os VARCHAR(200),
@@ -106,7 +100,7 @@ CREATE INDEX ON journal (full_oa);
 
 
 -- client copy of CSV file, to download table
-\copy download(time, local_time, proxy_ip, user_ip, url, referer, referer_host, continent, country, geo_coordinates, timezone, user_agent, browser, os, device, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy download(time, local_time, proxy_ip, user_ip, url, referer_host, continent, country, geo_coordinates, timezone, browser, os, device, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
 -- client copy of CSV file, to journal table
