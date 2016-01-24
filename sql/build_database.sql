@@ -86,16 +86,12 @@ CREATE TABLE download
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
     article VARCHAR(20) not null,
-
-    -- TODO remove this column and use issue.publication_year instead
     publication_year integer not null,
 
     age integer not null,  -- age of article, at the moment of download
     is_robot boolean,
     is_bad_robot boolean,
 
-    -- TODO remove this column and use issue.online_year instead
---    online_year integer,
     embargo boolean
 );
 
@@ -227,7 +223,7 @@ ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
 
 
 -- cleanup columns that were only used to build schema
-ALTER TABLE download DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN article;
+ALTER TABLE download DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN article, DROP COLUMN publication_year;
 ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
