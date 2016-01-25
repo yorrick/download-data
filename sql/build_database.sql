@@ -199,4 +199,3 @@ ALTER TABLE download DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue,
 ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
-
