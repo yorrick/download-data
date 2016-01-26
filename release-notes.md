@@ -9,3 +9,7 @@
 ## v0.2
 
 * Referer support: similar referers are grouped into categories
+
+## v0.3
+
+* Database optimization: relations have been normalized to improve DB creation time, DB disk space, and query speed
