@@ -15,6 +15,20 @@ pip install -r requirements.txt
 See [this file](release-notes.md) to keep track of changes along versions.
 
 
+## Random file sampling
+
+./random-select.R  is used to select random samples among files.
+It is stable (it always returns the same results if given the same parameters), and takes as argument:  
+ * path to directory containg log files
+ * year of log file (11 for 2011, 15 for 2015)
+ * number of log files to draw
+ 
+Drawn log file names are printed on console.
+
+```
+./random-select.R data 11 30
+```
+
 ## Run tests
 ```
 nosetests
