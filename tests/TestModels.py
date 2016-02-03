@@ -95,6 +95,34 @@ class TestExtract(TestCase):
         self.assertTrue(record.is_image_download)
         self.assertFalse(record.is_article_download)
 
+    def test_geo_location_must_be_set_when_possible(self):
+        record = Record(
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
+            "202.112.50.77",
+            "GET",
+            "toto.png",
+            "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+            "202.112.50.77",
+            "-",
+            200,
+        )
+
+        self.assertEquals(record.country, "China")
+
+    def test_geo_location_should_be_empty_when_user_ip_is_not_readable(self):
+        record = Record(
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
+            "202.112.50.77",
+            "GET",
+            "toto.png",
+            "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+            "-",
+            "-",
+            200,
+        )
+
+        self.assertEquals(record.country, "")
+
     def test_clean_referer_host_mail(self):
         self.assertEquals(clean_referer_host("http://mail.google.com"), "email")
         self.assertEquals(clean_referer_host("http://mail.yahoo.com"), "email")
