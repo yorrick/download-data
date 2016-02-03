@@ -18,4 +18,6 @@
 
 * Added R script to draw samples from log file set
 
+## v0.5
 
+* More robust ip parsing for geolocation
