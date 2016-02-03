@@ -95,7 +95,6 @@ class Record():
     def country(self):
         return COUNTRIES.get(self._geo_location.country, self._geo_location.country) if self._geo_location else ''
 
-
     @cached_property
     def geo_coordinates(self):
         if self._geo_location:
@@ -207,10 +206,10 @@ class Record():
 
 @memoize_single_arg
 def compute_ip_geo_location(raw_ip):
-    # some ips look like 129.195.207.79, 129.195.0.205 and are not valid
-    if not "," in raw_ip:
+    # some ips look like 129.195.207.79, 129.195.0.205 and are not valid, others look like "-"
+    try:
         return geolite2.lookup(raw_ip)
-    else:
+    except Exception as e:
         return None
 
 
