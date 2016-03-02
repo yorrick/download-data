@@ -50,11 +50,11 @@ def build_download_list(log_lines, activity_tracker):
 
         record = extract(log_line)
 
-        if record is not None and record.publication_year <= date.today().year:
+        if record is not None:
             parsable += 1
             activity_tracker.register_activity(record)
 
-            if record.is_article_download:
+            if record.is_article_download and record.publication_year <= date.today().year:
                 downloads.append(record)
         else:
             pass
