@@ -43,7 +43,7 @@ nosetests
 ./extract/parse_downloads.py \
     [--debug] \
     [--keep-robots] \
-    [--download-number-threshold 100] \
+    [--total-number-threshold 100] \
     [--print-stats-for-ip 111.111.111.111] \
     data/*.log && cat data/*.log.csv > data/all.log.csv
 ```

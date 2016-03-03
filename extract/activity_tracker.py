@@ -6,8 +6,8 @@ from common import *
 
 class ActivityTracker():
 
-    def __init__(self, download_number_threshold):
-        self.download_number_threshold = download_number_threshold
+    def __init__(self, total_number_threshold):
+        self.total_number_threshold = total_number_threshold
 
         self.total = defaultdict(lambda: 0)
         self.downloads = defaultdict(lambda: 0)
@@ -57,8 +57,8 @@ class ActivityTracker():
 
     @cached_property
     def lots_of_downloads_user_ips(self):
-        return {user_ip for user_ip, count in self.downloads.items()
-                             if count > self.download_number_threshold}
+        return {user_ip for user_ip, count in self.total.items()
+                             if count > self.total_number_threshold}
 
     @cached_property
     def no_referer_no_images_user_ips(self):
