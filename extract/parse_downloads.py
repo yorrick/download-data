@@ -21,7 +21,7 @@ def process_file(params):
 
     considered_human = 0
 
-    activity_tracker = ActivityTracker(params.download_number_threshold)
+    activity_tracker = ActivityTracker(params.total_number_threshold)
 
     with codecs.open(download_output_file, "wb") as download_result_file:
         csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -51,13 +51,13 @@ def process_file(params):
 
 
 ProcessFileParam = namedtuple('ProcessFileParam', ['log_file', 'keep_robots',
-                                                   'verbose', 'download_number_threshold',
+                                                   'verbose', 'total_number_threshold',
                                                    'journals', 'print_stats_for_ip'])
 
 
 def build_process_file_param_list(params, journals):
     return [ProcessFileParam(log_file, params.keep_robots,
-                             params.verbose, params.download_number_threshold,
+                             params.verbose, params.total_number_threshold,
                              journals, params.print_stats_for_ip)
             for log_file in params.log_files]
 

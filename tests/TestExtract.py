@@ -22,13 +22,13 @@ class TestExtract(TestCase):
         self.assertEquals(parsable, 2)
         self.assertEquals(len(downloads), 1)
 
-    def test_build_download_list_with_future_dates_are_considered_as_not_parsable(self):
+    def test_build_download_list_with_future_dates_are_parsable(self):
         downloads, total, parsable = build_download_list([
             """2015-03-03 23:59:55 52.16.55.221 GET /revue/ac/2033/v6/n1/031091ar.pdf HTTP/1.1 - 80 - 52.16.55.221 "curl/7.35.0" "http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127" 200 1306973""",
         ], ActivityTracker(0))
 
         self.assertEquals(total, 1)
-        self.assertEquals(parsable, 0)
+        self.assertEquals(parsable, 1)
 
     def test_line_extract_1(self):
 
@@ -194,6 +194,12 @@ class TestExtract(TestCase):
         record = extract(line)
         self.assertIsNotNone(record)
 
+    def test_line_extract_10(self):
+        """Urls starting with http should be parsed"""
+        line = """2014-03-05 03:26:07 5.57.6.26 GET http://www.erudit.org/images/hautOngletsRevue.png HTTP/1.1 - 80 - 5.57.6.26 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:27.0) Gecko/20100101 Firefox/27.0" "http://www.erudit.org/css/general.css" 206 128"""
+        record = extract(line)
+        self.assertIsNotNone(record)
+
     def test_get_lines(self):
         lines = get_lines(path.join(BASE_DIR, "test-log.log"))
         self.assertEquals(len(list(lines)), 4)
@@ -244,6 +250,21 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "GET",
             "/revue/ltp/1987/v43/n3/400333ar.pdf",
+            "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+            "202.112.50.77",
+            "-",
+            200,
+        )
+
+        self.assertTrue(record.is_article_download)
+        self.assertEquals(record.article_id, "400333")
+
+    def test_simple_http_extract_article_id(self):
+        record = Record(
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
+            "202.112.50.77",
+            "GET",
+            "https://www.erudit.org/revue/ltp/1987/v43/n3/400333ar.pdf",
             "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
             "202.112.50.77",
             "-",

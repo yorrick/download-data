@@ -11,7 +11,7 @@ TIMESTAMP_REGEX = "\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}"
 IP_REGEX = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
 HTTP_METHOD_REGEX = "(GET|POST|HEAD|PUT|DELETE|OPTIONS|TRACE|CONNECT|PROPFIND)"
 PORT_REGEX = "\d{1,5}"
-URL_REGEX = "/[^\s]*"
+URL_REGEX = "[^\s]*"
 PROTOCOL_REGEX = "HTTP/1.[01] "
 # USER_AGENT_REGEX = '(\"|[^\"\s])*'
 USER_AGENT_REGEX = '[^"]*'
@@ -50,11 +50,11 @@ def build_download_list(log_lines, activity_tracker):
 
         record = extract(log_line)
 
-        if record is not None and record.publication_year <= date.today().year:
+        if record is not None:
             parsable += 1
             activity_tracker.register_activity(record)
 
-            if record.is_article_download:
+            if record.is_article_download and record.publication_year <= date.today().year:
                 downloads.append(record)
         else:
             pass

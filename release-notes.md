@@ -21,3 +21,8 @@
 ## v0.5
 
 * More robust ip parsing for geolocation
+
+## v0.6
+
+* Bug fix in parasble log line counts, that affected robot detection also
+* Update robot detection to use number of requests instead of number of download as threshold
