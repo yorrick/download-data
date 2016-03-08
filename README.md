@@ -20,14 +20,16 @@ See [this file](release-notes.md) to keep track of changes along versions.
 ./random-select.R  is used to select random samples among files.
 It is stable (it always returns the same results if given the same parameters), and takes as argument:  
  * path to directory containg log files
- * year of log file (11 for 2011, 15 for 2015)
  * number of log files to draw
  
 Drawn log file names are printed on console.
 
 ```
-./random-select.R data 11 30
+./random-select.R data 30
 ```
+
+Warning! For sampling to work, the number of asked samples must be less or equal than the number of
+log files for each year.
 
 ## Run tests
 ```
