@@ -26,3 +26,9 @@
 
 * Bug fix in parasble log line counts, that affected robot detection also
 * Update robot detection to use number of requests instead of number of download as threshold
+
+## v0.7
+
+* Bug fix: parsing can now be stopped using ctrl-c
+* Feature: Sampling script works by sampling all years at once
+
