@@ -91,6 +91,12 @@ if __name__ == "__main__":
         for param in build_process_file_param_list(params, journals):
             process_file(param)
     else:
-        pool = mp.Pool(processes=params.processes)
-        # pool.map(process_file, [(log_file, params.keep_robots) for log_file in params.log_files])
-        pool.map(process_file, build_process_file_param_list(params, journals))
+        try:
+            pool = mp.Pool(processes=params.processes)
+            results = pool.map_async(process_file, build_process_file_param_list(params, journals)).get(9999999)
+        except KeyboardInterrupt:
+            pool.terminate()
+            pool.join()
+        else:
+            pool.close()
+            pool.join()
