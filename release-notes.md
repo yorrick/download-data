@@ -32,3 +32,7 @@
 * Bug fix: parsing can now be stopped using ctrl-c
 * Feature: Sampling script works by sampling all years at once
 
+## v0.8
+
+* Feature: indexes are all anonymous now, to make renaming easier
+
