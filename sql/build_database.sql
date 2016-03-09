@@ -89,9 +89,9 @@ CREATE TABLE download
     embargo boolean
 );
 
-CREATE INDEX download_year ON download (EXTRACT(YEAR FROM time));
+CREATE INDEX ON download (EXTRACT(YEAR FROM time));
 -- local hour in IP's timezone: can be null, since geo location sometimes cannot find a timezone
-CREATE INDEX download_hour ON download (EXTRACT(HOUR FROM local_time));
+CREATE INDEX ON download (EXTRACT(HOUR FROM local_time));
 CREATE INDEX ON download (country);
 CREATE INDEX ON article (article);
 CREATE INDEX ON issue (issue);
