@@ -5,9 +5,12 @@
       {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
       {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
     ],
-    "domains": [
-      "Droit", "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Criminologie",
+    "speciality": "Criminology",
     "full_oa": false
   },
  
@@ -16,9 +19,12 @@
     "names": [
       {"url_name": "acadiensis", "full_name": "Acadiensis : Journal of the History of the Atlantic Region / Acadiensis: Revue d'histoire de la region Atlantique", "start_year": 1971}
     ],
-    "domains": [
-      "Histoire", "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
 
@@ -27,9 +33,12 @@
     "names": [
       {"url_name": "ae", "full_name": "L'Actualite economique", "start_year": 1955}
     ],
-    "domains": [
-      "Economie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Economie",
+    "speciality": "Economics",
     "full_oa": false
   },
 
@@ -38,9 +47,12 @@
     "names": [
       {"url_name": "ageo", "full_name": "Atlantic Geology : Journal of the Atlantic Geoscience Society / Atlantic Geology : Revue de la Societe Geoscientifique de l'Atlantique", "start_year": 1965}
     ],
-    "domains": [
-      "Sciences de la terre"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Sciences de la terre et de l'espace",
+    "discipline": "Earth and Space",
+    "speciality_fr": "Science de la terre",
+    "speciality": "Earth & planetary Science",
     "full_oa": false
   },
 
@@ -49,9 +61,12 @@
     "names": [
       {"url_name": "annuaire", "full_name": "L'Annuaire theatral : Revue quebecoise d'etudes theatrales", "start_year": 1985}
     ],
-    "domains": [
-      "Arts"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Arts",
+    "discipline": "Arts",
+    "speciality_fr": "Arts du spectacle",
+    "speciality": "Performing Arts",
     "full_oa": false
   },
 
@@ -60,9 +75,12 @@
     "names": [
       {"url_name": "aor", "full_name": "Algorithmic Operations Research", "start_year": 2006, "stop_year": 9999}
     ],
-    "domains": [
-      "Mathematiques"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Mathematique",
+    "discipline": "Mathematics",
+    "speciality_fr": "Mathematiques appliquees",
+    "speciality": "Applied Mathematics",
     "full_oa": false
   },
 
@@ -71,9 +89,12 @@
     "names": [
       {"url_name": "approchesind", "full_name": "Approches inductives : Travail intellectuel et construction des connaissances", "start_year": 2014}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Etude sur la science",
+    "speciality": "Science studies",
     "full_oa": true
   },
 
@@ -82,9 +103,12 @@
     "names": [
       {"url_name": "arbo", "full_name": "Arborescences : Revue d'etudes francaises", "start_year": 2011}
     ],
-    "domains": [
-      "Etudes des langues", "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Litterature",
+    "speciality": "Literature",
     "full_oa": true
   },
 
@@ -93,9 +117,12 @@
     "names": [
       {"url_name": "as", "full_name": "Anthropologie et Societes", "start_year": 1976}
     ],
-    "domains": [
-      "Anthropologie et ethnologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Anthropologie et archeologie",
+    "speciality": "Anthropology and Archaeology",
     "full_oa": false
   },
 
@@ -104,9 +131,12 @@
     "names": [
       {"url_name": "ateliers", "full_name": "Les ateliers de l'ethique / The Ethics Forum", "start_year": 2011}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sciences sociales divers",
+    "speciality": "Miscellaneous Social Sciences",
     "full_oa": true
   },
 
@@ -116,9 +146,12 @@
       {"url_name": "badq", "full_name": "Bulletin de l'Association des demographes du Quebec", "start_year": 1971, "stop_year": 1974},
       {"url_name": "cqd", "full_name": "Cahiers quebecois de demographie", "start_year": 1975}
     ],
-    "domains": [
-      "Demographie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Demographie",
+    "speciality": "Demography",
     "full_oa": true
   },
 
@@ -127,9 +160,12 @@
     "names": [
       {"url_name": "bhp", "full_name": "Bulletin d'histoire politique", "start_year": 2012}
     ],
-    "domains": [
-      "Histoire", "Sciences politiques"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
 
@@ -138,9 +174,12 @@
     "names": [
       {"url_name": "bshg", "full_name": "Bulletin de la Societe d'Histoire de la Guadeloupe", "start_year": 2013}
     ],
-    "domains": [
-      "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
 
@@ -149,9 +188,12 @@
     "names": [
       {"url_name": "cd", "full_name": "Les Cahiers de droit", "start_year": 1954}
     ],
-    "domains": [
-      "Droit"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Droit",
+    "speciality": "Law",
     "full_oa": false
   },
 
@@ -160,9 +202,12 @@
     "names": [
       {"url_name": "cdd", "full_name": "Les Cahiers des dix", "start_year": 1970}
     ],
-    "domains": [
-      "Histoire", "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
 
@@ -171,9 +216,12 @@
     "names": [
       {"url_name": "cfco", "full_name": "Cahiers franco-canadiens de l'Ouest", "start_year": 2006}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": false
   },
 
@@ -182,9 +230,12 @@
     "names": [
       {"url_name": "cgq", "full_name": "Cahiers de geographie du Quebec", "start_year": 1956}
     ],
-    "domains": [
-      "Geographie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Geographie",
+    "speciality": "Geography",
     "full_oa": false
   },
 
@@ -193,9 +244,12 @@
     "names": [
       {"url_name": "cine", "full_name": "Cinemas : Revue d'etudes cinematographiques / Cinemas : Journal of Film Studies", "start_year": 1990}
     ],
-    "domains": [
-      "Arts"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Litterature",
+    "speciality": "Literature",
     "full_oa": false
   },
 
@@ -204,9 +258,12 @@
     "names": [
       {"url_name": "circuit", "full_name": "Circuit : Musiques contemporaines", "start_year": 1990}
     ],
-    "domains": [
-      "Arts"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Arts",
+    "discipline": "Arts",
+    "speciality_fr": "Arts du spectacle",
+    "speciality": "Performing Arts",
     "full_oa": false
   },
 
@@ -216,9 +273,12 @@
       {"url_name": "cl", "full_name": "Cahier de linguistique", "start_year": 1971, "stop_year": 1980},
       {"url_name": "rql", "full_name": "Revue quebecoise de linguistique", "start_year": 1981, "stop_year": 2003}
     ],
-    "domains": [
-      "Etudes des langues"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Langue et linguistique",
+    "speciality": "Language & Linguistics",
     "full_oa": false
   },
 
@@ -227,9 +287,12 @@
     "names": [
       {"url_name": "crs", "full_name": "Cahiers de recherche sociologique", "start_year": 1983}
     ],
-    "domains": [
-      "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sociologie",
+    "speciality": "Sociology",
     "full_oa": false
   },
 
@@ -238,9 +301,12 @@
     "names": [
       {"url_name": "cuizine", "full_name": "Cuizine : The Journal of Canadian Food Cultures / Cuizine : Revue des cultures culinaires au Canada", "start_year": 2008}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sociologie",
+    "speciality": "Sociology",
     "full_oa": true
   },
 
@@ -250,9 +316,12 @@
       {"url_name": "cumr", "full_name": "Canadian University Music Review / Revue de musique des universites canadiennes", "start_year": 1980, "stop_year": 2004},
       {"url_name": "is", "full_name": "Intersections : Canadian Journal of Music / Intersections : Revue canadienne de musique", "start_year": 2005}
     ],
-    "domains": [
-      "Arts"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Arts",
+    "discipline": "Arts",
+    "speciality_fr": "Arts du spectacle",
+    "speciality": "Performing Arts",
     "full_oa": false
   },
 {
@@ -260,9 +329,12 @@
     "names": [
       {"url_name": "documentation", "full_name": "Documentation et bibliotheques", "start_year": 2008}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Bibliotheconomie et archivistique",
+    "speciality": "Information Science & Library Science",
     "full_oa": false
   },
 
@@ -271,9 +343,12 @@
     "names": [
       {"url_name": "dss", "full_name": "Drogues, sante et societe", "start_year": 2002}
     ],
-    "domains": [
-      "Sciences de la sante", "Service social"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Travail social",
+    "speciality": "Social Work",
     "full_oa": true
   },
 
@@ -282,9 +357,12 @@
     "names": [
       {"url_name": "ef", "full_name": "Education et francophonie", "start_year": 2008}
     ],
-    "domains": [
-      "Education"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Education",
+    "speciality": "Education",
     "full_oa": false
   },
 
@@ -293,9 +371,12 @@
     "names": [
       {"url_name": "efg", "full_name": "Enfances, Familles, Generations", "start_year": 2004}
     ],
-    "domains": [
-      "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sociologie",
+    "speciality": "Sociology",
     "full_oa": true
   },
 
@@ -306,9 +387,12 @@
       {"url_name": "sessions", "full_name": "Sessions d'etude - Societe canadienne d'histoire de l'Eglise catholique", "start_year": 1966, "stop_year": 1989},
       {"url_name": "ehr", "full_name": "Etudes d'histoire religieuse", "start_year": 1990}
     ],
-    "domains": [
-      "Histoire", "Theologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Religion",
+    "speciality": "Religion",
     "full_oa": false
   },
 
@@ -317,9 +401,12 @@
     "names": [
       {"url_name": "ei", "full_name": "Etudes internationales", "start_year": 1970}
     ],
-    "domains": [
-      "Sciences politiques"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Relations internationales",
+    "speciality": "International Relations",
     "full_oa": false
   },
 
@@ -328,9 +415,12 @@
     "names": [
       {"url_name": "ela", "full_name": "Etudes litteraires africaines", "start_year": 2009}
     ],
-    "domains": [
-      "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Litterature",
+    "speciality": "Literature",
     "full_oa": false
   },
 
@@ -339,9 +429,12 @@
     "names": [
       {"url_name": "enfance", "full_name": "Enfance en difficulte", "start_year": 2012}
     ],
-    "domains": [
-      "Sciences humaines et sociales", "Service social"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Travail social",
+    "speciality": "Social Work",
     "full_oa": false
   },
 
@@ -350,9 +443,12 @@
     "names": [
       {"url_name": "es", "full_name": "Economie et Solidarites", "start_year": 2008}
     ],
-    "domains": [
-      "Economie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Economie",
+    "speciality": "Economics",
     "full_oa": true
   },
 
@@ -361,9 +457,12 @@
     "names": [
       {"url_name": "ethno", "full_name": "Ethnologies", "start_year": 2002}
     ],
-    "domains": [
-      "Anthropologie et ethnologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Anthropologie et archeologie",
+    "speciality": "Anthropology and Archaeology",
     "full_oa": false
   },
 
@@ -372,9 +471,12 @@
     "names": [
       {"url_name": "etudfr", "full_name": "Etudes francaises", "start_year": 1965}
     ],
-    "domains": [
-      "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Litterature",
+    "speciality": "Literature",
     "full_oa": false
   },
 {
@@ -382,9 +484,12 @@
     "names": [
       {"url_name": "etudinuit", "full_name": "Etudes/Inuit/Studies", "start_year": 2002}
     ],
-    "domains": [
-      "Anthropologie et ethnologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Anthropologie et archeologie",
+    "speciality": "Anthropology and Archaeology",
     "full_oa": false
   },
 
@@ -393,9 +498,12 @@
     "names": [
       {"url_name": "etudlitt", "full_name": "Etudes litteraires", "start_year": 1968}
     ],
-    "domains": [
-      "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Litterature",
+    "speciality": "Literature",
     "full_oa": false
   },
 
@@ -404,9 +512,12 @@
     "names": [
       {"url_name": "eue", "full_name": "Environnement urbain / Urban Environment", "start_year": 2008}
     ],
-    "domains": [
-      "Etudes urbaines", "Geographie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Geographie",
+    "speciality": "Geography",
     "full_oa": true
   },
 
@@ -415,9 +526,12 @@
     "names": [
       {"url_name": "euro", "full_name": "Eurostudia", "start_year": 2006}
     ],
-    "domains": [
-      "Sciences politiques"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sciences politiques et administration publique",
+    "speciality": "Political Science and Public Administration",
     "full_oa": true
   },
 
@@ -426,9 +540,12 @@
     "names": [
       {"url_name": "fa", "full_name": "Francophonies d'Amerique", "start_year": 1991}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": false
   },
 
@@ -437,9 +554,12 @@
     "names": [
       {"url_name": "fili", "full_name": "Filigrane : Ecoutes psychanalytiques", "start_year": 2006}
     ],
-    "domains": [
-      "Sciences de la sante"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Psychologie",
+    "discipline": "Psychology",
+    "speciality_fr": "Psychanalyse",
+    "speciality": "Psychoanalysis",
     "full_oa": false
   },
 
@@ -448,9 +568,12 @@
     "names": [
       {"url_name": "fr", "full_name": "Frontieres", "start_year": 2006}
     ],
-    "domains": [
-      "Sciences humaines et sociales", "Service social", "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sante",
+    "discipline": "Health",
+    "speciality_fr": "Geriatrie et gerontologie",
+    "speciality": "Geriatrics & Gerontology",
     "full_oa": false
   },
  
@@ -459,9 +582,12 @@
     "names": [
       {"url_name": "geocan", "full_name": "Geoscience Canada : Journal of the Geological Association of Canada / Geoscience Canada : Journal de l'Association Geologique du Canada", "start_year": 1974}
     ],
-    "domains": [
-      "Sciences de la terre"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Sciences de la terre et de l'espace",
+    "discipline": "Earth and Space",
+    "speciality_fr": "Science de la terre",
+    "speciality": "Earth & planetary Science",
     "full_oa": false
   },
 
@@ -470,9 +596,12 @@
     "names": [
       {"url_name": "globe", "full_name": "Globe : Revue internationale d'etudes quebecoises", "start_year": 1998}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": false
   },
 
@@ -481,9 +610,12 @@
     "names": [
       {"url_name": "gpq", "full_name": "Geographie physique et Quaternaire", "start_year": 1977, "stop_year": 2007}
     ],
-    "domains": [
-      "Geographie", "Sciences de la terre"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Geographie",
+    "speciality": "Geography",
     "full_oa": false
   },
 
@@ -492,9 +624,12 @@
     "names": [
       {"url_name": "haf", "full_name": "Revue d'histoire de l'Amerique francaise", "start_year": 1947}
     ],
-    "domains": [
-      "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
    
@@ -503,9 +638,12 @@
     "names": [
       {"url_name": "histoire", "full_name": "Cahiers d'histoire", "start_year": 2012}
     ],
-    "domains": [
-      "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
  
@@ -516,9 +654,12 @@
       {"url_name": "hp", "full_name": "Historical Papers / Communications historiques", "start_year": 1966, "stop_year": 1989},
       {"url_name": "jcha", "full_name": "Journal of the Canadian Historical Association / Revue de la Societe historique du Canada", "start_year": 1990}
     ],
-    "domains": [
-      "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
 
@@ -527,9 +668,12 @@
     "names": [
       {"url_name": "hphi", "full_name": "Horizons philosophiques", "start_year": 1990, "stop_year": 2007}
     ],
-    "domains": [
-      "Philosophie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Philosophie",
+    "speciality": "Philosophy",
     "full_oa": false
   },
 
@@ -539,9 +683,12 @@
       {"url_name": "hstc", "full_name": "HSTC Bulletin : Journal of the History of Canadian Science, Technology and Medecine / HSTC Bulletin : Revue d'histoire des sciences, des techniques et de la medecine au Canada", "start_year": 1981, "stop_year": 1984},
       {"url_name": "scientia", "full_name": "Scientia Canadensis : Canadian Journal of the History of Science, Technology and Medicine / Scientia Canadensis : Revue canadienne d'histoire des sciences, des techniques et de la medecine", "start_year": 1985}
     ],
-    "domains": [
-      "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
   
@@ -550,9 +697,12 @@
     "names": [
       {"url_name": "ijcs", "full_name": "International Journal of Canadian Studies / Revue internationale d'etudes canadiennes", "start_year": 2007, "stop_year": 2012}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sciences sociales generales",
+    "speciality": "General Social Sciences",
     "full_oa": false
   },
    
@@ -561,9 +711,12 @@
     "names": [
       {"url_name": "ijfe", "full_name": "International Journal of Forest Engineering", "start_year": 1989, "stop_year": 2012}
     ],
-    "domains": [
-      "Genie"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Biologie",
+    "discipline": "Biology",
+    "speciality_fr": "Botanique",
+    "speciality": "Botany",
     "full_oa": false
   },
  
@@ -572,9 +725,12 @@
     "names": [
       {"url_name": "im", "full_name": "Intermedialites : Histoire et theorie des arts, des lettres et des techniques / Intermediality : History and Theory of the Arts, Literature and Technologies", "start_year": 2003}
     ],
-    "domains": [
-      "Arts", "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": false
   },
 
@@ -583,9 +739,12 @@
     "names": [
       {"url_name": "ipme", "full_name": "Revue internationale P.M.E. : Economie et gestion de la petite et moyenne entreprise", "start_year": 1988}
     ],
-    "domains": [
-      "Economie", "Sciences de la gestion"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Management",
+    "speciality": "Management",
     "full_oa": false
   },
 
@@ -594,9 +753,12 @@
     "names": [
       {"url_name": "jcim", "full_name": "Journal of Comparative International Management", "start_year": 1998}
     ],
-    "domains": [
-      "Sciences de la gestion"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Management",
+    "speciality": "Management",
     "full_oa": false
   },
   
@@ -605,9 +767,12 @@
     "names": [
       {"url_name": "jcs", "full_name": "Journal of Conflict Studies", "start_year": 1995, "stop_year": 2009}
     ],
-    "domains": [
-      "Sciences politiques"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Relations internationales",
+    "speciality": "International Relations",
     "full_oa": false
   },
    
@@ -617,9 +782,12 @@
       {"url_name": "lcg", "full_name": "Les Cahiers du Gres", "start_year": 2000, "stop_year": 2006},
       {"url_name": "du", "full_name": "Diversite urbaine", "start_year": 2007}
     ],
-    "domains": [
-      "Anthropologie et ethnologie", "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sociologie",
+    "speciality": "Sociology",
     "full_oa": false
   },
  
@@ -628,9 +796,12 @@
     "names": [
       {"url_name": "lex", "full_name": "Lex Electronica", "start_year": 2013}
     ],
-    "domains": [
-      "Droit"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Droit",
+    "speciality": "Law",
     "full_oa": true
   },
 
@@ -639,9 +810,12 @@
     "names": [
       {"url_name": "llt", "full_name": "Labour : Journal of Canadian Labour Studies / Le Travail : Revue d'etudes ouvrieres canadiennes", "start_year": 1976}
     ],
-    "domains": [
-      "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
 
@@ -650,9 +824,12 @@
     "names": [
       {"url_name": "ls", "full_name": "Loisir et Societe / Society and Leisure", "start_year": 2001, "stop_year": 2001}
     ],
-    "domains": [
-      "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sociologie",
+    "speciality": "Sociology",
     "full_oa": false
   },
   
@@ -661,9 +838,12 @@
     "names": [
       {"url_name": "lsp", "full_name": "Lien social et Politiques", "start_year": 1994}
     ],
-    "domains": [
-      "Sciences politiques", "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sociologie",
+    "speciality": "Sociology",
     "full_oa": false
   },
    
@@ -672,9 +852,12 @@
     "names": [
       {"url_name": "ltp", "full_name": "Laval theologique et philosophique", "start_year": 1945}
     ],
-    "domains": [
-      "Philosophie", "Theologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Religion",
+    "speciality": "Religion",
     "full_oa": false
   },
  
@@ -684,9 +867,12 @@
       {"url_name": "man", "full_name": "Man and Nature / L'homme et la nature", "start_year": 1982, "stop_year": 1992},
       {"url_name": "lumen", "full_name": "Lumen : Selected Proceedings from the Canadian Society for Eighteenth-Century Studies / Lumen : Travaux choisis de la Societe canadienne d'etude du dix-huitieme siecle", "start_year": 1993}
     ],
-    "domains": [
-      "Histoire", "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
 
@@ -695,9 +881,12 @@
     "names": [
       {"url_name": "mcr", "full_name": "Material Culture Review / Revue de la culture materielle", "start_year": 2010}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Anthropologie et archeologie",
+    "speciality": "Anthropology and Archaeology",
     "full_oa": false
   },
 
@@ -706,9 +895,12 @@
     "names": [
       {"url_name": "mee", "full_name": "Mesure et evaluation en education", "start_year": 2008}
     ],
-    "domains": [
-      "Education"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Education",
+    "speciality": "Education",
     "full_oa": false
   },
   
@@ -717,9 +909,12 @@
     "names": [
       {"url_name": "memoires", "full_name": "Memoires du livre / Studies in Book Culture", "start_year": 2009}
     ],
-    "domains": [
-      "Etudes litteraires", "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": true
   },
    
@@ -729,9 +924,12 @@
       {"url_name": "mensaf", "full_name": "Mens : revue d'histoire intellectuelle de l'Amerique francaise", "start_year": 2000, "stop_year": 2011},
       {"url_name": "mens", "full_name": "Mens : Revue d'histoire intellectuelle et culturelle", "start_year": 2011}
     ],
-    "domains": [
-      "Histoire", "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
  
@@ -740,9 +938,12 @@
     "names": [
       {"url_name": "meta", "full_name": "Meta : Journal des traducteurs / Meta : Translators' Journal", "start_year": 1966}
     ],
-    "domains": [
-      "Etudes des langues", "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Langue et linguistique",
+    "speciality": "Language & Linguistics",
     "full_oa": false
   },
 
@@ -751,9 +952,12 @@
     "names": [
       {"url_name": "mi", "full_name": "Management international / Gestion Internacional", "start_year": 2009}
     ],
-    "domains": [
-      "Sciences de la gestion"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Management",
+    "speciality": "Management",
     "full_oa": false
   },
 
@@ -762,9 +966,12 @@
     "names": [
       {"url_name": "minling", "full_name": "Minorites linguistiques et societe / Linguistic Minorities and Society", "start_year": 2012}
     ],
-    "domains": [
-      "Etudes des langues", "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Langue et linguistique",
+    "speciality": "Language & Linguistics",
     "full_oa": true
   },
   
@@ -773,9 +980,12 @@
     "names": [
       {"url_name": "mje", "full_name": "McGill Journal of Education / Revue des sciences de l'education de McGill", "start_year": 2008}
     ],
-    "domains": [
-      "Education"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Education",
+    "speciality": "Education",
     "full_oa": true
   },
    
@@ -784,9 +994,12 @@
     "names": [
       {"url_name": "mlj", "full_name": "McGill Law Journal / Revue de droit de McGill", "start_year": 2009}
     ],
-    "domains": [
-      "Droit"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Droit",
+    "speciality": "Law",
     "full_oa": false
   },
  
@@ -795,9 +1008,12 @@
     "names": [
       {"url_name": "ms", "full_name": "M/S : Medecine sciences", "start_year": 2002, "stop_year": 2006}
     ],
-    "domains": [
-      "Sciences de la sante"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Recherche biomedicale",
+    "discipline": "Biomedical Research",
+    "speciality_fr": "Recherche biomedicale - general",
+    "speciality": "General Biomedical Research",
     "full_oa": false
   },
 
@@ -806,9 +1022,12 @@
     "names": [
       {"url_name": "museo", "full_name": "Museologies : Les cahiers d'etudes superieures", "start_year": 2006}
     ],
-    "domains": [
-      "Arts"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Arts",
+    "discipline": "Arts",
+    "speciality_fr": "Beaux-arts et architecture",
+    "speciality": "Fine Arts & Architecture",
     "full_oa": false
   },
 
@@ -817,9 +1036,12 @@
     "names": [
       {"url_name": "natcan", "full_name": "Le Naturaliste canadien", "start_year": 2012}
     ],
-    "domains": [
-      "Eau et environnement"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Sciences de la terre et de l'espace",
+    "discipline": "Earth and Space",
+    "speciality_fr": "Science environnementale",
+    "speciality": "Environmental Science",
     "full_oa": false
   },
   
@@ -828,9 +1050,12 @@
     "names": [
       {"url_name": "ncre", "full_name": "Nouveaux c@hiers de la recherche en education", "start_year": 1994}
     ],
-    "domains": [
-      "Education"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Education",
+    "speciality": "Education",
     "full_oa": true
   },
    
@@ -839,9 +1064,12 @@
     "names": [
       {"url_name": "nflds", "full_name": "Newfoundland and Labrador Studies", "start_year": 1985}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": false
   },
  
@@ -850,9 +1078,12 @@
     "names": [
       {"url_name": "nps", "full_name": "Nouvelles pratiques sociales", "start_year": 1988}
     ],
-    "domains": [
-      "Service social"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Travail social",
+    "speciality": "Social Work",
     "full_oa": false
   },
 
@@ -861,9 +1092,12 @@
     "names": [
       {"url_name": "npss", "full_name": "Nouvelles perspectives en sciences sociales : Revue internationale de systemique complexe et d'etudes relationnelles", "start_year": 2005}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sciences sociales generales",
+    "speciality": "General Social Sciences",
     "full_oa": false
   },
 
@@ -872,9 +1106,12 @@
     "names": [
       {"url_name": "nw", "full_name": "Narrative Works", "start_year": 2011}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": true
   },
   
@@ -883,9 +1120,12 @@
     "names": [
       {"url_name": "pa", "full_name": "Port Acadie : Revue interdisciplinaire en etudes acadiennes / Port Acadie : An Interdisciplinary Review in Acadian Studies", "start_year": 2006}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": false
   },
    
@@ -894,9 +1134,12 @@
     "names": [
       {"url_name": "philoso", "full_name": "Philosophiques", "start_year": 1974}
     ],
-    "domains": [
-      "Philosophie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Philosophie",
+    "speciality": "Philosophy",
     "full_oa": false
   },
  
@@ -905,9 +1148,12 @@
     "names": [
       {"url_name": "phro", "full_name": "Phronesis", "start_year": 2012}
     ],
-    "domains": [
-      "Education"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Education",
+    "speciality": "Education",
     "full_oa": false
   },
 
@@ -916,9 +1162,12 @@
     "names": [
       {"url_name": "phyto", "full_name": "Phytoprotection", "start_year": 1990}
     ],
-    "domains": [
-      "Biologie", "Eau et environnement"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Biologie",
+    "discipline": "Biology",
+    "speciality_fr": "Botanique",
+    "speciality": "Botany",
     "full_oa": false
   },
 
@@ -929,9 +1178,12 @@
       {"url_name": "rqsp", "full_name": "Revue quebecoise de science politique", "start_year": 1993, "stop_year": 1995},
       {"url_name": "ps", "full_name": "Politique et Societes", "start_year": 1995}
     ],
-    "domains": [
-      "Sciences politiques"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sciences politiques et administration publique",
+    "speciality": "Political Science and Public Administration",
     "full_oa": false
   },
   
@@ -940,9 +1192,12 @@
     "names": [
       {"url_name": "pr", "full_name": "Protee", "start_year": 1998, "stop_year": 2011}
     ],
-    "domains": [
-      "Arts", "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Langue et linguistique",
+    "speciality": "Language & Linguisticss",
     "full_oa": false
   },
    
@@ -951,9 +1206,12 @@
     "names": [
       {"url_name": "pv", "full_name": "Psychiatrie et violence", "start_year": 2008}
     ],
-    "domains": [
-      "Sciences de la sante"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Medecine clinique",
+    "discipline": "Clinical Medicine",
+    "speciality_fr": "Psychiatrie",
+    "speciality": "Psychiatry",
     "full_oa": true
   },
  
@@ -962,9 +1220,12 @@
     "names": [
       {"url_name": "rabaska", "full_name": "Rabaska : Revue d'ethnologie de l'Amerique francaise", "start_year": 2003}
     ],
-    "domains": [
-      "Anthropologie et ethnologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Anthropologie et archeologie",
+    "speciality": "Anthropology and Archaeology",
     "full_oa": false
   },
 
@@ -973,9 +1234,12 @@
     "names": [
       {"url_name": "racar", "full_name": "RACAR : Revue d'art canadienne / Canadian Art Review", "start_year": 2013}
     ],
-    "domains": [
-      "Arts"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Arts",
+    "discipline": "Arts",
+    "speciality_fr": "Beaux-arts et architecture",
+    "speciality": "Fine Arts & Architecture",
     "full_oa": false
   },
 
@@ -984,9 +1248,12 @@
     "names": [
       {"url_name": "raq", "full_name": "Recherches amerindiennes au Quebec", "start_year": 2008}
     ],
-    "domains": [
-      "Anthropologie et ethnologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Anthropologie et archeologie",
+    "speciality": "Anthropology and Archaeology",
     "full_oa": false
   },
   
@@ -996,9 +1263,12 @@
       {"url_name": "ron", "full_name": "Romanticism on the Net", "start_year": 1996, "stop_year": 2007},
       {"url_name": "ravon", "full_name": "Romanticism and Victorianism on the Net", "start_year": 2007}
     ],
-    "domains": [
-      "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Litterature",
+    "speciality": "Literature",
     "full_oa": true
   },
    
@@ -1007,9 +1277,12 @@
     "names": [
       {"url_name": "rbanq", "full_name": "Revue de Bibliotheque et Archives nationales du Quebec", "start_year": 2011}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": false
   },
  
@@ -1018,9 +1291,12 @@
     "names": [
       {"url_name": "recma", "full_name": "Revue internationale de l'economie sociale : Recma", "start_year": 2000}
     ],
-    "domains": [
-      "Economie", "Sciences humaines et sociales", "Sciences politiques"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Economie",
+    "speciality": "Economics",
     "full_oa": false
   },
 
@@ -1029,9 +1305,12 @@
     "names": [
       {"url_name": "ref", "full_name": "Reflets : Revue d'intervention sociale et communautaire", "start_year": 1995}
     ],
-    "domains": [
-      "Service social"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Travail social",
+    "speciality": "Social Work",
     "full_oa": false
   },
 
@@ -1040,9 +1319,12 @@
     "names": [
       {"url_name": "remest", "full_name": "Revue multidisciplinaire sur l'emploi, le syndicalisme et le travail", "start_year": 2009}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sciences sociales generales",
+    "speciality": "General Social Sciences",
     "full_oa": true
   },
   
@@ -1051,9 +1333,12 @@
     "names": [
       {"url_name": "rf", "full_name": "Recherches feministes", "start_year": 1988}
     ],
-    "domains": [
-      "Etudes feministes"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sciences sociales divers",
+    "speciality": "Miscellaneous Social Sciences",
     "full_oa": false
   },
    
@@ -1062,9 +1347,12 @@
     "names": [
       {"url_name": "rfdi", "full_name": "Revue francophone de la deficience intellectuelle", "start_year": 2012}
     ],
-    "domains": [
-      "Sciences de la sante", "Sciences humaines et sociales", "Service social"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sante",
+    "discipline": "Health",
+    "speciality_fr": "Rehabilitation",
+    "speciality": "Rehabilitation",
     "full_oa": false
   },
  
@@ -1073,9 +1361,12 @@
     "names": [
       {"url_name": "rgd", "full_name": "Revue generale de droit", "start_year": 1999}
     ],
-    "domains": [
-      "Droit"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Droit",
+    "speciality": "Law",
     "full_oa": false
   },
 
@@ -1084,9 +1375,12 @@
     "names": [
       {"url_name": "ri", "full_name": "Relations industrielles / Industrial Relations", "start_year": 1964}
     ],
-    "domains": [
-      "Relations industrielles"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Management",
+    "speciality": "Management",
     "full_oa": false
   },
 
@@ -1095,9 +1389,12 @@
     "names": [
       {"url_name": "ritpu", "full_name": "Revue internationale des technologies en pedagogie universitaire / International Journal of Technologies in Higher Education", "start_year": 2008, "stop_year": 2012}
     ],
-    "domains": [
-      "Education"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Education",
+    "speciality": "Education",
     "full_oa": false
   },
   
@@ -1106,9 +1403,12 @@
     "names": [
       {"url_name": "rno", "full_name": "Revue du Nouvel-Ontario", "start_year": 2008}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": false
   },
    
@@ -1117,9 +1417,12 @@
     "names": [
       {"url_name": "rs", "full_name": "Recherches sociographiques", "start_year": 1960}
     ],
-    "domains": [
-      "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sociologie",
+    "speciality": "Sociology",
     "full_oa": false
   },
  
@@ -1128,9 +1431,12 @@
     "names": [
       {"url_name": "rse", "full_name": "Revue des sciences de l'education", "start_year": 1975}
     ],
-    "domains": [
-      "Education"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Education",
+    "speciality": "Education",
     "full_oa": false
   },
 
@@ -1139,9 +1445,12 @@
     "names": [
       {"url_name": "rseau", "full_name": "Revue des sciences de l'eau / Journal of Water Science", "start_year": 1988}
     ],
-    "domains": [
-      "Biologie", "Eau et environnement"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Sciences de la terre et de l'espace",
+    "discipline": "Earth and Space",
+    "speciality_fr": "Science environnementale",
+    "speciality": "Environmental Science",
     "full_oa": false
   },
 
@@ -1150,9 +1459,12 @@
     "names": [
       {"url_name": "rssi", "full_name": "Recherches semiotiques / Semiotic Inquiry", "start_year": 2008}
     ],
-    "domains": [
-      "Semiologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Langue et linguistique",
+    "speciality": "Language & Linguistics",
     "full_oa": false
   },
  
@@ -1161,9 +1473,12 @@
     "names": [
       {"url_name": "rum", "full_name": "Revue de l'Universite de Moncton", "start_year": 2004}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Humanites divers",
+    "speciality": "Miscellaneous Humanities",
     "full_oa": false
   },
       
@@ -1172,9 +1487,12 @@
     "names": [
       {"url_name": "scl", "full_name": "Studies in Canadian Literature / Etudes en litterature canadienne", "start_year": 1976}
     ],
-    "domains": [
-      "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Litterature",
+    "speciality": "Literature",
     "full_oa": false
   },
       
@@ -1183,9 +1501,12 @@
     "names": [
       {"url_name": "smq", "full_name": "Sante mentale au Quebec", "start_year": 1976}
     ],
-    "domains": [
-      "Sciences de la sante", "Service social"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Medecine clinique",
+    "discipline": "Clinical Medicine",
+    "speciality_fr": "Psychiatrie",
+    "speciality": "Psychiatry",
     "full_oa": false
   },
       
@@ -1194,9 +1515,12 @@
     "names": [
       {"url_name": "socsoc", "full_name": "Sociologie et societes", "start_year": 1969}
     ],
-    "domains": [
-      "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sociologie",
+    "speciality": "Sociology",
     "full_oa": false
   },
       
@@ -1205,9 +1529,12 @@
     "names": [
       {"url_name": "sqrm", "full_name": "Les Cahiers de la Societe quebecoise de recherche en musique", "start_year": 2012}
     ],
-    "domains": [
-      "Arts"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Arts",
+    "discipline": "Arts",
+    "speciality_fr": "Arts du spectacle",
+    "speciality": "Performing Arts",
     "full_oa": false
   },
       
@@ -1216,9 +1543,12 @@
     "names": [
       {"url_name": "ss", "full_name": "Service social", "start_year": 1985}
     ],
-    "domains": [
-      "Service social"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Travail social",
+    "speciality": "Social Work",
     "full_oa": false
   },
       
@@ -1228,9 +1558,12 @@
       {"url_name": "urces", "full_name": "Urgences", "start_year": 1981, "stop_year": 1991},
       {"url_name": "tce", "full_name": "Tangence", "start_year": 1992}
     ],
-    "domains": [
-      "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Litterature",
+    "speciality": "Literature",
     "full_oa": false
   },
       
@@ -1239,9 +1572,12 @@
     "names": [
       {"url_name": "telescope", "full_name": "Telescope : Revue d'analyse comparee en administration publique", "start_year": 2012, "stop_year": 2013}
     ],
-    "domains": [
-      "Sciences de la gestion", "Sciences politiques"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Sciences politiques et administration publique",
+    "speciality": "Political Science and Public Administration",
     "full_oa": false
   },
       
@@ -1250,9 +1586,12 @@
     "names": [
       {"url_name": "teoros", "full_name": "Teoros : Revue de recherche en tourisme", "start_year": 2009}
     ],
-    "domains": [
-      "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Champs professionnels",
+    "discipline": "Professional Fields",
+    "speciality_fr": "Champs professionnels divers",
+    "speciality": "Miscellaneous Professional Field",
     "full_oa": false
   },
       
@@ -1261,9 +1600,12 @@
     "names": [
       {"url_name": "theologi", "full_name": "Theologiques", "start_year": 1993}
     ],
-    "domains": [
-      "Theologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Religion",
+    "speciality": "Religion",
     "full_oa": false
   },
       
@@ -1272,9 +1614,12 @@
     "names": [
       {"url_name": "tric", "full_name": "Theatre Research in Canada / Recherches theatrales au Canada", "start_year": 1980}
     ],
-    "domains": [
-      "Arts"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Arts",
+    "discipline": "Arts",
+    "speciality_fr": "Arts du spectacle",
+    "speciality": "Performing Arts",
     "full_oa": false
   },
       
@@ -1283,9 +1628,12 @@
     "names": [
       {"url_name": "ttr", "full_name": "TTR : Traduction, terminologie, redaction", "start_year": 1988}
     ],
-    "domains": [
-      "Etudes des langues"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Langue et linguistique",
+    "speciality": "Language & Linguistics",
     "full_oa": false
   },
       
@@ -1294,9 +1642,12 @@
     "names": [
       {"url_name": "uhr", "full_name": "Urban History Review / Revue d'histoire urbaine", "start_year": 1972}
     ],
-    "domains": [
-      "Etudes urbaines", "Histoire"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
       
@@ -1305,9 +1656,12 @@
     "names": [
       {"url_name": "vertigo", "full_name": "[VertigO] La revue electronique en sciences de l'environnement", "start_year": 2008}
     ],
-    "domains": [
-      "Eau et environnement"
-    ],
+    "general_discipline_fr": "Sciences naturelles et genie",
+    "general_discipline": "Natural Sciences and Engineering",
+    "discipline_fr": "Sciences de la terre et de l'espace",
+    "discipline": "Earth and Space",
+    "speciality_fr": "Science environnementale",
+    "speciality": "Environmental Science",
     "full_oa": true
   },
       
@@ -1317,9 +1671,12 @@
       {"url_name": "vip", "full_name": "Voix et images du pays", "start_year": 1967, "stop_year": 1975},
       {"url_name": "vi", "full_name": "Voix et Images", "start_year": 1975}
     ],
-    "domains": [
-      "Etudes litteraires"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Litterature",
+    "speciality": "Literature",
     "full_oa": false
   }
             

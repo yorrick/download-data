@@ -66,17 +66,11 @@ def to_byte_string(row):
     return [unicode(v).encode("utf-8") for v in row]
 
 
-def write_journals_json_file(journals, journals_file_path, domains_file_path):
+def write_journals_json_file(journals, journals_file_path):
     with codecs.open(journals_file_path, "wb") as journals_file:
         csv_writer = csv.writer(journals_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-        for row in journals.to_journal_csv_rows():
-            csv_writer.writerow(to_byte_string(row))
-
-    with codecs.open(domains_file_path, "wb") as domains_file:
-        csv_writer = csv.writer(domains_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-        for row in journals.to_domain_csv_rows():
+        for row in journals.to_csv_rows():
             csv_writer.writerow(to_byte_string(row))
 
 
@@ -84,7 +78,7 @@ if __name__ == "__main__":
     params = parse_argv(sys.argv)
 
     journals = build_journal_referential("journals.json")
-    write_journals_json_file(journals, "data/journal.csv", "data/journal-domain.csv")
+    write_journals_json_file(journals, "data/journal.csv")
 
     # debug mode enables single process execution to have access to stack traces
     if params.debug:

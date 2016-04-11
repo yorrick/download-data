@@ -17,9 +17,15 @@ class TestJournal(TestCase):
         self.assertEquals(referential.get_journal_id("toto"), "toto")
         self.assertEquals(referential.get_journal_id("ac"), "crimino")
 
-        self.assertEquals(referential.get_journal_first_domain("ae"), "economie")
-        self.assertEquals(referential.get_journal_first_domain("crimino"), "droit")
-        self.assertEquals(referential.get_journal_first_domain("toto"), "")
+        self.assertEquals(referential.get_journal_general_discipline("ae").main, "Social Sciences and Humanities")
+        self.assertEquals(referential.get_journal_general_discipline("ae").fr, "Sciences sociales et humaines")
+        self.assertEquals(referential.get_journal_general_discipline("toto"), None)
+        self.assertEquals(referential.get_journal_discipline("acadiensis").main, "Humanities")
+        self.assertEquals(referential.get_journal_discipline("acadiensis").fr, "Humanites")
+        self.assertEquals(referential.get_journal_discipline("toto"), None)
+        self.assertEquals(referential.get_journal_speciality("crimino").main, "Criminology")
+        self.assertEquals(referential.get_journal_speciality("crimino").fr, "Criminologie")
+        self.assertEquals(referential.get_journal_speciality("toto"), None)
 
         self.assertTrue(referential.is_journal_full_oa("ae"))
         self.assertFalse(referential.is_journal_full_oa("crimino"))
@@ -29,41 +35,35 @@ class TestJournal(TestCase):
         # tests that no fail happens
         build_journal_referential("journals.json")
 
-    def test_to_journal_csv_rows(self):
+    def test_to_csv_rows(self):
         journals = JournalReferential([
                 {
-                "id": "crimino",
-                "names": [
-                  {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
-                  {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
-                ],
-                "domains": [
-                  "Droit", "Sociologie"
-                ],
-                "full_oa": False
+                    "id": "crimino",
+                    "names": [
+                        {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
+                        {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
+                    ],
+                    "general_discipline_fr": "Sciences sociales et humaines",
+                    "general_discipline": "Social Sciences and Humanities",
+                    "discipline_fr": "Sciences sociales",
+                    "discipline": "Social Sciences",
+                    "speciality_fr": "Criminologie",
+                    "speciality": "Criminology",
+                    "full_oa": False
                 }
             ])
 
-        self.assertEquals(list(journals.to_journal_csv_rows()), [
-            ["crimino", False]
-        ])
+        print(list(journals.to_csv_rows()))
 
-    def test_to_domain_csv_rows(self):
-        journals = JournalReferential([
-                {
-                "id": "crimino",
-                "names": [
-                  {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
-                  {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
-                ],
-                "domains": [
-                  "Droit", "Sociologie"
-                ],
-                "full_oa": False
-                }
-            ])
-
-        self.assertEquals(list(journals.to_domain_csv_rows()), [
-            ["crimino", "droit"],
-            ["crimino", "sociologie"],
+        self.assertEquals(list(journals.to_csv_rows()), [
+            [
+                "crimino",
+                "Social Sciences and Humanities",
+                "Sciences sociales et humaines",
+                "Social Sciences",
+                "Sciences sociales",
+                "Criminology",
+                "Criminologie",
+                False
+            ]
         ])

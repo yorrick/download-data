@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS download;
 DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS issue;
 DROP TABLE IF EXISTS volume;
-DROP TABLE IF EXISTS domain;
 DROP TABLE IF EXISTS journal;
 
 
@@ -10,15 +9,13 @@ CREATE TABLE journal
 (
     id SERIAL PRIMARY KEY,
     journal VARCHAR(20) not null UNIQUE,
+    general_discipline VARCHAR(50) not null,
+    general_discipline_fr VARCHAR(50) not null,
+    discipline VARCHAR(50) not null,
+    discipline_fr VARCHAR(50) not null,
+    speciality VARCHAR(50) not null,
+    speciality_fr VARCHAR(50) not null,
     full_oa BOOLEAN
-);
-
-
-CREATE TABLE domain
-(
-    id SERIAL PRIMARY KEY,
-    journal VARCHAR(20) not null REFERENCES journal(journal),
-    domain VARCHAR(40)
 );
 
 
@@ -104,10 +101,7 @@ CREATE INDEX ON journal (full_oa);
 
 
 -- client copy of CSV file, to journal table
-\copy journal(journal, full_oa) from /data/journal.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
-
--- client copy of CSV file, to journal domain table
-\copy domain(journal, domain) from /data/journal-domain.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy journal(journal, general_discipline, general_discipline_fr, discipline, discipline_fr, speciality, speciality_fr, full_oa) from /data/journal.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
 INSERT INTO article(article, issue, volume, journal, publication_year) SELECT DISTINCT article, issue, volume, journal, publication_year FROM download;
