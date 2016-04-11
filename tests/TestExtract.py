@@ -318,6 +318,7 @@ class TestExtract(TestCase):
             'Firefox',
             'Mac OS X',
             'Other',
+            'p',
             'crimino',
             'v6',
             'n1',

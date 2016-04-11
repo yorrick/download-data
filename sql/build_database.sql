@@ -74,6 +74,7 @@ CREATE TABLE download
     browser VARCHAR(200),
     os VARCHAR(200),
     device VARCHAR(200),
+    device_type VARCHAR(1),
 
     -- temporary fields, removed when article, issue, volume, and journal tables are built
     journal VARCHAR(20) not null,
@@ -100,7 +101,7 @@ CREATE INDEX ON journal (full_oa);
 
 
 -- client copy of CSV file, to download table
-\copy download(time, local_time, proxy_ip, user_ip, url, referer_host, continent, country, geo_coordinates, timezone, browser, os, device, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy download(time, local_time, proxy_ip, user_ip, url, referer_host, continent, country, geo_coordinates, timezone, browser, os, device, device_type, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
 -- client copy of CSV file, to journal table
