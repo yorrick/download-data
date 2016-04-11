@@ -3,7 +3,7 @@ $$
 declare
   wrong_online_year integer;
   wrong_embargo integer;
-  domain_count integer;
+  journal_count integer;
 begin
   select count(*)
   into wrong_online_year
@@ -29,11 +29,11 @@ begin
 
 
   select count(*)
-  into domain_count
-  from domain;
+  into journal_count
+  from journal;
 
-  if (domain_count = 0) then
-    raise exception 'No domains have been created';
+  if (journal_count = 0) then
+    raise exception 'No journals have been created';
   end if;
 
 
