@@ -71,6 +71,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.browser, "Other")
         self.assertEqual(record.os, "Other")
         self.assertEqual(record.device, "Other")
+        self.assertEqual(record.device_type, "")
         self.assertFalse(record.is_good_robot)
 
         self.assertEqual(record.http_response_code, 200)
@@ -101,6 +102,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.browser, "YandexBot")
         self.assertEqual(record.os, "Other")
         self.assertEqual(record.device, "Spider")
+        self.assertEqual(record.device_type, "")
         self.assertTrue(record.is_good_robot)
 
         self.assertEqual(record.referer, "")
@@ -130,6 +132,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.browser, "Other")
         self.assertEqual(record.os, "Other")
         self.assertEqual(record.device, "Other")
+        self.assertEqual(record.device_type, "")
         self.assertFalse(record.is_good_robot)
 
         self.assertEqual(record.referer, "")
@@ -159,6 +162,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.browser, "")
         self.assertEqual(record.os, "")
         self.assertEqual(record.device, "")
+        self.assertEqual(record.device_type, "")
         self.assertFalse(record.is_good_robot)
 
         self.assertEqual(record.referer, "")

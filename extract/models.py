@@ -18,6 +18,24 @@ IMAGE_EXTENSIONS = (
     '.jpg',
 )
 
+
+# list of device types
+DEVICE_MOBILE = "m"
+DEVICE_TABLET = "t"
+DEVICE_PC = "p"
+
+
+def compute_device_type(user_agent):
+    if user_agent.is_mobile:
+        return DEVICE_MOBILE
+    elif user_agent.is_tablet:
+        return DEVICE_TABLET
+    elif user_agent.is_pc:
+        return DEVICE_PC
+    else:
+        return ''
+
+
 class Record():
 
     def __init__(self, raw_timestamp, proxy_ip, http_method, url,
@@ -126,6 +144,11 @@ class Record():
     @cached_property
     def device(self):
         return self.user_agent.device.family if self.user_agent else ''
+
+    @cached_property
+    def device_type(self):
+        return compute_device_type(self.user_agent) if self.user_agent else ''
+
 
     @cached_property
     def is_good_robot(self):

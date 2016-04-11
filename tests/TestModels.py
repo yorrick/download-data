@@ -175,3 +175,18 @@ class TestExtract(TestCase):
         self.assertEquals(clean_referer_host("http://ncbi.nlm.nih.gov"), "ncbi.nlm.nih.gov")
         self.assertEquals(clean_referer_host("http://ncbi.www.nlm.nih.gov"), "ncbi.www.nlm.nih.gov")
 
+    def test_pc_user_agent(self):
+        user_agent = compute_user_agent("Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko")
+        self.assertEquals(compute_device_type(user_agent), DEVICE_PC)
+
+    def test_tablet_user_agent(self):
+        user_agent = compute_user_agent("Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; A211 Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30")
+        self.assertEquals(compute_device_type(user_agent), DEVICE_TABLET)
+
+    def test_mobile_user_agent(self):
+        user_agent = compute_user_agent("Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>")
+        self.assertEquals(compute_device_type(user_agent), DEVICE_MOBILE)
+
+    def test_unknown_user_agent(self):
+        user_agent = compute_user_agent("Mozilla/5.0")
+        self.assertEquals(compute_device_type(user_agent), "")
