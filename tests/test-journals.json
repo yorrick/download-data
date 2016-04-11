@@ -5,20 +5,26 @@
       {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
       {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
     ],
-    "domains": [
-      "Droit", "Sociologie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Criminologie",
+    "speciality": "Criminology",
     "full_oa": false
   },
- 
+
   {
     "id": "acadiensis",
     "names": [
       {"url_name": "acadiensis", "full_name": "Acadiensis : Journal of the History of the Atlantic Region / Acadiensis: Revue d'histoire de la region Atlantique", "start_year": 1971}
     ],
-    "domains": [
-      "Histoire", "Sciences humaines et sociales"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Humanites",
+    "discipline": "Humanities",
+    "speciality_fr": "Histoire",
+    "speciality": "History",
     "full_oa": false
   },
 
@@ -27,9 +33,12 @@
     "names": [
       {"url_name": "ae", "full_name": "L'Actualite economique", "start_year": 1955}
     ],
-    "domains": [
-      "Economie"
-    ],
+    "general_discipline_fr": "Sciences sociales et humaines",
+    "general_discipline": "Social Sciences and Humanities",
+    "discipline_fr": "Sciences sociales",
+    "discipline": "Social Sciences",
+    "speciality_fr": "Economie",
+    "speciality": "Economics",
     "full_oa": true
   }
 ]

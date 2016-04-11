@@ -4,12 +4,20 @@ import codecs
 import json
 
 
+class Translation():
+    def __init__(self, main, fr):
+        self.main = main
+        self.fr = fr
+
+
 class JournalReferential():
 
     def __init__(self, journals):
         self.journals = journals
         self._journal_names = self.build_reverse_dict(self.journals, _get_journal_names, _get_journal_id)
-        self._journal_domains = self.build_reverse_dict(self.journals, _get_journal_id, _get_journal_domains)
+        self._journal_general_discipline = self.build_reverse_dict(self.journals, _get_journal_id, _get_journal_general_discipline)
+        self._journal_discipline = self.build_reverse_dict(self.journals, _get_journal_id, _get_journal_discipline)
+        self._journal_speciality = self.build_reverse_dict(self.journals, _get_journal_id, _get_journal_speciality)
         self._journal_full_oa = self.build_reverse_dict(self.journals, _get_journal_id, _get_journal_full_oa)
 
     @classmethod
@@ -32,23 +40,32 @@ class JournalReferential():
     def get_journal_id(self, journal_name):
         return self._journal_names.get(journal_name, journal_name)
 
-    def get_journal_first_domain(self, journal_id):
-        return self._journal_domains.get(journal_id, [''])[0]
+    def get_journal_general_discipline(self, journal_id):
+        return self._journal_general_discipline.get(journal_id, None)
+
+    def get_journal_discipline(self, journal_id):
+        return self._journal_discipline.get(journal_id, None)
+
+    def get_journal_speciality(self, journal_id):
+        return self._journal_speciality.get(journal_id, None)
 
     def is_journal_full_oa(self, journal_id):
-        return self._journal_full_oa.get(journal_id, '')
+        return self._journal_full_oa.get(journal_id, "")
 
-    def to_journal_csv_rows(self):
-        return (
-            [_get_journal_id(j)[:20], _get_journal_full_oa(j)]
-            for j in self.journals
-        )
+    def to_csv_rows(self):
+        return (_to_csv_row(j) for j in self.journals)
 
-    def to_domain_csv_rows(self):
-        return (
-            [_get_journal_id(j)[:20], domain[:30]]
-            for j in self.journals for domain in _get_journal_domains(j)
-        )
+
+def _to_csv_row(journal):
+    gen_disc = _get_journal_general_discipline(journal)
+    disc = _get_journal_discipline(journal)
+    spe = _get_journal_speciality(journal)
+
+    return [_get_journal_id(journal)[:20]] + \
+             ([gen_disc.main[:50], gen_disc.fr[:50]] if gen_disc else ['', '']) + \
+             ([disc.main[:50], disc.fr[:50]] if disc else ['', '']) + \
+             ([spe.main[:50], spe.fr[:50]] if spe else ['', '']) + \
+             ([_get_journal_full_oa(journal)])
 
 
 def build_journal_referential(file_path):
@@ -60,8 +77,16 @@ def _get_journal_names(journal):
     return [name["url_name"].lower() for name in journal["names"]]
 
 
-def _get_journal_domains(journal):
-    return [domain.lower() for domain in journal["domains"]]
+def _get_journal_general_discipline(journal):
+    return Translation(journal["general_discipline"], journal["general_discipline_fr"])
+
+
+def _get_journal_discipline(journal):
+    return Translation(journal["discipline"], journal["discipline_fr"])
+
+
+def _get_journal_speciality(journal):
+    return Translation(journal["speciality"], journal["speciality_fr"])
 
 
 def _get_journal_full_oa(journal):
