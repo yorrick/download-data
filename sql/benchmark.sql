@@ -65,14 +65,13 @@ select j.full_oa, dw.embargo, count(*) as number
 
 -- Number of downloads by domain
 EXPLAIN ANALYZE
-select count(*) as number, domain
+select count(*) as number, speciality
 	from download dw
 		inner join article a on dw.article_id = a.id
 		inner join issue i on a.issue_id = i.id
 		inner join volume v on i.volume_id = v.id
 		inner join journal j on v.journal_id = j.id
-		inner join domain dm on j.journal = dm.journal
-	group by domain
+	group by speciality
 	order by number desc;
 
 ------------------------------------------------------------------------------
