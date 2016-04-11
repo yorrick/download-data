@@ -215,7 +215,6 @@ class Record():
 
             self.browser[:200],
             self.os[:200],
-            self.device[:200],
             self.device_type[:1],
 
             journals.get_journal_id(self.journal_name)[:20],

@@ -70,7 +70,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.raw_user_agent, "curl/7.35.0")
         self.assertEqual(record.browser, "Other")
         self.assertEqual(record.os, "Other")
-        self.assertEqual(record.device, "Other")
         self.assertEqual(record.device_type, "")
         self.assertFalse(record.is_good_robot)
 
@@ -101,7 +100,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.raw_user_agent, "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)")
         self.assertEqual(record.browser, "YandexBot")
         self.assertEqual(record.os, "Other")
-        self.assertEqual(record.device, "Spider")
         self.assertEqual(record.device_type, "")
         self.assertTrue(record.is_good_robot)
 
@@ -131,7 +129,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.raw_user_agent, "-")
         self.assertEqual(record.browser, "Other")
         self.assertEqual(record.os, "Other")
-        self.assertEqual(record.device, "Other")
         self.assertEqual(record.device_type, "")
         self.assertFalse(record.is_good_robot)
 
@@ -161,7 +158,6 @@ class TestExtract(TestCase):
         self.assertEqual(record.raw_user_agent, "")
         self.assertEqual(record.browser, "")
         self.assertEqual(record.os, "")
-        self.assertEqual(record.device, "")
         self.assertEqual(record.device_type, "")
         self.assertFalse(record.is_good_robot)
 
@@ -317,7 +313,6 @@ class TestExtract(TestCase):
             'Asia/Shanghai',
             'Firefox',
             'Mac OS X',
-            'Other',
             'p',
             'crimino',
             'v6',
