@@ -36,3 +36,7 @@
 
 * Feature: indexes are all anonymous now, to make renaming easier
 
+## v0.9
+
+* Feature: added device type in download table. "p" -> pc, "m" -> mobile and "t" -> tablet
+
