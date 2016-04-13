@@ -9,12 +9,12 @@ CREATE TABLE journal
 (
     id SERIAL PRIMARY KEY,
     journal VARCHAR(20) not null UNIQUE,
-    general_discipline VARCHAR(50) not null,
-    general_discipline_fr VARCHAR(50) not null,
-    discipline VARCHAR(50) not null,
-    discipline_fr VARCHAR(50) not null,
-    speciality VARCHAR(50) not null,
-    speciality_fr VARCHAR(50) not null,
+    general_discipline VARCHAR(50),
+    general_discipline_fr VARCHAR(50),
+    discipline VARCHAR(50),
+    discipline_fr VARCHAR(50),
+    speciality VARCHAR(50),
+    speciality_fr VARCHAR(50),
     full_oa BOOLEAN
 );
 
