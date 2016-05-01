@@ -83,4 +83,4 @@ select i.publication_year, count(*) as number, is_robot, is_bad_robot
 		inner join article a on dw.article_id = a.id
 		inner join issue i on a.issue_id = i.id
 	group by publication_year, is_robot, is_bad_robot
-	order by publication_year asc, is_robot, is_bad_robot;
+	order by i.publication_year asc, is_robot, is_bad_robot;
