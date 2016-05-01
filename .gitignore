@@ -3,4 +3,6 @@ data/*.csv
 *.pyc
 .idea
 .DS_Store
+postgres-data/*
+!postgres-data/.keep
 

@@ -1,0 +1,21 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:9.4
+    ports:
+     - "15432:5432"
+    volumes:
+     - postgres-data:/var/log/postgres/data
+    env_file: .env
+  psql:
+    image: postgres:9.4
+    env_file: .env
+    entrypoint: psql --dbname=$POSTGRES_DB --host=postgres --username=$POSTGRES_USER -v ON_ERROR_STOP=1
+    volumes:
+      - ./sql:/sql
+      - ./data:/data
+    depends_on:
+      - postgres
+volumes:
+  postgres-data:
+    driver: local
