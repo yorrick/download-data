@@ -42,16 +42,18 @@ nosetests
 --debug enables single process execution for easier debugging.
 
 ```
-./extract/parse_downloads.py \
+docker run -ti -v ~/download-data-data/:/data yorrick/download-data:0.0.1 sh -c '
+    extract/parse_downloads.py \
     [--debug] \
     [--keep-robots] \
     [--total-number-threshold 100] \
     [--print-stats-for-ip 111.111.111.111] \
     data/*.log && cat data/*.log.csv > data/all.log.csv
+'
 ```
 
 
-## Setup database
+## Run postgres database with docker
 
 
 ### Run DB
