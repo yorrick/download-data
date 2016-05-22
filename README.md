@@ -84,7 +84,7 @@ With docker only (command line), use
 
 ```
 docker-compose run psql
-select * from download limit 10
+select * from download limit 10;
 ```
 
 
@@ -128,6 +128,3 @@ where
     and volume.journal_id = journal.id
 order by journal, volume, issue;
 ```
-
-
-select count(*) from issue where publication_year <> online_year;
