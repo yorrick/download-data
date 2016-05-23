@@ -78,7 +78,7 @@ if __name__ == "__main__":
     write_journals_json_file(journals, "data/journal.csv")
 
     # do not process files that have already been processed
-    processed_files = [pf[:-4] for pf in get_files(params.output_dir, suffix = ".log.csv")]
+    processed_files = [pf[:-4] for pf in get_files(params.output_dir, suffix = ".log.csv", filter=non_emtpy)]
     candidate_files = get_files(params.source_dir, suffix = ".log")
     files_to_process = candidate_files.difference(processed_files)
 
