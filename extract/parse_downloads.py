@@ -10,6 +10,7 @@ import csv
 import multiprocessing as mp
 import sys
 from collections import namedtuple
+import os
 
 
 LOG_FILE_ENCODING = "us-ascii"
@@ -23,12 +24,13 @@ def process_file(params, log_file, journals):
     print("Parsing file {}".format(log_file))
     download_source_file = "{}/{}".format(params.source_dir, log_file)
     download_output_file = "{}/{}.csv".format(params.output_dir, log_file)
+    download_output_file_tmp = "{}.tmp".format(download_output_file)
 
     considered_human = 0
 
     activity_tracker = ActivityTracker(params.total_number_threshold)
 
-    with codecs.open(download_output_file, "wb") as download_result_file:
+    with codecs.open(download_output_file_tmp, "wb") as download_result_file:
         csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
         downloads, total, parsable = build_download_list(get_lines(download_source_file, LOG_FILE_ENCODING), activity_tracker)
@@ -42,6 +44,9 @@ def process_file(params, log_file, journals):
 
             if params.keep_robots or (not params.keep_robots and not is_robot):
                 csv_writer.writerow(to_byte_string(record.to_csv_row(journals)) + [is_robot, bad_robot])
+
+    # rename file once it's been processed
+    os.rename(download_output_file_tmp, download_output_file)
 
     print(build_result_log(log_file, total, parsable, len(downloads), considered_human))
 
