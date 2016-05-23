@@ -40,3 +40,7 @@
 
 * Feature: added device type in download table. "p" -> pc, "m" -> mobile and "t" -> tablet
 * Feature: journals have only 1 (standard) classification now
+
+## v0.10
+
+* Feature: package parsing script in docker container

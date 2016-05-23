@@ -42,16 +42,18 @@ nosetests
 --debug enables single process execution for easier debugging.
 
 ```
-./extract/parse_downloads.py \
+docker run -ti -v ~/download-data-data/:/data yorrick/download-data:0.0.1 sh -c '
+    extract/parse_downloads.py \
     [--debug] \
     [--keep-robots] \
     [--total-number-threshold 100] \
     [--print-stats-for-ip 111.111.111.111] \
     data/*.log && cat data/*.log.csv > data/all.log.csv
+'
 ```
 
 
-## Setup database
+## Run postgres database with docker
 
 
 ### Run DB
@@ -84,7 +86,7 @@ With docker only (command line), use
 
 ```
 docker-compose run psql
-select * from download limit 10
+select * from download limit 10;
 ```
 
 
@@ -128,6 +130,3 @@ where
     and volume.journal_id = journal.id
 order by journal, volume, issue;
 ```
-
-
-select count(*) from issue where publication_year <> online_year;
