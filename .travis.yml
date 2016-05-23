@@ -46,4 +46,11 @@ after_success:
     - coveralls
 
 notifications:
-  hipchat: 9ba0dc0f9d8f62990243747a810872@download-data
+  hipchat:
+    rooms:
+      - 9ba0dc0f9d8f62990243747a810872@download-data
+    template:
+      - '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}'
+    notify: true
+    on_success: change
+    on_failure: change
