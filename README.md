@@ -40,16 +40,29 @@ nosetests
 ## Run log filtering
 
 --debug enables single process execution for easier debugging.
+Here <VERSION> can be v0.10 for instance.
+
+
+General:
 
 ```
-docker run -ti -v ~/download-data-data/:/data yorrick/download-data:0.0.1 sh -c '
+docker run -ti -v $SOURCE_DIR:/data yorrick/download-data:$VERSION sh -c '
     extract/parse_downloads.py \
     [--debug] \
     [--keep-robots] \
     [--total-number-threshold 100] \
     [--print-stats-for-ip 111.111.111.111] \
-    data/*.log && cat data/*.log.csv > data/all.log.csv
-'
+    /data/*.log && cat /data/*.log.csv > /data/all.log.csv'
+```
+
+Example:
+
+```
+export VERSION=v0.10
+export SOURCE_DIR=~/download-data-data/
+docker run -ti -v $SOURCE_DIR:/data yorrick/download-data:$VERSION sh -c '
+    extract/parse_downloads.py \
+    /data/*.log && cat /data/*.log.csv > /data/all.log.csv'
 ```
 
 
