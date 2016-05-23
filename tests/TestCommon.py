@@ -13,5 +13,5 @@ class TestCommon(TestCase):
         result_log = build_result_log("toto.log", 100, 55, 53, 10)
         self.assertEqual(result_log, "toto.log: Total: 100 => parsable: 55 (55.00%) => download: 53 (53.00%) => considered_human: 10 (10.00%)")
 
-    def test_get_log_files(self):
-        self.assertEqual(get_log_files(BASE_DIR), ["test-log.log"])
+    def test_get_files(self):
+        self.assertEqual(get_files(BASE_DIR, suffix = ".log"), {"test-log.log"})

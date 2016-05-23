@@ -42,11 +42,12 @@ nosetests
 --debug enables single process execution for easier debugging.
 Here <VERSION> can be v0.10 for instance.
 
+Warning! script does not reprocess files that have already been processed (ie, if files are already present in output dir).
 
 General:
 
 ```
-docker run -ti -v $SOURCE_DIR:/data yorrick/download-data:$VERSION sh -c '
+docker run -ti --volume $SOURCE_DIR:/source --volume $OUTPUT_DIR:/output yorrick/download-data:$VERSION sh -c '
     extract/parse_downloads.py \
     [--debug] \
     [--keep-robots] \
@@ -59,10 +60,10 @@ Example:
 
 ```
 export VERSION=v0.10
-export SOURCE_DIR=~/download-data-data/
-docker run -ti -v $SOURCE_DIR:/data yorrick/download-data:$VERSION sh -c '
-    extract/parse_downloads.py \
-    /data/*.log && cat /data/*.log.csv > /data/all.log.csv'
+export SOURCE_DIR=~/test/download-data-source/
+export OUTPUT_DIR=~/test/download-data-output/
+docker run -ti --volume $SOURCE_DIR:/source --volume $OUTPUT_DIR:/output yorrick/download-data:$VERSION \ 
+    sh -c 'extract/parse_downloads.py /source /output && cat /output/*.log.csv > /output/all.log.csv'
 ```
 
 

@@ -21,7 +21,7 @@ def parse_argv(argv):
     parser.add_argument('--total-number-threshold', dest='total_number_threshold', type=int, default=100, help="Number of requests above which if user did not download any images, and did not ever give a referer, will be considered as a robot")
     parser.add_argument("source_dir", help="Directory where log files are stored",
                     type=lambda x: is_valid_directory(parser, x))
-    parser.add_argument("target_dir", help="Directory where parsed log files will be written in csv",
+    parser.add_argument("output_dir", help="Directory where parsed log files will be written in csv",
                     type=lambda x: is_valid_directory(parser, x))
 
     return parser.parse_args(argv[1:])

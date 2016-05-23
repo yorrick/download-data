@@ -12,7 +12,7 @@ class TestArgumentParsing(TestCase):
             "--print-stats-for-ip", "222.222.222.222",
             "/tmp/", "/tmp/"])
         self.assertEquals(params.source_dir, "/tmp/")
-        self.assertEquals(params.target_dir, "/tmp/")
+        self.assertEquals(params.output_dir, "/tmp/")
         self.assertTrue(params.debug)
         self.assertTrue(params.keep_robots)
         self.assertEquals(params.processes, 7)

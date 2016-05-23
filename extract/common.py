@@ -68,8 +68,8 @@ def get_lines(source_file, encoding = "utf-8"):
             yield line
 
 
-def get_log_files(source_dir, suffix = ".log"):
+def get_files(source_dir, suffix):
     """
     Returns list file inside given directory
     """
-    return [f for f in listdir(source_dir) if isfile(join(source_dir, f)) and f.endswith(".log")]
+    return set([f for f in listdir(source_dir) if isfile(join(source_dir, f)) and f.endswith(suffix)])
