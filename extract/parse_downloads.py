@@ -105,7 +105,7 @@ if __name__ == "__main__":
             process_parameters = [ProcessParam(params, log_file, journals)
                                   for log_file in files_to_process]
 
-            results = pool.map_async(process_file_for_process, process_parameters).get(9999999)
+            results = pool.map_async(process_file_for_process, process_parameters).get(timeout=9999999)
         except KeyboardInterrupt:
             pool.terminate()
             pool.join()
