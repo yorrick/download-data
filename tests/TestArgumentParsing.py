@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from extract.argument_parsing import *
 from unittest import TestCase
+import multiprocessing
 
 
 class TestArgumentParsing(TestCase):
@@ -22,4 +23,4 @@ class TestArgumentParsing(TestCase):
         params = parse_argv(["script_name.py", "/tmp/", "/tmp/"])
         self.assertFalse(params.debug)
         self.assertFalse(params.keep_robots)
-        self.assertEquals(params.processes, 4)
+        self.assertEquals(params.processes, multiprocessing.cpu_count())
