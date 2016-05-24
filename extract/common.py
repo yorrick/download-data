@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 import codecs
+from os import listdir, stat
+from os.path import isfile, join
 
 
 def build_result_log(log_file, total, parsable, download, considered_human):
@@ -64,3 +66,16 @@ def get_lines(source_file, encoding = "utf-8"):
     with codecs.open(source_file, "r", encoding=encoding) as f:
         for line in f:
             yield line
+
+
+def get_files(source_dir, suffix, filter=lambda f: True):
+    """
+    Returns list file inside given directory
+    """
+    return set([f for f in listdir(source_dir)
+                if isfile(join(source_dir, f)) and f.endswith(suffix) and filter(join(source_dir, f))])
+
+
+def non_emtpy(f):
+    statinfo = stat(f)
+    return statinfo.st_size > 0

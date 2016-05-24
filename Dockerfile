@@ -1,3 +1,3 @@
 FROM python:2-onbuild
 
-#ENTRYPOINT ["./extract/parse_downloads.py"]
+ENTRYPOINT ["./extract/parse_downloads.py", "/source", "/output"]

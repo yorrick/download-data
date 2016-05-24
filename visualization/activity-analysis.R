@@ -4,7 +4,7 @@ library("ggplot2")
 
 setwd("~/download-data/data/")
 
-#activityFile <- "110302-sample.activity.csv"
+#activityFile <- "110302-sample.log.activity.csv"
 #activityFile <- "130306.log.activity.csv"
 activityFile <- "130206.log.activity.csv"
 
