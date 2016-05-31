@@ -62,8 +62,8 @@ Example:
 export VERSION=v0.10
 export SOURCE_DIR=~/test/download-data-source/
 export OUTPUT_DIR=~/test/download-data-output/
-docker run -ti --memory="2G" --cpuset-cpus="0-3" --volume $SOURCE_DIR:/source --volume $OUTPUT_DIR:/output yorrick/download-data:$VERSION \ 
-    sh -c 'extract/parse_downloads.py /source /output && cat /output/*.log.csv > /output/all.log.csv'
+docker run -ti --memory="2G" --cpuset-cpus="0-1" --volume $SOURCE_DIR:/source --volume $OUTPUT_DIR:/output yorrick/download-data:$VERSION 
+cat $OUTPUT_DIR/*.log.csv > $OUTPUT_DIR/all.log.csv
 ```
 
 
