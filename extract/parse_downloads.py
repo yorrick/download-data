@@ -20,7 +20,7 @@ def process_file_for_process(process_params):
     try:
         return process_file(process_params.params, process_params.log_file, process_params.journals)
     except Exception as e:
-        print('Caught exception in worker thread: {}'.format(e))
+        print('Caught exception in worker thread for file {}: {}'.format(process_params.log_file, e))
 
 
 def process_file(params, log_file, journals):
