@@ -39,10 +39,20 @@ nosetests
 
 ## Run log filtering
 
+
+Log filtering is a python script that produces 1 csv file per log file.
+
+
 --debug enables single process execution for easier debugging.
 Here <VERSION> can be v0.10 for instance.
 
 Warning! script does not reprocess files that have already been processed (ie, if files are already present in output dir).
+
+
+### CSV files contents:
+
+ * country ISO code: https://en.wikipedia.org/wiki/ISO_3166-1
+
 
 ### Using docker
 

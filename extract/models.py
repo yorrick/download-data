@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from common import *
 from datetime_utils import *
-from urlparse import urlparse
 from geoip import geolite2
 from datetime import datetime
-from countries import COUNTRIES
 from user_agents import parse
 import re
 from referer_parser import Referer
@@ -111,7 +109,7 @@ class Record():
 
     @cached_property
     def country(self):
-        return COUNTRIES.get(self._geo_location.country, self._geo_location.country) if self._geo_location else ''
+        return self._geo_location.country if self._geo_location else ''
 
     @cached_property
     def geo_coordinates(self):

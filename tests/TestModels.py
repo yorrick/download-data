@@ -107,7 +107,7 @@ class TestExtract(TestCase):
             200,
         )
 
-        self.assertEquals(record.country, "China")
+        self.assertEquals(record.country, "CN")
 
     def test_geo_location_should_be_empty_when_user_ip_is_not_readable(self):
         record = Record(
