@@ -44,7 +44,7 @@ Here <VERSION> can be v0.10 for instance.
 
 Warning! script does not reprocess files that have already been processed (ie, if files are already present in output dir).
 
-General:
+### Using docker
 
 ```
 docker run -ti --volume $SOURCE_DIR:/source --volume $OUTPUT_DIR:/output yorrick/download-data:$VERSION sh -c '
@@ -64,6 +64,20 @@ export SOURCE_DIR=~/test/download-data-source/
 export OUTPUT_DIR=~/test/download-data-output/
 docker run -ti --memory="2G" --cpuset-cpus="0-1" --volume $SOURCE_DIR:/source --volume $OUTPUT_DIR:/output yorrick/download-data:$VERSION 
 cat $OUTPUT_DIR/*.log.csv > $OUTPUT_DIR/all.log.csv
+```
+
+
+### From source
+
+```
+export SOURCE_DIR=~/test/download-data-source/
+export OUTPUT_DIR=~/test/download-data-output/
+./extract/parse_downloads.py $SOURCE_DIR $OUTPUT_DIR \
+    [--debug] \
+    [--keep-robots] \
+    [--total-number-threshold 100] \
+    [--print-stats-for-ip 111.111.111.111] \
+    /data/*.log && cat /data/*.log.csv > /data/all.log.csv'
 ```
 
 
