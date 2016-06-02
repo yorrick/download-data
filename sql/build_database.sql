@@ -64,7 +64,7 @@ CREATE TABLE download
 
     referer_host VARCHAR(500),
     continent VARCHAR(10),
-    country VARCHAR(100),
+    country VARCHAR(2),
     geo_coordinates VARCHAR(100),
     timezone VARCHAR(100),
 

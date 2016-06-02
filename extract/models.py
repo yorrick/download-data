@@ -207,7 +207,7 @@ class Record():
             self.referer_host[:100],
 
             self.continent[:10] if self.continent else '',
-            self.country[:100] if self.country else '',
+            self.country[:2] if self.country else '',
             self.geo_coordinates[:100] if self.geo_coordinates else '',
             self.timezone[:100] if self.timezone else '',
 
