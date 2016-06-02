@@ -31,6 +31,19 @@ class TestJournal(TestCase):
         self.assertFalse(referential.is_journal_full_oa("crimino"))
         self.assertEquals(referential.is_journal_full_oa("toto"), "")
 
+    def test_is_html_a_download(self):
+        referential = build_journal_referential(path.join(BASE_DIR, "test-journals.json"))
+
+        self.assertFalse(referential.is_html_a_download("crimino", 1990))
+        self.assertFalse(referential.is_html_a_download("crimino", 2007))
+
+        # no end_year means the future
+        self.assertTrue(referential.is_html_a_download("crimino", 2011))
+        self.assertTrue(referential.is_html_a_download("crimino", 1998))
+        self.assertTrue(referential.is_html_a_download("crimino", 2000))
+        self.assertTrue(referential.is_html_a_download("crimino", 2005))
+        self.assertTrue(referential.is_html_a_download("crimino", 2009))
+
     def test_build_full_referential(self):
         # tests that no fail happens
         build_journal_referential("journals.json")
@@ -43,6 +56,10 @@ class TestJournal(TestCase):
                         {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
                         {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
                     ],
+                    "full_text_html": [
+                      {"start_year": 1998, "stop_year": 2005},
+                      {"start_year": 2009}
+                    ],
                     "general_discipline_fr": "Sciences sociales et humaines",
                     "general_discipline": "Social Sciences and Humanities",
                     "discipline_fr": "Sciences sociales",
@@ -52,8 +69,6 @@ class TestJournal(TestCase):
                     "full_oa": False
                 }
             ])
-
-        print(list(journals.to_csv_rows()))
 
         self.assertEquals(list(journals.to_csv_rows()), [
             [
