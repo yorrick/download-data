@@ -37,7 +37,7 @@ def compute_device_type(user_agent):
 class Record():
 
     def __init__(self, raw_timestamp, proxy_ip, http_method, url,
-                 raw_user_agent, user_ip, raw_referer, http_response_code):
+                 raw_user_agent, user_ip, raw_referer, http_response_code, journal_ref):
         self.raw_timestamp = raw_timestamp  ## string version of timestamp
         self.proxy_ip = proxy_ip
         self.http_method = http_method
@@ -46,6 +46,7 @@ class Record():
         self.user_ip = user_ip
         self.raw_referer = raw_referer
         self.http_response_code = int(http_response_code)
+        self.journal_ref = journal_ref
 
     @cached_property
     def timestamp(self):
@@ -171,7 +172,17 @@ class Record():
 
     @cached_property
     def is_article_download(self):
-        return bool(self._journal_match) and self.http_response_code == 200 and self.http_method == "GET"
+        if bool(self._journal_match) and self.http_response_code == 200 and self.http_method == "GET":
+            if self.url.endswith(".html"):
+                return self.journal_ref.is_html_a_download(self.journal_id, self.publication_year)
+            else:
+                return True
+        else:
+            return False
+
+    @cached_property
+    def journal_id(self):
+        return self.journal_ref.get_journal_id(self.journal_name) if self.journal_name else ''
 
     @cached_property
     def journal_name(self):
@@ -197,7 +208,7 @@ class Record():
     def age(self):
         return self.year - self.publication_year if self.publication_year else ''
 
-    def to_csv_row(self, journals):
+    def to_csv_row(self):
         return [
             self.time,
             self.local_time,
@@ -215,7 +226,7 @@ class Record():
             self.os[:200],
             self.device_type[:1],
 
-            journals.get_journal_id(self.journal_name)[:20],
+            self.journal_id[:20],
             self.volume[:20],
             self.issue[:20],
             self.publication_year,

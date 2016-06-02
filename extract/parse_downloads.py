@@ -17,50 +17,53 @@ LOG_FILE_ENCODING = "us-ascii"
 
 
 def process_file_for_process(process_params):
-    return process_file(process_params.params, process_params.log_file, process_params.journals)
+    try:
+        return process_file(process_params.params, process_params.log_file, process_params.journals)
+    except Exception as e:
+        print('Caught exception in worker thread: {}'.format(e))
 
 
 def process_file(params, log_file, journals):
-    try:
-        print("Parsing file {}".format(log_file))
-        download_source_file = "{}/{}".format(params.source_dir, log_file)
-        download_output_file = "{}/{}.csv".format(params.output_dir, log_file)
-        download_output_file_tmp = "{}.tmp".format(download_output_file)
+    print("Parsing file {}".format(log_file))
+    download_source_file = "{}/{}".format(params.source_dir, log_file)
+    download_output_file = "{}/{}.csv".format(params.output_dir, log_file)
+    download_output_file_tmp = "{}.tmp".format(download_output_file)
 
-        considered_human = 0
+    considered_human = 0
 
-        activity_tracker = ActivityTracker(params.total_number_threshold)
+    activity_tracker = ActivityTracker(params.total_number_threshold)
 
-        with codecs.open(download_output_file_tmp, "wb") as download_result_file:
-            csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    with codecs.open(download_output_file_tmp, "wb") as download_result_file:
+        csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-            downloads, total, parsable = build_download_list(get_lines(download_source_file, LOG_FILE_ENCODING), activity_tracker)
+        downloads, total, parsable = build_download_list(
+            get_lines(download_source_file, LOG_FILE_ENCODING),
+            journals,
+            activity_tracker)
 
-            for record in downloads:
-                is_robot = record.user_ip in activity_tracker.bots_user_ips
-                bad_robot = record.user_ip in activity_tracker.bad_bots_user_ips
+        for record in downloads:
+            is_robot = record.user_ip in activity_tracker.bots_user_ips
+            bad_robot = record.user_ip in activity_tracker.bad_bots_user_ips
 
-                if not is_robot:
-                    considered_human += 1
+            if not is_robot:
+                considered_human += 1
 
-                if params.keep_robots or (not params.keep_robots and not is_robot):
-                    csv_writer.writerow(to_byte_string(record.to_csv_row(journals)) + [is_robot, bad_robot])
+            if params.keep_robots or (not params.keep_robots and not is_robot):
+                csv_writer.writerow(to_byte_string(record.to_csv_row()) + [is_robot, bad_robot])
 
-        # rename file once it's been processed
-        os.rename(download_output_file_tmp, download_output_file)
+    # rename file once it's been processed
+    os.rename(download_output_file_tmp, download_output_file)
 
-        print(build_result_log(log_file, total, parsable, len(downloads), considered_human))
+    print(build_result_log(log_file, total, parsable, len(downloads), considered_human))
 
-        if params.print_stats_for_ip is not None:
-            print(activity_tracker.get_info_for_user_ip(params.print_stats_for_ip))
+    if params.print_stats_for_ip is not None:
+        print(activity_tracker.get_info_for_user_ip(params.print_stats_for_ip))
 
-        if params.verbose:
-            print("Good robots user ips: {}".format(len(activity_tracker.good_bots_user_ips)))
-            print(" ".join(activity_tracker.good_bots_user_ips))
-            print("Bad robots user ips: {}".format(len(activity_tracker.bad_bots_user_ips)))
-            print(" ".join(activity_tracker.bad_bots_user_ips))
-    except Exception as e:
-        print('Caught exception in worker thread: {}'.format(e))
+    if params.verbose:
+        print("Good robots user ips: {}".format(len(activity_tracker.good_bots_user_ips)))
+        print(" ".join(activity_tracker.good_bots_user_ips))
+        print("Bad robots user ips: {}".format(len(activity_tracker.bad_bots_user_ips)))
+        print(" ".join(activity_tracker.bad_bots_user_ips))
 
 
 def to_byte_string(row):

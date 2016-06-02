@@ -3,3 +3,4 @@ data/*.csv
 .idea
 .DS_Store
 
+data/*.log.csv.tmp

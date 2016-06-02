@@ -31,16 +31,16 @@ LOG_REGEX = re.compile("""^(?P<raw_timestamp>{raw_timestamp}) (?P<proxy_ip>{ip})
 ))
 
 
-def extract(log_line):
+def extract(log_line, journal_ref):
     match = LOG_REGEX.match(log_line)
 
     if match is not None:
-        return Record(**match.groupdict())
+        return Record(journal_ref=journal_ref, **match.groupdict())
     else:
         return None
 
 
-def build_download_list(log_lines, activity_tracker):
+def build_download_list(log_lines, journal_ref, activity_tracker):
     downloads = []
     total = 0
     parsable = 0
@@ -48,7 +48,7 @@ def build_download_list(log_lines, activity_tracker):
     for log_line in log_lines:
         total += 1
 
-        record = extract(log_line)
+        record = extract(log_line, journal_ref)
 
         if record is not None:
             parsable += 1
