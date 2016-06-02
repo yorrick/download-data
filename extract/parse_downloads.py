@@ -44,7 +44,9 @@ def process_file(params, log_file, journals):
                     considered_human += 1
 
                 if params.keep_robots or (not params.keep_robots and not is_robot):
-                    csv_writer.writerow(to_byte_string(record.to_csv_row(journals)) + [is_robot, bad_robot])
+                    journal_id = journals.get_journal_id(record.journal_name)
+                    print("journal_id", journal_id)
+                    csv_writer.writerow(to_byte_string(record.to_csv_row(journal_id)) + [is_robot, bad_robot])
 
         # rename file once it's been processed
         os.rename(download_output_file_tmp, download_output_file)

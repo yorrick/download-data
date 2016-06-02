@@ -286,24 +286,7 @@ class TestExtract(TestCase):
             http_response_code="100"
         )
 
-        journals = JournalReferential([
-                {
-                    "id": "crimino",
-                    "names": [
-                        {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
-                        {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
-                    ],
-                    "general_discipline_fr": "Sciences sociales et humaines",
-                    "general_discipline": "Social Sciences and Humanities",
-                    "discipline_fr": "Sciences sociales",
-                    "discipline": "Social Sciences",
-                    "speciality_fr": "Criminologie",
-                    "speciality": "Criminology",
-                    "full_oa": False
-                }
-            ])
-
-        self.assertEquals(record.to_csv_row(journals), [
+        self.assertEquals(record.to_csv_row("crimino"), [
             "2015-03-03 23:59:55",
             "2015-03-04 12:59:55",
             '202.112.50.77',
