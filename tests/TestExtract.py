@@ -320,6 +320,7 @@ class TestExtract(TestCase):
             'bing',
             'AS',
             'CN',
+            'Guangzhou',
             "23.1167, 113.25",
             'Asia/Shanghai',
             'Firefox',

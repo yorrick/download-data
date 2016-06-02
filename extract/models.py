@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from common import *
 from datetime_utils import *
-from geoip import geolite2
 from datetime import datetime
+from geolocalization import GEO_DB
 from user_agents import parse
 import re
 from referer_parser import Referer
@@ -114,6 +114,13 @@ class Record():
         return self._geo_location.country if self._geo_location else ''
 
     @cached_property
+    def city(self):
+        if self._geo_location and self._geo_location.get_info_dict().get('city'):
+            return self._geo_location.get_info_dict().get('city').get('names').get('en') or ''
+        else:
+            return ''
+
+    @cached_property
     def geo_coordinates(self):
         if self._geo_location:
             location = self._geo_location.location
@@ -220,6 +227,7 @@ class Record():
 
             self.continent[:10] if self.continent else '',
             self.country[:2] if self.country else '',
+            self.city[:50] if self.city else '',
             self.geo_coordinates[:100] if self.geo_coordinates else '',
             self.timezone[:100] if self.timezone else '',
 
@@ -241,7 +249,7 @@ class Record():
 def compute_ip_geo_location(raw_ip):
     # some ips look like 129.195.207.79, 129.195.0.205 and are not valid, others look like "-"
     try:
-        return geolite2.lookup(raw_ip)
+        return GEO_DB.lookup(raw_ip)
     except Exception as e:
         return None
 
