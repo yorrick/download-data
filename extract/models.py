@@ -172,8 +172,17 @@ class Record():
 
     @cached_property
     def is_article_download(self):
+        if bool(self._journal_match) and self.http_response_code == 200 and self.http_method == "GET":
+            if self.url.endswith(".html"):
+                return self.journal_ref.is_html_a_download(self.journal_id, self.publication_year)
+            else:
+                return True
+        else:
+            return False
 
-        return bool(self._journal_match) and self.http_response_code == 200 and self.http_method == "GET"
+    @cached_property
+    def journal_id(self):
+        return self.journal_ref.get_journal_id(self.journal_name) if self.journal_name else ''
 
     @cached_property
     def journal_name(self):
@@ -199,7 +208,7 @@ class Record():
     def age(self):
         return self.year - self.publication_year if self.publication_year else ''
 
-    def to_csv_row(self, journal_id):
+    def to_csv_row(self):
         return [
             self.time,
             self.local_time,
@@ -217,7 +226,7 @@ class Record():
             self.os[:200],
             self.device_type[:1],
 
-            journal_id[:20],
+            self.journal_id[:20],
             self.volume[:20],
             self.issue[:20],
             self.publication_year,
