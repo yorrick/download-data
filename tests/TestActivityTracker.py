@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 from extract.activity_tracker import *
+from extract.journals import JournalReferential
 from extract.models import *
 
 
@@ -22,7 +23,8 @@ class TestCommon(TestCase):
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
             "202.112.50.77",
             "some-referer",
-            200)
+            200,
+            JournalReferential([]))
 
     def test_regular_activity_is_not_considered_as_robot_below_threshold(self):
         activity_tracker = ActivityTracker(10)

@@ -4,6 +4,7 @@ from extract.activity_tracker import *
 from datetime import datetime
 from unittest import TestCase
 from os import path
+from extract.journals import JournalReferential
 
 BASE_DIR = path.dirname(path.abspath(__file__))
 
@@ -20,6 +21,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "-",
             200,
+            JournalReferential([]),
         )
 
         self.assertFalse(record.is_css_download)
@@ -37,6 +39,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "-",
             200,
+            JournalReferential([]),
         )
 
         self.assertFalse(record.is_css_download)
@@ -54,6 +57,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "-",
             200,
+            JournalReferential([]),
         )
 
         self.assertFalse(record.is_css_download)
@@ -71,6 +75,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "-",
             200,
+            JournalReferential([]),
         )
 
         self.assertFalse(record.is_css_download)
@@ -88,6 +93,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "-",
             200,
+            JournalReferential([])
         )
 
         self.assertFalse(record.is_css_download)
@@ -105,6 +111,7 @@ class TestExtract(TestCase):
             "202.112.50.77",
             "-",
             200,
+            JournalReferential([])
         )
 
         self.assertEquals(record.country, "CN")
@@ -119,6 +126,7 @@ class TestExtract(TestCase):
             "-",
             "-",
             200,
+            JournalReferential([])
         )
 
         self.assertEquals(record.country, "")

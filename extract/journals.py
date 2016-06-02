@@ -101,7 +101,6 @@ def _get_journal_id(journal):
     return journal["id"].lower()
 
 def _get_full_text_html_ranges(journal):
-    print("journal", journal)
     return [_get_range(r) for r in journal["full_text_html"]]
 
 def _get_range(range):

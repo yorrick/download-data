@@ -37,7 +37,7 @@ def compute_device_type(user_agent):
 class Record():
 
     def __init__(self, raw_timestamp, proxy_ip, http_method, url,
-                 raw_user_agent, user_ip, raw_referer, http_response_code):
+                 raw_user_agent, user_ip, raw_referer, http_response_code, journal_ref):
         self.raw_timestamp = raw_timestamp  ## string version of timestamp
         self.proxy_ip = proxy_ip
         self.http_method = http_method
@@ -46,6 +46,7 @@ class Record():
         self.user_ip = user_ip
         self.raw_referer = raw_referer
         self.http_response_code = int(http_response_code)
+        self.journal_ref = journal_ref
 
     @cached_property
     def timestamp(self):
@@ -171,6 +172,7 @@ class Record():
 
     @cached_property
     def is_article_download(self):
+
         return bool(self._journal_match) and self.http_response_code == 200 and self.http_method == "GET"
 
     @cached_property
