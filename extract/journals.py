@@ -51,7 +51,7 @@ class JournalReferential():
         return self._journal_speciality.get(journal_id, None)
 
     def is_html_a_download(self, journal_id, year):
-        return any(year >= start and year <= stop for (start, stop) in self._full_text_html_ranges[journal_id])
+        return any(year >= start and year <= stop for (start, stop) in self._full_text_html_ranges.get(journal_id, []))
 
     def is_journal_full_oa(self, journal_id):
         return self._journal_full_oa.get(journal_id, "")
