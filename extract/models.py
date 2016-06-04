@@ -6,6 +6,7 @@ from datetime import datetime
 from user_agents import parse
 import re
 from referer_parser import Referer
+from repoze.lru import lru_cache
 
 
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
@@ -236,7 +237,7 @@ class Record():
         ]
 
 
-@memoize_single_arg
+@lru_cache(20000)
 def compute_ip_geo_location(raw_ip):
     # some ips look like 129.195.207.79, 129.195.0.205 and are not valid, others look like "-"
     try:
@@ -245,7 +246,7 @@ def compute_ip_geo_location(raw_ip):
         return None
 
 
-@memoize_single_arg
+@lru_cache(20000)
 def compute_user_agent(raw_user_agent):
     return parse(raw_user_agent)
 

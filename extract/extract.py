@@ -62,4 +62,7 @@ def build_download_list(log_lines, journal_ref, activity_tracker):
             # print(log_line)
             # print("===================")
 
+        # remove reference to avoid memory leak
+        del record
+
     return (downloads, total, parsable)

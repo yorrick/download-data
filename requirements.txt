@@ -21,3 +21,4 @@ traitlets==4.0.0
 ua-parser==0.5.0
 user-agents==1.0.1
 referer-parser==0.3.1
+repoze.lru==0.6

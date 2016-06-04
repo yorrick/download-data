@@ -65,6 +65,10 @@ def process_file(params, log_file, journals):
         print("Bad robots user ips: {}".format(len(activity_tracker.bad_bots_user_ips)))
         print(" ".join(activity_tracker.bad_bots_user_ips))
 
+    # remove reference to avoid memory leak
+    del activity_tracker
+    del journals
+
 
 def to_byte_string(row):
     return [unicode(v).encode("utf-8") for v in row]
