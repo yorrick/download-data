@@ -36,7 +36,7 @@ CREATE TABLE issue
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
     publication_year integer,
-    online_year integer
+    online_year integer  -- value of this column is computed after having loaded all the data from downloads
 );
 
 
@@ -65,6 +65,7 @@ CREATE TABLE download
     referer_host VARCHAR(500),
     continent VARCHAR(10),
     country VARCHAR(2),
+    city VARCHAR(50),
     geo_coordinates VARCHAR(100),
     timezone VARCHAR(100),
 
@@ -83,32 +84,24 @@ CREATE TABLE download
     is_robot boolean,
     is_bad_robot boolean,
 
-    embargo boolean
+    embargo boolean  -- value of this column is computed after having loaded all the data from downloads
 );
-
-CREATE INDEX ON download (EXTRACT(YEAR FROM time));
--- local hour in IP's timezone: can be null, since geo location sometimes cannot find a timezone
-CREATE INDEX ON download (EXTRACT(HOUR FROM local_time));
-CREATE INDEX ON download (country);
-CREATE INDEX ON article (article);
-CREATE INDEX ON issue (issue);
-CREATE INDEX ON volume (volume);
-CREATE INDEX ON journal (full_oa);
 
 
 -- client copy of CSV file, to download table
-\copy download(time, local_time, proxy_ip, user_ip, url, referer_host, continent, country, geo_coordinates, timezone, browser, os, device_type, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy download(time, local_time, proxy_ip, user_ip, url, referer_host, continent, country, city, geo_coordinates, timezone, browser, os, device_type, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
 -- client copy of CSV file, to journal table
 \copy journal(journal, general_discipline, general_discipline_fr, discipline, discipline_fr, speciality, speciality_fr, full_oa) from /data/journal.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
+-- relational model building, from download data
 INSERT INTO article(article, issue, volume, journal, publication_year) SELECT DISTINCT article, issue, volume, journal, publication_year FROM download;
 INSERT INTO issue(issue, volume, journal, publication_year) SELECT DISTINCT issue, volume, journal, publication_year FROM article;
 INSERT INTO volume(volume, journal) SELECT DISTINCT volume, journal FROM issue;
 
--- insert journal that do not exist in csv journal referential
+-- insert journals that do not exist in csv journal referential: unfortunately, some of the journals that are present in downloads are not listed in journal referential
 INSERT INTO journal(journal, full_oa)
     (
         SELECT DISTINCT
@@ -143,6 +136,14 @@ WHERE
     and download.issue = article.issue
     and download.volume = article.volume
     and download.journal = article.journal;
+
+-- Compute more accurate online_year for issues: all articles from an issue are published at the same time, but there
+-- can be big differences between publication_year and the moment at which the issue was made available online (thus we named it online_year).
+-- This has impacts on the computation of embargo mobile barrier, which is very important for this study
+
+-- The way we compute a more precise online_year is that we consider online_year to be the year of the first download we have
+-- for an issue, for the years we have download data. For publication_year before 2010 (earliest download log data we have)
+-- we have no choice but to consider online_year the same as publication_year.
 
 -- compute online_year for each issue (articles in the same issue are all published at the same time)
 -- for issues that where published after earliest year of sample (2010, or (SELECT MIN(EXTRACT(YEAR FROM time)) FROM download))
@@ -188,7 +189,7 @@ ALTER TABLE issue ALTER COLUMN online_year SET NOT NULL;
 ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
 
 
--- cleanup columns that were only used to build schema
+-- cleanup columns that were only used to build relational schema
 ALTER TABLE download DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN article, DROP COLUMN publication_year;
 ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
