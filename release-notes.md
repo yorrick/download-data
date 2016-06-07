@@ -1,3 +1,8 @@
+## v0.13
+
+* Feature: add city in geolocalization data
+* Feature: filter html downloads depending on journal referential data
+
 ## v0.11
 
 * Feature: user can now specify source and output directories
