@@ -216,19 +216,20 @@ class Record():
     def age(self):
         return self.year - self.publication_year if self.publication_year else ''
 
-    def to_csv_row(self):
+    def to_csv_row(self, is_robot, bad_robot, minimum_fields):
         return [
             self.time,
             self.local_time,
             self.proxy_ip[:20],
             self.user_ip[:32],
-            self.url[:500],
+        ] + ([self.url[:500]] if not minimum_fields else []) + \
+        [
             self.referer_host[:100],
-
             self.continent[:10] if self.continent else '',
             self.country[:2] if self.country else '',
             self.city[:50] if self.city else '',
-            self.geo_coordinates[:100] if self.geo_coordinates else '',
+        ] + ([self.geo_coordinates[:100] if self.geo_coordinates else ''] if not minimum_fields else []) + \
+        [
             self.timezone[:100] if self.timezone else '',
 
             self.browser[:200],
@@ -242,7 +243,7 @@ class Record():
             self.article_id[:20],
 
             self.age,
-        ]
+        ] + ([is_robot, bad_robot] if not minimum_fields else [])
 
 
 @lru_cache(20000)
