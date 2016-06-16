@@ -13,7 +13,7 @@ from collections import namedtuple
 import os
 
 
-LOG_FILE_ENCODING = "us-ascii"
+LOG_FILE_ENCODING = "ISO-8859-1"
 
 
 def process_file_for_process(process_params):
