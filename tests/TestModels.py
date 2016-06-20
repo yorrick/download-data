@@ -155,7 +155,25 @@ class TestExtract(TestCase):
         )
 
         self.assertEquals(record.country, "CN")
+        self.assertEquals(record.region, "Guangdong")
         self.assertEquals(record.city, "Guangzhou")
+
+    def test_state_must_be_null_when_it_makes_no_sense(self):
+        record = Record(
+            get_montreal_time(datetime(2015, 3, 3, 23, 59, 55)),
+            "88.172.148.86",
+            "GET",
+            "toto.png",
+            "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+            "88.172.148.86",
+            "-",
+            200,
+            JournalReferential([])
+        )
+
+        self.assertEquals(record.country, "FR")
+        self.assertEquals(record.region, u"Île-de-France")
+        self.assertEquals(record.city, "Paris")
 
     def test_geo_location_should_be_empty_when_user_ip_is_not_readable(self):
         record = Record(

@@ -66,6 +66,7 @@ CREATE TABLE download
     continent VARCHAR(10),
     country VARCHAR(2),
     city VARCHAR(50),
+    region VARCHAR(50),
     geo_coordinates VARCHAR(100),
     timezone VARCHAR(100),
 
@@ -89,7 +90,7 @@ CREATE TABLE download
 
 
 -- client copy of CSV file, to download table
-\copy download(time, local_time, proxy_ip, user_ip, url, referer_host, continent, country, city, geo_coordinates, timezone, browser, os, device_type, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+\copy download(time, local_time, proxy_ip, user_ip, url, referer_host, continent, country, city, region, geo_coordinates, timezone, browser, os, device_type, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
 -- client copy of CSV file, to journal table

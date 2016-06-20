@@ -121,6 +121,13 @@ class Record():
             return ''
 
     @cached_property
+    def region(self):
+        if self._geo_location and self._geo_location.get_info_dict().get('subdivisions'):
+            return self._geo_location.get_info_dict().get('subdivisions')[0].get('names').get('en') or ''
+        else:
+            return ''
+
+    @cached_property
     def geo_coordinates(self):
         if self._geo_location:
             location = self._geo_location.location
@@ -227,6 +234,7 @@ class Record():
             self.referer_host[:100],
             self.continent[:10] if self.continent else '',
             self.country[:2] if self.country else '',
+            self.region[:50] if self.region else '',
             self.city[:50] if self.city else '',
         ] + ([self.geo_coordinates[:100] if self.geo_coordinates else ''] if not minimum_fields else []) + \
         [
