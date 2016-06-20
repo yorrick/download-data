@@ -278,7 +278,7 @@ class TestExtract(TestCase):
         self.assertTrue(record.is_article_download)
         self.assertEquals(record.article_id, "400333")
 
-    def test_to_csv_row(self):
+    def test_to_csv_row_full(self):
         journals = JournalReferential([
             {
                 "id": "crimino",
@@ -311,7 +311,7 @@ class TestExtract(TestCase):
             journal_ref=journals
         )
 
-        self.assertEquals(record.to_csv_row(), [
+        self.assertEquals(record.to_csv_row(True, True, False), [
             "2015-03-03 23:59:55",
             "2015-03-04 12:59:55",
             '202.112.50.77',
@@ -320,8 +320,66 @@ class TestExtract(TestCase):
             'bing',
             'AS',
             'CN',
+            'Guangdong',
             'Guangzhou',
             "23.1167, 113.25",
+            'Asia/Shanghai',
+            'Firefox',
+            'Mac OS X',
+            'p',
+            'crimino',
+            'v6',
+            'n1',
+            1995,
+            '031091',
+            20,
+            True,
+            True,
+        ])
+
+    def test_to_csv_row_minimum_fields(self):
+        journals = JournalReferential([
+            {
+                "id": "crimino",
+                "names": [
+                  {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
+                  {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
+                ],
+                "full_text_html": [
+                  {"start_year": 2003}
+                ],
+                "general_discipline_fr": "Sciences sociales et humaines",
+                "general_discipline": "Social Sciences and Humanities",
+                "discipline_fr": "Sciences sociales",
+                "discipline": "Social Sciences",
+                "speciality_fr": "Criminologie",
+                "speciality": "Criminology",
+                "full_oa": False
+            }
+        ])
+
+        record = Record(
+            raw_timestamp="2015-03-03 23:59:55",
+            proxy_ip="202.112.50.77",
+            http_method="GET",
+            url="/revue/ac/1995/v6/n1/031091ar.pdf",
+            raw_user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:35.0) Gecko/20100101 Firefox/35.0",
+            user_ip="202.112.50.77",
+            raw_referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
+            http_response_code="100",
+            journal_ref=journals
+        )
+
+        self.assertEquals(record.to_csv_row(True, True, True), [
+            "2015-03-03 23:59:55",
+            "2015-03-04 12:59:55",
+            '202.112.50.77',
+            '202.112.50.77',
+            'bing',
+            'AS',
+            'CN',
+            'Guangdong',
+            'Guangzhou',
             'Asia/Shanghai',
             'Firefox',
             'Mac OS X',

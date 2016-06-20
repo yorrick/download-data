@@ -1,3 +1,8 @@
+## v0.14
+
+* Feature: add region in geolocalization data
+* Feature: add flag to parsing script to avoid exporting some columns to csv
+
 ## v0.13
 
 * Feature: add city in geolocalization data

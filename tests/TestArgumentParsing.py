@@ -11,11 +11,13 @@ class TestArgumentParsing(TestCase):
             "script_name.py", "--debug", "--keep-robots",
             "--processes", "7",
             "--print-stats-for-ip", "222.222.222.222",
+            "--minimum-fields",
             "/tmp/", "/tmp/"])
         self.assertEquals(params.source_dir, "/tmp/")
         self.assertEquals(params.output_dir, "/tmp/")
         self.assertTrue(params.debug)
         self.assertTrue(params.keep_robots)
+        self.assertTrue(params.minimum_fields)
         self.assertEquals(params.processes, 7)
         self.assertEquals(params.print_stats_for_ip, "222.222.222.222")
 

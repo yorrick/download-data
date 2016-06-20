@@ -20,6 +20,7 @@ def parse_argv(argv):
     parser.add_argument('--keep-robots', dest="keep_robots", action='store_true', default=False)
     parser.add_argument('--processes', dest='processes', type=int, default=multiprocessing.cpu_count(), help="Number of parallel processes to use for log parsing")
     parser.add_argument('--total-number-threshold', dest='total_number_threshold', type=int, default=100, help="Number of requests above which if user did not download any images, and did not ever give a referer, will be considered as a robot")
+    parser.add_argument('--minimum-fields', dest="minimum_fields", action='store_true', default=False)
     parser.add_argument("source_dir", help="Directory where log files are stored",
                     type=lambda x: is_valid_directory(parser, x))
     parser.add_argument("output_dir", help="Directory where parsed log files will be written in csv",

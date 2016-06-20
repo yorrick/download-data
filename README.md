@@ -43,8 +43,11 @@ nosetests
 Log filtering is a python script that produces 1 csv file per log file.
 
 
---debug enables single process execution for easier debugging.
+* --debug: enables single process execution for easier debugging.
 Here <VERSION> can be v0.10 for instance.
+
+* --minimum-fields: do not export url, geo_coordinates, is_robot, bad_robot fields in csv. Warning! Produced csv cannot be used to build database!
+ 
 
 Warning! script does not reprocess files that have already been processed (ie, if files are already present in output dir).
 
@@ -60,6 +63,7 @@ Warning! script does not reprocess files that have already been processed (ie, i
 docker run -ti --volume $SOURCE_DIR:/source --volume $OUTPUT_DIR:/output yorrick/download-data:$VERSION sh -c '
     extract/parse_downloads.py \
     [--debug] \
+    [--minimum-fields] \
     [--keep-robots] \
     [--total-number-threshold 100] \
     [--print-stats-for-ip 111.111.111.111] \
@@ -84,6 +88,7 @@ export SOURCE_DIR=~/test/download-data-source/
 export OUTPUT_DIR=~/test/download-data-output/
 ./extract/parse_downloads.py $SOURCE_DIR $OUTPUT_DIR \
     [--debug] \
+    [--minimum-fields] \
     [--keep-robots] \
     [--total-number-threshold 100] \
     [--print-stats-for-ip 111.111.111.111] \
