@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS article_referential;
 DROP TABLE IF EXISTS download;
 DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS issue;
@@ -44,6 +45,7 @@ CREATE TABLE article
 (
     id SERIAL PRIMARY KEY,
     issue_id integer references issue(id),
+    journal_id integer references journal(id),
     journal VARCHAR(20) not null,
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
@@ -88,6 +90,17 @@ CREATE TABLE download
     embargo boolean  -- value of this column is computed after having loaded all the data from downloads
 );
 
+CREATE TABLE article_referential
+(
+    id SERIAL PRIMARY KEY,
+    journal_id VARCHAR(20) not null,
+    journal VARCHAR(100) not null,
+    journal_subtitle VARCHAR(200),
+    volume VARCHAR(20),
+    issue VARCHAR(20),
+    article VARCHAR(20) not null,
+    publication_year integer
+);
 
 -- client copy of CSV file, to download table
 \copy download(time, local_time, proxy_ip, user_ip, url, referer_host, continent, country, city, region, geo_coordinates, timezone, browser, os, device_type, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
@@ -95,6 +108,9 @@ CREATE TABLE download
 
 -- client copy of CSV file, to journal table
 \copy journal(journal, general_discipline, general_discipline_fr, discipline, discipline_fr, speciality, speciality_fr, full_oa) from /data/journal.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+
+\copy article_referential(journal_id, journal, journal_subtitle, volume, issue, article, publication_year) from /data/articles.csv CSV DELIMITER ';' QUOTE '"' ENCODING 'utf-8';
+
 
 
 -- relational model building, from download data
@@ -126,6 +142,12 @@ where
     and article.publication_year = issue.publication_year
     and article.volume = issue.volume
     and article.journal = issue.journal;
+
+UPDATE article SET journal_id = volume.journal_id
+FROM issue, volume
+where
+    article.issue_id = issue.id
+    and issue.volume_id = volume.id;
 
 
 -- set all foreign keys to download table
@@ -184,6 +206,7 @@ WHERE
 ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN embargo SET NOT NULL;
 ALTER TABLE article ALTER COLUMN issue_id SET NOT NULL;
+ALTER TABLE article ALTER COLUMN journal_id SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN volume_id SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN publication_year SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN online_year SET NOT NULL;
@@ -192,6 +215,15 @@ ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
 
 -- cleanup columns that were only used to build relational schema
 ALTER TABLE download DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN article, DROP COLUMN publication_year;
-ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year;
+ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year, DROP COLUMN issue_id;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
+
+-- cleanup volume and issue tables that are not used later
+DROP TABLE issue;
+DROP TABLE volume;
+
+
+
+-- add articles (from article referential) to article table, for articles that are related to journals that are present in journal table
+
