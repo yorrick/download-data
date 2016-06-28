@@ -34,7 +34,7 @@ def process_file(params, log_file, journals):
     activity_tracker = ActivityTracker(params.total_number_threshold)
 
     with codecs.open(download_output_file_tmp, "wb") as download_result_file:
-        csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 
         downloads, total, parsable = build_download_list(
             get_lines(download_source_file, LOG_FILE_ENCODING),
