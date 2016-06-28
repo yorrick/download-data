@@ -1,6 +1,7 @@
 data/*.csv
 !data/articles.csv
 *.pyc
+*.swp
 .idea
 .DS_Store
 

@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS article_referential;
 DROP TABLE IF EXISTS download;
 DROP TABLE IF EXISTS article;
 DROP TABLE IF EXISTS issue;
@@ -90,17 +89,6 @@ CREATE TABLE download
     embargo boolean  -- value of this column is computed after having loaded all the data from downloads
 );
 
-CREATE TABLE article_referential
-(
-    id SERIAL PRIMARY KEY,
-    journal_id VARCHAR(20) not null,
-    journal VARCHAR(100) not null,
-    journal_subtitle VARCHAR(200),
-    volume VARCHAR(20),
-    issue VARCHAR(20),
-    article VARCHAR(20) not null,
-    publication_year integer
-);
 
 -- client copy of CSV file, to download table
 \copy download(time, local_time, proxy_ip, user_ip, url, referer_host, continent, country, city, region, geo_coordinates, timezone, browser, os, device_type, journal, volume, issue, publication_year, article, age, is_robot, is_bad_robot) from /data/all.log.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
@@ -108,9 +96,6 @@ CREATE TABLE article_referential
 
 -- client copy of CSV file, to journal table
 \copy journal(journal, general_discipline, general_discipline_fr, discipline, discipline_fr, speciality, speciality_fr, full_oa) from /data/journal.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
-
-\copy article_referential(journal_id, journal, journal_subtitle, volume, issue, article, publication_year) from /data/articles.csv CSV DELIMITER ';' QUOTE '"' ENCODING 'utf-8';
-
 
 
 -- relational model building, from download data
@@ -225,5 +210,52 @@ DROP TABLE volume;
 
 
 
--- add articles (from article referential) to article table, for articles that are related to journals that are present in journal table
 
+
+
+
+
+
+
+
+
+
+
+
+-- article referential data
+
+DROP TABLE IF EXISTS all_article;
+DROP TABLE IF EXISTS all_journal;
+
+CREATE TABLE all_journal
+(
+    journal VARCHAR(20) NOT NULL PRIMARY KEY,
+    journal_title VARCHAR(200),
+    journal_subtitle VARCHAR(400)
+);
+
+CREATE TABLE all_article
+(
+    journal VARCHAR(20) NOT NULL,
+    journal_title VARCHAR(100) NOT NULL,
+    journal_subtitle VARCHAR(200),
+    article VARCHAR(20) NOT NULL,
+    epub_year INTEGER,
+    collection_year VARCHAR(9)
+);
+
+\copy all_article(journal, journal_title, journal_subtitle, article, epub_year, collection_year) from /data/all_articles.csv CSV DELIMITER '@' QUOTE '"' ENCODING 'utf-8';
+
+UPDATE all_article SET journal = lower(journal);
+
+INSERT INTO all_journal(journal, journal_title, journal_subtitle)
+    (
+        SELECT lower(trim(journal)), (array_agg(distinct journal_title))[1], (array_agg(distinct journal_subtitle))[1]
+        from all_article
+        group by lower(trim(journal))
+    );
+
+ALTER TABLE all_article ADD CONSTRAINT journal_fk
+FOREIGN KEY (journal) REFERENCES all_journal;
+
+ALTER TABLE all_article DROP COLUMN journal_title, DROP COLUMN journal_subtitle;

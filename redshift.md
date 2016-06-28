@@ -48,10 +48,8 @@ select * from yorrick_test;
 
 
 
-find nlm -type f -name "*.xml" |xargs xmlstarlet sel -n -t -v "concat(//_:journal-id[@journal-id-type='other'], ';', //_:journal-title, ';', //_:journal-subtitle, ';', //_:volume, ';', //_:issue, ';', //_:article-id[@pub-id-type='other'], ';', //_:pub-date[@pub-type='epub']/_:year, '##')" | tr '\n' ' ' | sed "y/’āáǎàâēéěèīíǐìōóǒòūúǔùǖǘǚǜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙǕǗǙǛ/'aaaaaeeeeiiiioooouuuuüüüüAAAAEEEEIIIIOOOOUUUUÜÜÜÜ/"| sed 's/##/\'$'\n/g' | sed '$ d'| sed -e 's/•//g' | sed -e "s/  */ /g" > ~/download-data/data/articles.csv
 
 
-\copy article_referential(journal_id, journal, journal_subtitle, volume, issue, article, publication_year) from /data/articles.csv CSV DELIMITER ';' QUOTE '"' ENCODING 'utf-8';
 
 select DISTINCT(concat(lower(trim(journal_id)), '; ', lower(trim(journal)), '; ', lower(trim(journal_subtitle))))
 from article_referential
