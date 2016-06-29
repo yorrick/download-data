@@ -1,5 +1,5 @@
 data/*.csv
-!data/articles.csv
+!data/all_articles.csv
 *.pyc
 *.swp
 .idea
