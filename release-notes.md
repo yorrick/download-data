@@ -1,3 +1,9 @@
+## v0.15
+
+* Feature: add bash script to parse nlm data, and transform usefull data to csv
+* Feature: keep "ar" suffixes in article ids, to make match with E. data easier
+* Feature: quote all values when exporing minimal fields
+
 ## v0.14
 
 * Feature: add region in geolocalization data
