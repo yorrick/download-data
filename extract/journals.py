@@ -35,11 +35,13 @@ class JournalReferential():
         self._journal_general_discipline = build_reverse_dict(self.journals, _get_journal_id, _get_journal_general_discipline)
         self._journal_discipline = build_reverse_dict(self.journals, _get_journal_id, _get_journal_discipline)
         self._journal_speciality = build_reverse_dict(self.journals, _get_journal_id, _get_journal_speciality)
+        self._journal_other_ids = build_reverse_dict(self.journals, _get_journal_id, _get_journal_other_ids)
         self._journal_full_oa = build_reverse_dict(self.journals, _get_journal_id, _get_journal_full_oa)
         self._full_text_html_ranges = build_reverse_dict(self.journals, _get_journal_id, _get_full_text_html_ranges)
 
     def get_journal_id(self, journal_name):
         return self._journal_names.get(journal_name, journal_name)
+
 
     def get_journal_general_discipline(self, journal_id):
         return self._journal_general_discipline.get(journal_id, None)
@@ -49,6 +51,9 @@ class JournalReferential():
 
     def get_journal_speciality(self, journal_id):
         return self._journal_speciality.get(journal_id, None)
+
+    def get_journal_other_ids(self, journal_id):
+        return self._journal_other_ids.get(journal_id, None)
 
     def is_html_a_download(self, journal_id, year):
         return any(year >= start and year <= stop for (start, stop) in self._full_text_html_ranges.get(journal_id, []))
@@ -93,9 +98,11 @@ def _get_journal_speciality(journal):
     return Translation(journal["speciality"], journal["speciality_fr"])
 
 
+def _get_journal_other_ids(journal):
+    return journal["other_ids"]
+
 def _get_journal_full_oa(journal):
     return journal["full_oa"]
-
 
 def _get_journal_id(journal):
     return journal["id"].lower()

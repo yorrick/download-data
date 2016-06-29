@@ -1,6 +1,7 @@
 [
   {
     "id": "crimino",
+    "other_ids": ["ac80", "crimino12"],
     "names": [
       {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
       {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
@@ -20,6 +21,7 @@
 
   {
     "id": "acadiensis",
+    "other_ids": [],
     "names": [
       {"url_name": "acadiensis", "full_name": "Acadiensis : Journal of the History of the Atlantic Region / Acadiensis: Revue d'histoire de la region Atlantique", "start_year": 1971}
     ],
@@ -35,6 +37,7 @@
 
   {
     "id": "ae",
+    "other_ids": [],
     "names": [
       {"url_name": "ae", "full_name": "L'Actualite economique", "start_year": 1955}
     ],

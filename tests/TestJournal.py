@@ -17,6 +17,10 @@ class TestJournal(TestCase):
         self.assertEquals(referential.get_journal_id("toto"), "toto")
         self.assertEquals(referential.get_journal_id("ac"), "crimino")
 
+        self.assertEquals(referential.get_journal_other_ids("crimino"), ["ac80", "crimino12"])
+        self.assertEquals(referential.get_journal_other_ids("toto"), None)
+        self.assertEquals(referential.get_journal_other_ids("ae"), [])
+
         self.assertEquals(referential.get_journal_general_discipline("ae").main, "Social Sciences and Humanities")
         self.assertEquals(referential.get_journal_general_discipline("ae").fr, "Sciences sociales et humaines")
         self.assertEquals(referential.get_journal_general_discipline("toto"), None)
@@ -52,6 +56,7 @@ class TestJournal(TestCase):
         journals = JournalReferential([
                 {
                     "id": "crimino",
+                    "other_ids": ["ac80", "crimino12"],
                     "names": [
                         {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
                         {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}

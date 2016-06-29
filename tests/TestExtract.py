@@ -279,26 +279,6 @@ class TestExtract(TestCase):
         self.assertEquals(record.article_id, "400333ar")
 
     def test_to_csv_row_full(self):
-        journals = JournalReferential([
-            {
-                "id": "crimino",
-                "names": [
-                  {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
-                  {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
-                ],
-                "full_text_html": [
-                  {"start_year": 2003}
-                ],
-                "general_discipline_fr": "Sciences sociales et humaines",
-                "general_discipline": "Social Sciences and Humanities",
-                "discipline_fr": "Sciences sociales",
-                "discipline": "Social Sciences",
-                "speciality_fr": "Criminologie",
-                "speciality": "Criminology",
-                "full_oa": False
-            }
-        ])
-
         record = Record(
             raw_timestamp="2015-03-03 23:59:55",
             proxy_ip="202.112.50.77",
@@ -308,7 +288,7 @@ class TestExtract(TestCase):
             user_ip="202.112.50.77",
             raw_referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
             http_response_code="100",
-            journal_ref=journals
+            journal_ref=self.journals
         )
 
         self.assertEquals(record.to_csv_row(True, True, False), [
@@ -338,26 +318,6 @@ class TestExtract(TestCase):
         ])
 
     def test_to_csv_row_minimum_fields(self):
-        journals = JournalReferential([
-            {
-                "id": "crimino",
-                "names": [
-                  {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
-                  {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
-                ],
-                "full_text_html": [
-                  {"start_year": 2003}
-                ],
-                "general_discipline_fr": "Sciences sociales et humaines",
-                "general_discipline": "Social Sciences and Humanities",
-                "discipline_fr": "Sciences sociales",
-                "discipline": "Social Sciences",
-                "speciality_fr": "Criminologie",
-                "speciality": "Criminology",
-                "full_oa": False
-            }
-        ])
-
         record = Record(
             raw_timestamp="2015-03-03 23:59:55",
             proxy_ip="202.112.50.77",
@@ -367,7 +327,7 @@ class TestExtract(TestCase):
             user_ip="202.112.50.77",
             raw_referer="http://www.bing.com/search?q=compare%20christ%20and%20bonhoeffer&pc=cosp&ptag=A0F73A159EF&form=CONBDF&conlogo=CT3210127",
             http_response_code="100",
-            journal_ref=journals
+            journal_ref=self.journals
         )
 
         self.assertEquals(record.to_csv_row(True, True, True), [
@@ -390,4 +350,25 @@ class TestExtract(TestCase):
             1995,
             '031091ar',
             20,
+        ])
+
+    journals = JournalReferential([
+            {
+                "id": "crimino",
+                "other_ids": ["ac80", "crimino12"],
+                "names": [
+                  {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
+                  {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
+                ],
+                "full_text_html": [
+                  {"start_year": 2003}
+                ],
+                "general_discipline_fr": "Sciences sociales et humaines",
+                "general_discipline": "Social Sciences and Humanities",
+                "discipline_fr": "Sciences sociales",
+                "discipline": "Social Sciences",
+                "speciality_fr": "Criminologie",
+                "speciality": "Criminology",
+                "full_oa": False
+            }
         ])
