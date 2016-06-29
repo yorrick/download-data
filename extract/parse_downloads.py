@@ -18,12 +18,13 @@ LOG_FILE_ENCODING = "ISO-8859-1"
 
 def process_file_for_process(process_params):
     try:
-        return process_file(process_params.params, process_params.log_file, process_params.journals)
+        return process_file(process_params.params, process_params.log_file, process_params.journals,
+                            process_params.quoting)
     except Exception as e:
         print('Caught exception in worker thread for file {}: {}'.format(process_params.log_file, e))
 
 
-def process_file(params, log_file, journals):
+def process_file(params, log_file, journals, quoting):
     print("Parsing file {}".format(log_file))
     download_source_file = "{}/{}".format(params.source_dir, log_file)
     download_output_file = "{}/{}.csv".format(params.output_dir, log_file)
@@ -34,7 +35,7 @@ def process_file(params, log_file, journals):
     activity_tracker = ActivityTracker(params.total_number_threshold)
 
     with codecs.open(download_output_file_tmp, "wb") as download_result_file:
-        csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        csv_writer = csv.writer(download_result_file, delimiter=',', quotechar='"', quoting=quoting)
 
         downloads, total, parsable = build_download_list(
             get_lines(download_source_file, LOG_FILE_ENCODING),
@@ -49,7 +50,7 @@ def process_file(params, log_file, journals):
                 considered_human += 1
 
             if params.keep_robots or (not params.keep_robots and not is_robot):
-                csv_writer.writerow(to_byte_string(record.to_csv_row(is_robot, bad_robot, params.minimum_fields)))
+                csv_writer.writerow(list_to_byte_string(record.to_csv_row(is_robot, bad_robot, params.minimum_fields)))
 
     # rename file once it's been processed
     os.rename(download_output_file_tmp, download_output_file)
@@ -70,27 +71,35 @@ def process_file(params, log_file, journals):
     del journals
 
 
-def to_byte_string(row):
-    return [unicode(v).encode("utf-8") for v in row]
+def list_to_byte_string(row):
+    return [to_byte_string(v) for v in row]
 
 
-def write_journals_json_file(journals, journals_file_path):
+def to_byte_string(value):
+    if isinstance(value, (str, unicode)):
+        return unicode(value).encode("utf-8")
+    else:
+        return value
+
+
+def write_journals_json_file(journals, journals_file_path, quoting):
     with codecs.open(journals_file_path, "wb") as journals_file:
-        csv_writer = csv.writer(journals_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        csv_writer = csv.writer(journals_file, delimiter=',', quotechar='"', quoting=quoting)
 
         for row in journals.to_csv_rows():
-            csv_writer.writerow(to_byte_string(row))
+            csv_writer.writerow(list_to_byte_string(row))
 
 
 # wraps all arguments that are given to a process
-ProcessParam = namedtuple('ProcessParam', ['params', 'log_file', 'journals'])
+ProcessParam = namedtuple('ProcessParam', ['params', 'log_file', 'journals', 'quoting'])
 
 
 if __name__ == "__main__":
     params = parse_argv(sys.argv)
+    quoting = csv.QUOTE_ALL if params.minimum_fields else csv.QUOTE_MINIMAL
 
     journals = build_journal_referential("journals.json")
-    write_journals_json_file(journals, "data/journal.csv")
+    write_journals_json_file(journals, "data/journal.csv", quoting)
 
     # do not process files that have already been processed
     processed_files = [pf[:-4] for pf in get_files(params.output_dir, suffix = ".log.csv", filter=non_emtpy)]
@@ -105,11 +114,11 @@ if __name__ == "__main__":
     # debug mode enables single process execution to have access to stack traces
     if params.debug:
         for log_file in files_to_process:
-            process_file(params, log_file, journals)
+            process_file(params, log_file, journals, quoting)
     else:
         try:
             pool = mp.Pool(processes=params.processes)
-            process_parameters = [ProcessParam(params, log_file, journals)
+            process_parameters = [ProcessParam(params, log_file, journals, quoting)
                                   for log_file in files_to_process]
 
             results = pool.map_async(process_file_for_process, process_parameters).get(timeout=9999999)

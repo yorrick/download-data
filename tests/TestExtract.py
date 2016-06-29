@@ -65,7 +65,7 @@ class TestExtract(TestCase):
         self.assertEqual(record.publication_year, 1995)
         self.assertEqual(record.volume, "v6")
         self.assertEqual(record.issue, "n1")
-        self.assertEqual(record.article_id, "031091")
+        self.assertEqual(record.article_id, "031091ar")
 
         self.assertEqual(record.raw_user_agent, "curl/7.35.0")
         self.assertEqual(record.browser, "Other")
@@ -260,7 +260,7 @@ class TestExtract(TestCase):
         )
 
         self.assertTrue(record.is_article_download)
-        self.assertEquals(record.article_id, "400333")
+        self.assertEquals(record.article_id, "400333ar")
 
     def test_simple_http_extract_article_id(self):
         record = Record(
@@ -276,7 +276,7 @@ class TestExtract(TestCase):
         )
 
         self.assertTrue(record.is_article_download)
-        self.assertEquals(record.article_id, "400333")
+        self.assertEquals(record.article_id, "400333ar")
 
     def test_to_csv_row_full(self):
         journals = JournalReferential([
@@ -331,7 +331,7 @@ class TestExtract(TestCase):
             'v6',
             'n1',
             1995,
-            '031091',
+            '031091ar',
             20,
             True,
             True,
@@ -388,6 +388,6 @@ class TestExtract(TestCase):
             'v6',
             'n1',
             1995,
-            '031091',
+            '031091ar',
             20,
         ])

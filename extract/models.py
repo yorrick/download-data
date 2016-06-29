@@ -10,7 +10,7 @@ from repoze.lru import lru_cache
 
 
 # /revue/JCHA/1995/v6/n1/031091ar.pdf
-JOURNAL_REGEX = re.compile("(https?://www.erudit.org)?/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/?]+)ar(.pdf|.html|.html\?vue=integral)$")
+JOURNAL_REGEX = re.compile("(https?://www.erudit.org)?/revue/(?P<name>[^/]+)/(?P<year>\d{4})/(?P<volume>[^/]+)/(?P<issue>[^/]+)/(?P<article_id>[^/?]+ar)(.pdf|.html|.html\?vue=integral)$")
 IMAGE_EXTENSIONS = (
     '.png',
     '.jpeg',

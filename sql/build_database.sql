@@ -44,6 +44,7 @@ CREATE TABLE article
 (
     id SERIAL PRIMARY KEY,
     issue_id integer references issue(id),
+    journal_id integer references journal(id),
     journal VARCHAR(20) not null,
     volume VARCHAR(20) not null,
     issue VARCHAR(20) not null,
@@ -127,6 +128,12 @@ where
     and article.volume = issue.volume
     and article.journal = issue.journal;
 
+UPDATE article SET journal_id = volume.journal_id
+FROM issue, volume
+where
+    article.issue_id = issue.id
+    and issue.volume_id = volume.id;
+
 
 -- set all foreign keys to download table
 UPDATE download SET article_id = article.id
@@ -184,6 +191,7 @@ WHERE
 ALTER TABLE download ALTER COLUMN article_id SET NOT NULL;
 ALTER TABLE download ALTER COLUMN embargo SET NOT NULL;
 ALTER TABLE article ALTER COLUMN issue_id SET NOT NULL;
+ALTER TABLE article ALTER COLUMN journal_id SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN volume_id SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN publication_year SET NOT NULL;
 ALTER TABLE issue ALTER COLUMN online_year SET NOT NULL;
@@ -192,6 +200,62 @@ ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
 
 -- cleanup columns that were only used to build relational schema
 ALTER TABLE download DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN article, DROP COLUMN publication_year;
-ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year;
+ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year, DROP COLUMN issue_id;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
+
+-- cleanup volume and issue tables that are not used later
+DROP TABLE issue;
+DROP TABLE volume;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- article referential data
+
+DROP TABLE IF EXISTS all_article;
+DROP TABLE IF EXISTS all_journal;
+
+CREATE TABLE all_journal
+(
+    journal VARCHAR(20) NOT NULL PRIMARY KEY,
+    journal_title VARCHAR(200),
+    journal_subtitle VARCHAR(400)
+);
+
+CREATE TABLE all_article
+(
+    journal VARCHAR(20) NOT NULL,
+    journal_title VARCHAR(100) NOT NULL,
+    journal_subtitle VARCHAR(200),
+    article VARCHAR(20) NOT NULL,
+    epub_year INTEGER,
+    collection_year VARCHAR(9)
+);
+
+\copy all_article(journal, journal_title, journal_subtitle, article, epub_year, collection_year) from /data/all_articles.csv CSV DELIMITER '@' QUOTE '"' ENCODING 'utf-8';
+
+UPDATE all_article SET journal = lower(journal);
+
+INSERT INTO all_journal(journal, journal_title, journal_subtitle)
+    (
+        SELECT lower(trim(journal)), (array_agg(distinct journal_title))[1], (array_agg(distinct journal_subtitle))[1]
+        from all_article
+        group by lower(trim(journal))
+    );
+
+ALTER TABLE all_article ADD CONSTRAINT journal_fk
+FOREIGN KEY (journal) REFERENCES all_journal;
+
+ALTER TABLE all_article DROP COLUMN journal_title, DROP COLUMN journal_subtitle;
