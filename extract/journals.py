@@ -64,6 +64,10 @@ class JournalReferential():
     def to_journal_csv_rows(self):
         return (_to_csv_row(j) for j in self.journals)
 
+    def to_journal_other_ids_csv_rows(self):
+        # TODO
+        return []
+
 
 def _to_csv_row(journal):
     gen_disc = _get_journal_general_discipline(journal)
