@@ -62,14 +62,16 @@ class JournalReferential():
         return self._journal_full_oa.get(journal_id, "")
 
     def to_journal_csv_rows(self):
-        return (_to_csv_row(j) for j in self.journals)
+        return (_to_journal_csv_row(j) for j in self.journals)
 
     def to_journal_other_ids_csv_rows(self):
-        # TODO
-        return []
+        return (line
+                for j in self.journals
+                for line in _to_journal_other_ids_csv_row(_get_journal_id(j),
+                                                          self.get_journal_other_ids(_get_journal_id(j))))
 
 
-def _to_csv_row(journal):
+def _to_journal_csv_row(journal):
     gen_disc = _get_journal_general_discipline(journal)
     disc = _get_journal_discipline(journal)
     spe = _get_journal_speciality(journal)
@@ -79,6 +81,10 @@ def _to_csv_row(journal):
              ([disc.main[:50], disc.fr[:50]] if disc else ['', '']) + \
              ([spe.main[:50], spe.fr[:50]] if spe else ['', '']) + \
              ([_get_journal_full_oa(journal)])
+
+
+def _to_journal_other_ids_csv_row(journal_id, journal_other_ids):
+    return [[journal_id[:20], journal_other_id[:20]] for journal_other_id in journal_other_ids]
 
 
 def build_journal_referential(file_path):

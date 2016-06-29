@@ -52,7 +52,7 @@ class TestJournal(TestCase):
         # tests that no fail happens
         build_journal_referential("journals.json")
 
-    def test_to_csv_rows(self):
+    def test_to_journal_csv_rows(self):
         journals = JournalReferential([
                 {
                     "id": "crimino",
@@ -86,4 +86,32 @@ class TestJournal(TestCase):
                 "Criminologie",
                 False
             ]
+        ])
+
+    def test_to_journal_other_ids_csv_rows(self):
+        journals = JournalReferential([
+                {
+                    "id": "crimino",
+                    "other_ids": ["ac80", "crimino12"],
+                    "names": [
+                        {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
+                        {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
+                    ],
+                    "full_text_html": [
+                      {"start_year": 1998, "stop_year": 2005},
+                      {"start_year": 2009}
+                    ],
+                    "general_discipline_fr": "Sciences sociales et humaines",
+                    "general_discipline": "Social Sciences and Humanities",
+                    "discipline_fr": "Sciences sociales",
+                    "discipline": "Social Sciences",
+                    "speciality_fr": "Criminologie",
+                    "speciality": "Criminology",
+                    "full_oa": False
+                }
+            ])
+
+        self.assertEquals(list(journals.to_journal_other_ids_csv_rows()), [
+            ["crimino", "ac80"],
+            ["crimino", "crimino12"],
         ])
