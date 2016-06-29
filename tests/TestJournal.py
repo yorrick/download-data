@@ -75,7 +75,7 @@ class TestJournal(TestCase):
                 }
             ])
 
-        self.assertEquals(list(journals.to_csv_rows()), [
+        self.assertEquals(list(journals.to_journal_csv_rows()), [
             [
                 "crimino",
                 "Social Sciences and Humanities",

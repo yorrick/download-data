@@ -61,7 +61,7 @@ class JournalReferential():
     def is_journal_full_oa(self, journal_id):
         return self._journal_full_oa.get(journal_id, "")
 
-    def to_csv_rows(self):
+    def to_journal_csv_rows(self):
         return (_to_csv_row(j) for j in self.journals)
 
 
