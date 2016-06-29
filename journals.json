@@ -1,6 +1,7 @@
 [
   {
     "id": "crimino",
+    "other_ids": ["ac80", "crimino12"],
     "names": [
       {"url_name": "ac", "full_name": "Acta Criminologica", "start_year": 1968, "stop_year": 1974},
       {"url_name": "crimino", "full_name": "Criminologie", "start_year": 1975}
@@ -19,6 +20,7 @@
  
   {
     "id": "acadiensis",
+    "other_ids": [],
     "names": [
       {"url_name": "acadiensis", "full_name": "Acadiensis : Journal of the History of the Atlantic Region / Acadiensis: Revue d'histoire de la region Atlantique", "start_year": 1971}
     ],
@@ -37,6 +39,7 @@
 
   {
     "id": "ae",
+    "other_ids": ["ae49"],
     "names": [
       {"url_name": "ae", "full_name": "L'Actualite economique", "start_year": 1955}
     ],
@@ -55,6 +58,7 @@
 
   {
     "id": "ageo",
+    "other_ids": [],
     "names": [
       {"url_name": "ageo", "full_name": "Atlantic Geology : Journal of the Atlantic Geoscience Society / Atlantic Geology : Revue de la Societe Geoscientifique de l'Atlantique", "start_year": 1965}
     ],
@@ -72,6 +76,7 @@
 
   {
     "id": "annuaire",
+    "other_ids": ["annuaire130"],
     "names": [
       {"url_name": "annuaire", "full_name": "L'Annuaire theatral : Revue quebecoise d'etudes theatrales", "start_year": 1985}
     ],
@@ -89,6 +94,7 @@
 
   {
     "id": "aor",
+    "other_ids": [],
     "names": [
       {"url_name": "aor", "full_name": "Algorithmic Operations Research", "start_year": 2006}
     ],
@@ -104,6 +110,7 @@
 
   {
     "id": "approchesind",
+    "other_ids": ["approchesind0522"],
     "names": [
       {"url_name": "approchesind", "full_name": "Approches inductives : Travail intellectuel et construction des connaissances", "start_year": 2014}
     ],
@@ -121,6 +128,7 @@
 
   {
     "id": "arbo",
+    "other_ids": ["arbo139"],
     "names": [
       {"url_name": "arbo", "full_name": "Arborescences : Revue d'etudes francaises", "start_year": 2011}
     ],
@@ -138,6 +146,7 @@
 
   {
     "id": "as",
+    "other_ids": ["as23"],
     "names": [
       {"url_name": "as", "full_name": "Anthropologie et Societes", "start_year": 1976}
     ],
@@ -155,6 +164,7 @@
 
   {
     "id": "ateliers",
+    "other_ids": ["ateliers028"],
     "names": [
       {"url_name": "ateliers", "full_name": "Les ateliers de l'ethique / The Ethics Forum", "start_year": 2011}
     ],
@@ -172,6 +182,7 @@
 
   {
     "id": "cqd",
+    "other_ids": ["badq137", "cqd27"],
     "names": [
       {"url_name": "badq", "full_name": "Bulletin de l'Association des demographes du Quebec", "start_year": 1971, "stop_year": 1974},
       {"url_name": "cqd", "full_name": "Cahiers quebecois de demographie", "start_year": 1975}
@@ -190,6 +201,7 @@
 
   {
     "id": "bhp",
+    "other_ids": ["bhp0147"],
     "names": [
       {"url_name": "bhp", "full_name": "Bulletin d'histoire politique", "start_year": 2012}
     ],
@@ -205,6 +217,7 @@
 
   {
     "id": "bshg",
+    "other_ids": ["bshg0677"],
     "names": [
       {"url_name": "bshg", "full_name": "Bulletin de la Societe d'Histoire de la Guadeloupe", "start_year": 2013}
     ],
@@ -220,6 +233,7 @@
 
   {
     "id": "cd",
+    "other_ids": ["cd110"],
     "names": [
       {"url_name": "cd", "full_name": "Les Cahiers de droit", "start_year": 1954}
     ],
@@ -237,6 +251,7 @@
 
   {
     "id": "cdd",
+    "other_ids": ["cdd125"],
     "names": [
       {"url_name": "cdd", "full_name": "Les Cahiers des dix", "start_year": 1970}
     ],
@@ -252,6 +267,7 @@
 
   {
     "id": "cfco",
+    "other_ids": ["cfco97"],
     "names": [
       {"url_name": "cfco", "full_name": "Cahiers franco-canadiens de l'Ouest", "start_year": 2006}
     ],
@@ -267,6 +283,7 @@
 
   {
     "id": "cgq",
+    "other_ids": ["cgq70"],
     "names": [
       {"url_name": "cgq", "full_name": "Cahiers de geographie du Quebec", "start_year": 1956}
     ],
@@ -284,6 +301,7 @@
 
 {
     "id": "cine",
+    "other_ids": ["cine41"],
     "names": [
       {"url_name": "cine", "full_name": "Cinemas : Revue d'etudes cinematographiques / Cinemas : Journal of Film Studies", "start_year": 1990}
     ],
@@ -301,6 +319,7 @@
 
   {
     "id": "circuit",
+    "other_ids": ["circuit21"],
     "names": [
       {"url_name": "circuit", "full_name": "Circuit : Musiques contemporaines", "start_year": 1990}
     ],
@@ -316,6 +335,7 @@
 
   {
     "id": "rql",
+    "other_ids": ["cl117", "rql33"],
     "names": [
       {"url_name": "cl", "full_name": "Cahier de linguistique", "start_year": 1971, "stop_year": 1980},
       {"url_name": "rql", "full_name": "Revue quebecoise de linguistique", "start_year": 1981, "stop_year": 2003}
@@ -334,6 +354,7 @@
 
   {
     "id": "crs",
+    "other_ids": ["crs123"],
     "names": [
       {"url_name": "crs", "full_name": "Cahiers de recherche sociologique", "start_year": 1983}
     ],
@@ -349,6 +370,7 @@
 
   {
     "id": "cuizine",
+    "other_ids": ["cuizine102"],
     "names": [
       {"url_name": "cuizine", "full_name": "Cuizine : The Journal of Canadian Food Cultures / Cuizine : Revue des cultures culinaires au Canada", "start_year": 2008}
     ],
@@ -366,6 +388,7 @@
 
   {
     "id": "is",
+    "other_ids": ["cumr0410", "is101"],
     "names": [
       {"url_name": "cumr", "full_name": "Canadian University Music Review / Revue de musique des universites canadiennes", "start_year": 1980, "stop_year": 2004},
       {"url_name": "is", "full_name": "Intersections : Canadian Journal of Music / Intersections : Revue canadienne de musique", "start_year": 2005}
@@ -381,6 +404,7 @@
   },
 {
     "id": "documentation",
+    "other_ids": ["documentation0784"],
     "names": [
       {"url_name": "documentation", "full_name": "Documentation et bibliotheques", "start_year": 2008}
     ],
@@ -398,6 +422,7 @@
 
   {
     "id": "dss",
+    "other_ids": ["dss29"],
     "names": [
       {"url_name": "dss", "full_name": "Drogues, sante et societe", "start_year": 2002}
     ],
@@ -415,6 +440,7 @@
 
   {
     "id": "ef",
+    "other_ids": ["ef94"],
     "names": [
       {"url_name": "ef", "full_name": "Education et francophonie", "start_year": 2008}
     ],
@@ -430,6 +456,7 @@
 
   {
     "id": "efg",
+    "other_ids": ["efg76"],
     "names": [
       {"url_name": "efg", "full_name": "Enfances, Familles, Generations", "start_year": 2004}
     ],
@@ -447,6 +474,7 @@
 
   {
     "id": "ehr",
+    "other_ids": ["ehr122", "schec1826879", "sessions1826868"],
     "names": [
       {"url_name": "schec", "full_name": "Rapport - Societe canadienne d'histoire de l'Eglise catholique", "start_year": 1956, "stop_year": 1965},
       {"url_name": "sessions", "full_name": "Sessions d'etude - Societe canadienne d'histoire de l'Eglise catholique", "start_year": 1966, "stop_year": 1989},
@@ -464,6 +492,7 @@
 
   {
     "id": "ei",
+    "other_ids": ["ei50"],
     "names": [
       {"url_name": "ei", "full_name": "Etudes internationales", "start_year": 1970}
     ],
@@ -481,6 +510,7 @@
 
   {
     "id": "ela",
+    "other_ids": ["ela0785"],
     "names": [
       {"url_name": "ela", "full_name": "Etudes litteraires africaines", "start_year": 2009}
     ],
@@ -496,6 +526,7 @@
 
   {
     "id": "enfance",
+    "other_ids": ["enfance0148"],
     "names": [
       {"url_name": "enfance", "full_name": "Enfance en difficulte", "start_year": 2012}
     ],
@@ -511,6 +542,7 @@
 
   {
     "id": "es",
+    "other_ids": ["es132"],
     "names": [
       {"url_name": "es", "full_name": "Economie et Solidarites", "start_year": 2008}
     ],
@@ -528,6 +560,7 @@
 
   {
     "id": "ethno",
+    "other_ids": ["ethno47"],
     "names": [
       {"url_name": "ethno", "full_name": "Ethnologies", "start_year": 2002}
     ],
@@ -545,6 +578,7 @@
 
   {
     "id": "etudfr",
+    "other_ids": ["etudfr13"],
     "names": [
       {"url_name": "etudfr", "full_name": "Etudes francaises", "start_year": 1965}
     ],
@@ -561,6 +595,7 @@
   },
 {
     "id": "etudinuit",
+    "other_ids": ["etudinuit69"],
     "names": [
       {"url_name": "etudinuit", "full_name": "Etudes/Inuit/Studies", "start_year": 2002}
     ],
@@ -578,6 +613,7 @@
 
   {
     "id": "etudlitt",
+    "other_ids": ["etudlitt68"],
     "names": [
       {"url_name": "etudlitt", "full_name": "Etudes litteraires", "start_year": 1968}
     ],
@@ -595,6 +631,7 @@
 
   {
     "id": "eue",
+    "other_ids": ["eue98"],
     "names": [
       {"url_name": "eue", "full_name": "Environnement urbain / Urban Environment", "start_year": 2008}
     ],
@@ -610,6 +647,7 @@
 
   {
     "id": "euro",
+    "other_ids": ["euro85"],
     "names": [
       {"url_name": "euro", "full_name": "Eurostudia", "start_year": 2006}
     ],
@@ -627,6 +665,7 @@
 
   {
     "id": "fa",
+    "other_ids": ["fa103"],
     "names": [
       {"url_name": "fa", "full_name": "Francophonies d'Amerique", "start_year": 1991}
     ],
@@ -642,6 +681,7 @@
 
   {
     "id": "fili",
+    "other_ids": ["fili87"],
     "names": [
       {"url_name": "fili", "full_name": "Filigrane : Ecoutes psychanalytiques", "start_year": 2006}
     ],
@@ -657,6 +697,7 @@
 
   {
     "id": "fr",
+    "other_ids": ["fr90"],
     "names": [
       {"url_name": "fr", "full_name": "Frontieres", "start_year": 2006}
     ],
@@ -674,6 +715,7 @@
  
   {
     "id": "geocan",
+    "other_ids": [],
     "names": [
       {"url_name": "geocan", "full_name": "Geoscience Canada : Journal of the Geological Association of Canada / Geoscience Canada : Journal de l'Association Geologique du Canada", "start_year": 1974}
     ],
@@ -692,6 +734,7 @@
 
   {
     "id": "globe",
+    "other_ids": ["globe134"],
     "names": [
       {"url_name": "globe", "full_name": "Globe : Revue internationale d'etudes quebecoises", "start_year": 1998}
     ],
@@ -709,6 +752,7 @@
 
   {
     "id": "gpq",
+    "other_ids": ["gpq14"],
     "names": [
       {"url_name": "gpq", "full_name": "Geographie physique et Quaternaire", "start_year": 1977, "stop_year": 2007}
     ],
@@ -726,6 +770,7 @@
 
    {
     "id": "haf",
+    "other_ids": ["haf18"],
     "names": [
       {"url_name": "haf", "full_name": "Revue d'histoire de l'Amerique francaise", "start_year": 1947}
     ],
@@ -743,6 +788,7 @@
    
   {
     "id": "histoire",
+    "other_ids": ["histoire0127"],
     "names": [
       {"url_name": "histoire", "full_name": "Cahiers d'histoire", "start_year": 2012}
     ],
@@ -760,6 +806,7 @@
  
   {
     "id": "jcha",
+    "other_ids": ["hp81", "jcha78", "ram86"],
     "names": [
       {"url_name": "ram", "full_name": "Report of the Annual Meeting of the Canadian Historical Association / Rapports annuels de la Societe historique du Canada", "start_year": 1922, "stop_year": 1965},
       {"url_name": "hp", "full_name": "Historical Papers / Communications historiques", "start_year": 1966, "stop_year": 1989},
@@ -779,6 +826,7 @@
 
   {
     "id": "hphi",
+    "other_ids": ["hphi119"],
     "names": [
       {"url_name": "hphi", "full_name": "Horizons philosophiques", "start_year": 1990, "stop_year": 2007}
     ],
@@ -794,6 +842,7 @@
 
   {
     "id": "scientia",
+    "other_ids": ["hstc120", "scientia108"],
     "names": [
       {"url_name": "hstc", "full_name": "HSTC Bulletin : Journal of the History of Canadian Science, Technology and Medecine / HSTC Bulletin : Revue d'histoire des sciences, des techniques et de la medecine au Canada", "start_year": 1981, "stop_year": 1984},
       {"url_name": "scientia", "full_name": "Scientia Canadensis : Canadian Journal of the History of Science, Technology and Medicine / Scientia Canadensis : Revue canadienne d'histoire des sciences, des techniques et de la medecine", "start_year": 1985}
@@ -810,6 +859,7 @@
   
    {
     "id": "ijcs",
+    "other_ids": ["ijcs124"],
     "names": [
       {"url_name": "ijcs", "full_name": "International Journal of Canadian Studies / Revue internationale d'etudes canadiennes", "start_year": 2007, "stop_year": 2012}
     ],
@@ -827,6 +877,7 @@
    
   {
     "id": "ijfe",
+    "other_ids": [],
     "names": [
       {"url_name": "ijfe", "full_name": "International Journal of Forest Engineering", "start_year": 1989, "stop_year": 2012}
     ],
@@ -845,6 +896,7 @@
  
   {
     "id": "im",
+    "other_ids": ["im118"],
     "names": [
       {"url_name": "im", "full_name": "Intermedialites : Histoire et theorie des arts, des lettres et des techniques / Intermediality : History and Theory of the Arts, Literature and Technologies", "start_year": 2003}
     ],
@@ -862,6 +914,7 @@
 
   {
     "id": "ipme",
+    "other_ids": ["ipme114"],
     "names": [
       {"url_name": "ipme", "full_name": "Revue internationale P.M.E. : Economie et gestion de la petite et moyenne entreprise", "start_year": 1988}
     ],
@@ -879,6 +932,7 @@
 
   {
     "id": "jcim",
+    "other_ids": [],
     "names": [
       {"url_name": "jcim", "full_name": "Journal of Comparative International Management", "start_year": 1998}
     ],
@@ -896,6 +950,7 @@
   
    {
     "id": "jcs",
+    "other_ids": [],
     "names": [
       {"url_name": "jcs", "full_name": "Journal of Conflict Studies", "start_year": 1995, "stop_year": 2009}
     ],
@@ -913,6 +968,7 @@
    
   {
     "id": "du",
+    "other_ids": ["du84", "lcg77"],
     "names": [
       {"url_name": "lcg", "full_name": "Les Cahiers du Gres", "start_year": 2000, "stop_year": 2006},
       {"url_name": "du", "full_name": "Diversite urbaine", "start_year": 2007}
@@ -929,6 +985,7 @@
  
   {
     "id": "lex",
+    "other_ids": ["lex01009"],
     "names": [
       {"url_name": "lex", "full_name": "Lex Electronica", "start_year": 2013}
     ],
@@ -946,6 +1003,7 @@
 
   {
     "id": "llt",
+    "other_ids": [],
     "names": [
       {"url_name": "llt", "full_name": "Labour : Journal of Canadian Labour Studies / Le Travail : Revue d'etudes ouvrieres canadiennes", "start_year": 1976}
     ],
@@ -961,6 +1019,7 @@
 
   {
     "id": "ls",
+    "other_ids": ["ls24"],
     "names": [
       {"url_name": "ls", "full_name": "Loisir et Societe / Society and Leisure", "start_year": 2001, "stop_year": 2001}
     ],
@@ -978,6 +1037,7 @@
   
    {
     "id": "lsp",
+    "other_ids": ["lsp20", "riac02122"],
     "names": [
       {"url_name": "lsp", "full_name": "Lien social et Politiques", "start_year": 1994}
     ],
@@ -996,6 +1056,7 @@
    
   {
     "id": "ltp",
+    "other_ids": ["ltp26"],
     "names": [
       {"url_name": "ltp", "full_name": "Laval theologique et philosophique", "start_year": 1945}
     ],
@@ -1013,6 +1074,7 @@
  
   {
     "id": "lumen",
+    "other_ids": ["lumen03", "man046"],
     "names": [
       {"url_name": "man", "full_name": "Man and Nature / L'homme et la nature", "start_year": 1982, "stop_year": 1992},
       {"url_name": "lumen", "full_name": "Lumen : Selected Proceedings from the Canadian Society for Eighteenth-Century Studies / Lumen : Travaux choisis de la Societe canadienne d'etude du dix-huitieme siecle", "start_year": 1993}
@@ -1031,6 +1093,7 @@
 
   {
     "id": "mcr",
+    "other_ids": [],
     "names": [
       {"url_name": "mcr", "full_name": "Material Culture Review / Revue de la culture materielle", "start_year": 2010}
     ],
@@ -1046,6 +1109,7 @@
 
   {
     "id": "mee",
+    "other_ids": ["mee01320"],
     "names": [
       {"url_name": "mee", "full_name": "Mesure et evaluation en education", "start_year": 2008}
     ],
@@ -1063,6 +1127,7 @@
   
    {
     "id": "memoires",
+    "other_ids": ["memoires121"],
     "names": [
       {"url_name": "memoires", "full_name": "Memoires du livre / Studies in Book Culture", "start_year": 2009}
     ],
@@ -1080,6 +1145,7 @@
    
   {
     "id": "mens",
+    "other_ids": ["mens047", "mensaf01188"],
     "names": [
       {"url_name": "mensaf", "full_name": "Mens : revue d'histoire intellectuelle de l'Amerique francaise", "start_year": 2000, "stop_year": 2011},
       {"url_name": "mens", "full_name": "Mens : Revue d'histoire intellectuelle et culturelle", "start_year": 2011}
@@ -1096,6 +1162,7 @@
  
   {
     "id": "meta",
+    "other_ids": ["meta15"],
     "names": [
       {"url_name": "meta", "full_name": "Meta : Journal des traducteurs / Meta : Translators' Journal", "start_year": 1966}
     ],
@@ -1114,6 +1181,7 @@
 
   {
     "id": "mi",
+    "other_ids": ["mi115"],
     "names": [
       {"url_name": "mi", "full_name": "Management international / Gestion Internacional", "start_year": 2009}
     ],
@@ -1131,6 +1199,7 @@
 
   {
     "id": "minling",
+    "other_ids": ["minling048"],
     "names": [
       {"url_name": "minling", "full_name": "Minorites linguistiques et societe / Linguistic Minorities and Society", "start_year": 2012}
     ],
@@ -1146,6 +1215,7 @@
   
    {
     "id": "mje",
+    "other_ids": ["mje106"],
     "names": [
       {"url_name": "mje", "full_name": "McGill Journal of Education / Revue des sciences de l'education de McGill", "start_year": 2008}
     ],
@@ -1161,6 +1231,7 @@
    
   {
     "id": "mlj",
+    "other_ids": ["mlj128"],
     "names": [
       {"url_name": "mlj", "full_name": "McGill Law Journal / Revue de droit de McGill", "start_year": 2009}
     ],
@@ -1179,6 +1250,7 @@
  
   {
     "id": "ms",
+    "other_ids": ["ms34"],
     "names": [
       {"url_name": "ms", "full_name": "M/S : Medecine sciences", "start_year": 2002, "stop_year": 2006}
     ],
@@ -1196,6 +1268,7 @@
 
   {
     "id": "museo",
+    "other_ids": ["museo0149"],
     "names": [
       {"url_name": "museo", "full_name": "Museologies : Les cahiers d'etudes superieures", "start_year": 2006}
     ],
@@ -1211,6 +1284,7 @@
 
   {
     "id": "natcan",
+    "other_ids": ["natcan070"],
     "names": [
       {"url_name": "natcan", "full_name": "Le Naturaliste canadien", "start_year": 2012}
     ],
@@ -1226,6 +1300,7 @@
   
    {
     "id": "ncre",
+    "other_ids": ["ncre040"],
     "names": [
       {"url_name": "ncre", "full_name": "Nouveaux c@hiers de la recherche en education", "start_year": 1994}
     ],
@@ -1243,6 +1318,7 @@
    
   {
     "id": "nflds",
+    "other_ids": [],
     "names": [
       {"url_name": "nflds", "full_name": "Newfoundland and Labrador Studies", "start_year": 1985}
     ],
@@ -1260,6 +1336,7 @@
  
   {
     "id": "nps",
+    "other_ids": ["nps9"],
     "names": [
       {"url_name": "nps", "full_name": "Nouvelles pratiques sociales", "start_year": 1988}
     ],
@@ -1278,6 +1355,7 @@
 
   {
     "id": "npss",
+    "other_ids": ["npss107"],
     "names": [
       {"url_name": "npss", "full_name": "Nouvelles perspectives en sciences sociales : Revue internationale de systemique complexe et d'etudes relationnelles", "start_year": 2005}
     ],
@@ -1293,6 +1371,7 @@
 
   {
     "id": "nw",
+    "other_ids": [],
     "names": [
       {"url_name": "nw", "full_name": "Narrative Works", "start_year": 2011}
     ],
@@ -1308,6 +1387,7 @@
   
    {
     "id": "pa",
+    "other_ids": ["pa95"],
     "names": [
       {"url_name": "pa", "full_name": "Port Acadie : Revue interdisciplinaire en etudes acadiennes / Port Acadie : An Interdisciplinary Review in Acadian Studies", "start_year": 2006}
     ],
@@ -1323,6 +1403,7 @@
    
   {
     "id": "philoso",
+    "other_ids": ["philoso16"],
     "names": [
       {"url_name": "philoso", "full_name": "Philosophiques", "start_year": 1974}
     ],
@@ -1340,6 +1421,7 @@
  
   {
     "id": "phro",
+    "other_ids": ["phro138"],
     "names": [
       {"url_name": "phro", "full_name": "Phronesis", "start_year": 2012}
     ],
@@ -1357,6 +1439,7 @@
 
   {
     "id": "phyto",
+    "other_ids": ["phyto71"],
     "names": [
       {"url_name": "phyto", "full_name": "Phytoprotection", "start_year": 1990}
     ],
@@ -1374,6 +1457,7 @@
 
   {
     "id": "ps",
+    "other_ids": ["po105", "ps28", "rqsp104"],
     "names": [
       {"url_name": "po", "full_name": "Politique", "start_year": 1982, "stop_year": 1993},
       {"url_name": "rqsp", "full_name": "Revue quebecoise de science politique", "start_year": 1993, "stop_year": 1995},
@@ -1394,6 +1478,7 @@
   
    {
     "id": "pr",
+    "other_ids": ["pr51"],
     "names": [
       {"url_name": "pr", "full_name": "Protee", "start_year": 1998, "stop_year": 2011}
     ],
@@ -1411,6 +1496,7 @@
    
   {
     "id": "pv",
+    "other_ids": ["pv93"],
     "names": [
       {"url_name": "pv", "full_name": "Psychiatrie et violence", "start_year": 2008}
     ],
@@ -1428,6 +1514,7 @@
  
   {
     "id": "rabaska",
+    "other_ids": ["rabaska96"],
     "names": [
       {"url_name": "rabaska", "full_name": "Rabaska : Revue d'ethnologie de l'Amerique francaise", "start_year": 2003}
     ],
@@ -1443,6 +1530,7 @@
 
   {
     "id": "racar",
+    "other_ids": ["racar0786"],
     "names": [
       {"url_name": "racar", "full_name": "RACAR : Revue d'art canadienne / Canadian Art Review", "start_year": 2013}
     ],
@@ -1458,6 +1546,7 @@
 
   {
     "id": "raq",
+    "other_ids": ["raq135"],
     "names": [
       {"url_name": "raq", "full_name": "Recherches amerindiennes au Quebec", "start_year": 2008}
     ],
@@ -1475,6 +1564,7 @@
   
    {
     "id": "ravon",
+    "other_ids": ["ravon92", "ron25"],
     "names": [
       {"url_name": "ron", "full_name": "Romanticism on the Net", "start_year": 1996, "stop_year": 2007},
       {"url_name": "ravon", "full_name": "Romanticism and Victorianism on the Net", "start_year": 2007}
@@ -1493,6 +1583,7 @@
    
   {
     "id": "rbanq",
+    "other_ids": ["rbanq0152"],
     "names": [
       {"url_name": "rbanq", "full_name": "Revue de Bibliotheque et Archives nationales du Quebec", "start_year": 2011}
     ],
@@ -1510,6 +1601,7 @@
  
   {
     "id": "recma",
+    "other_ids": ["recma0448"],
     "names": [
       {"url_name": "recma", "full_name": "Revue internationale de l'economie sociale : Recma", "start_year": 2000}
     ],
@@ -1527,6 +1619,7 @@
 
   {
     "id": "ref",
+    "other_ids": ["ref79"],
     "names": [
       {"url_name": "ref", "full_name": "Reflets : Revue d'intervention sociale et communautaire", "start_year": 1995}
     ],
@@ -1544,6 +1637,7 @@
 
   {
     "id": "remest",
+    "other_ids": ["remest113"],
     "names": [
       {"url_name": "remest", "full_name": "Revue multidisciplinaire sur l'emploi, le syndicalisme et le travail", "start_year": 2009}
     ],
@@ -1561,6 +1655,7 @@
   
    {
     "id": "rf",
+    "other_ids": ["rf46"],
     "names": [
       {"url_name": "rf", "full_name": "Recherches feministes", "start_year": 1988}
     ],
@@ -1578,6 +1673,7 @@
    
   {
     "id": "rfdi",
+    "other_ids": ["rfdi0126"],
     "names": [
       {"url_name": "rfdi", "full_name": "Revue francophone de la deficience intellectuelle", "start_year": 2012}
     ],
@@ -1595,6 +1691,7 @@
  
   {
     "id": "rgd",
+    "other_ids": ["rgd01024"],
     "names": [
       {"url_name": "rgd", "full_name": "Revue generale de droit", "start_year": 1999}
     ],
@@ -1610,6 +1707,7 @@
 
   {
     "id": "ri",
+    "other_ids": ["ri17"],
     "names": [
       {"url_name": "ri", "full_name": "Relations industrielles / Industrial Relations", "start_year": 1964}
     ],
@@ -1627,6 +1725,7 @@
 
   {
     "id": "ritpu",
+    "other_ids": ["ritpu112"],
     "names": [
       {"url_name": "ritpu", "full_name": "Revue internationale des technologies en pedagogie universitaire / International Journal of Technologies in Higher Education", "start_year": 2008, "stop_year": 2012}
     ],
@@ -1642,6 +1741,7 @@
   
    {
     "id": "rno",
+    "other_ids": ["rno109"],
     "names": [
       {"url_name": "rno", "full_name": "Revue du Nouvel-Ontario", "start_year": 2008}
     ],
@@ -1657,6 +1757,7 @@
    
   {
     "id": "rs",
+    "other_ids": ["rs35"],
     "names": [
       {"url_name": "rs", "full_name": "Recherches sociographiques", "start_year": 1960}
     ],
@@ -1674,6 +1775,7 @@
  
   {
     "id": "rse",
+    "other_ids": ["rse22"],
     "names": [
       {"url_name": "rse", "full_name": "Revue des sciences de l'education", "start_year": 1975}
     ],
@@ -1691,6 +1793,7 @@
 
   {
     "id": "rseau",
+    "other_ids": ["rseau67"],
     "names": [
       {"url_name": "rseau", "full_name": "Revue des sciences de l'eau / Journal of Water Science", "start_year": 1988}
     ],
@@ -1708,6 +1811,7 @@
 
   {
     "id": "rssi",
+    "other_ids": ["rssi136"],
     "names": [
       {"url_name": "rssi", "full_name": "Recherches semiotiques / Semiotic Inquiry", "start_year": 2008}
     ],
@@ -1725,6 +1829,7 @@
  
   {
     "id": "rum",
+    "other_ids": ["rum73"],
     "names": [
       {"url_name": "rum", "full_name": "Revue de l'Universite de Moncton", "start_year": 2004}
     ],
@@ -1743,6 +1848,7 @@
       
   {
     "id": "scl",
+    "other_ids": [],
     "names": [
       {"url_name": "scl", "full_name": "Studies in Canadian Literature / Etudes en litterature canadienne", "start_year": 1976}
     ],
@@ -1761,6 +1867,7 @@
       
   {
     "id": "smq",
+    "other_ids": ["smq52"],
     "names": [
       {"url_name": "smq", "full_name": "Sante mentale au Quebec", "start_year": 1976}
     ],
@@ -1779,6 +1886,7 @@
       
   {
     "id": "socsoc",
+    "other_ids": ["socsoc10"],
     "names": [
       {"url_name": "socsoc", "full_name": "Sociologie et societes", "start_year": 1969}
     ],
@@ -1796,6 +1904,7 @@
       
   {
     "id": "sqrm",
+    "other_ids": ["sqrm044"],
     "names": [
       {"url_name": "sqrm", "full_name": "Les Cahiers de la Societe quebecoise de recherche en musique", "start_year": 2012}
     ],
@@ -1811,6 +1920,7 @@
       
   {
     "id": "ss",
+    "other_ids": ["ss53"],
     "names": [
       {"url_name": "ss", "full_name": "Service social", "start_year": 1985}
     ],
@@ -1828,6 +1938,7 @@
       
   {
     "id": "tce",
+    "other_ids": ["tce55", "urces54"],
     "names": [
       {"url_name": "urces", "full_name": "Urgences", "start_year": 1981, "stop_year": 1991},
       {"url_name": "tce", "full_name": "Tangence", "start_year": 1992}
@@ -1846,6 +1957,7 @@
       
   {
     "id": "telescope",
+    "other_ids": ["telescope072"],
     "names": [
       {"url_name": "telescope", "full_name": "Telescope : Revue d'analyse comparee en administration publique", "start_year": 2012, "stop_year": 2013}
     ],
@@ -1861,6 +1973,7 @@
       
   {
     "id": "teoros",
+    "other_ids": ["teoros076"],
     "names": [
       {"url_name": "teoros", "full_name": "Teoros : Revue de recherche en tourisme", "start_year": 2009}
     ],
@@ -1876,6 +1989,7 @@
       
   {
     "id": "theologi",
+    "other_ids": ["theologi19"],
     "names": [
       {"url_name": "theologi", "full_name": "Theologiques", "start_year": 1993}
     ],
@@ -1893,6 +2007,7 @@
       
   {
     "id": "tric",
+    "other_ids": [],
     "names": [
       {"url_name": "tric", "full_name": "Theatre Research in Canada / Recherches theatrales au Canada", "start_year": 1980}
     ],
@@ -1911,6 +2026,7 @@
       
   {
     "id": "ttr",
+    "other_ids": ["ttr32"],
     "names": [
       {"url_name": "ttr", "full_name": "TTR : Traduction, terminologie, redaction", "start_year": 1988}
     ],
@@ -1928,6 +2044,7 @@
       
   {
     "id": "uhr",
+    "other_ids": ["uhr100"],
     "names": [
       {"url_name": "uhr", "full_name": "Urban History Review / Revue d'histoire urbaine", "start_year": 1972}
     ],
@@ -1945,6 +2062,7 @@
       
   {
     "id": "vertigo",
+    "other_ids": ["vertigo111"],
     "names": [
       {"url_name": "vertigo", "full_name": "[VertigO] La revue electronique en sciences de l'environnement", "start_year": 2008}
     ],
@@ -1960,6 +2078,7 @@
       
   {
     "id": "vi",
+    "other_ids": ["vi39", "vip99"],
     "names": [
       {"url_name": "vip", "full_name": "Voix et images du pays", "start_year": 1967, "stop_year": 1975},
       {"url_name": "vi", "full_name": "Voix et Images", "start_year": 1975}
@@ -1975,5 +2094,5 @@
     "speciality": "Literature",
     "full_oa": false
   }
-            
+          
 ]
