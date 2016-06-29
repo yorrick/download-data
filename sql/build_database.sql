@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS download;
 DROP TABLE IF EXISTS article;
-DROP TABLE IF EXISTS issue;
-DROP TABLE IF EXISTS volume;
+DROP TABLE IF EXISTS journal_other_ids;
 DROP TABLE IF EXISTS journal;
 
 
@@ -16,6 +15,13 @@ CREATE TABLE journal
     speciality VARCHAR(50),
     speciality_fr VARCHAR(50),
     full_oa BOOLEAN
+);
+
+
+CREATE TABLE journal_other_ids
+(
+    journal VARCHAR(20) REFERENCES journal(journal),
+    other_id VARCHAR(20) PRIMARY KEY
 );
 
 
@@ -96,6 +102,10 @@ CREATE TABLE download
 
 -- client copy of CSV file, to journal table
 \copy journal(journal, general_discipline, general_discipline_fr, discipline, discipline_fr, speciality, speciality_fr, full_oa) from /data/journal.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
+
+
+-- client copy of CSV file, to journal table
+\copy journal_other_ids(journal, other_id) from /data/journal_other_ids.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
 
 
 -- relational model building, from download data
@@ -200,7 +210,7 @@ ALTER TABLE volume ALTER COLUMN journal_id SET NOT NULL;
 
 -- cleanup columns that were only used to build relational schema
 ALTER TABLE download DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN article, DROP COLUMN publication_year;
-ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN publication_year, DROP COLUMN issue_id;
+ALTER TABLE article DROP COLUMN journal, DROP COLUMN volume, DROP COLUMN issue, DROP COLUMN issue_id;
 ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
 
@@ -241,12 +251,14 @@ CREATE TABLE all_article
     journal_subtitle VARCHAR(200),
     article VARCHAR(20) NOT NULL,
     epub_year INTEGER,
-    collection_year VARCHAR(9)
+    collection_year VARCHAR(9),
+    publication_year INTEGER
 );
 
 \copy all_article(journal, journal_title, journal_subtitle, article, epub_year, collection_year) from /data/all_articles.csv CSV DELIMITER '@' QUOTE '"' ENCODING 'utf-8';
 
-UPDATE all_article SET journal = lower(journal);
+UPDATE all_article SET journal = lower(trim(journal));
+UPDATE all_article SET publication_year = left(collection_year, 4)::integer;
 
 INSERT INTO all_journal(journal, journal_title, journal_subtitle)
     (
