@@ -35,11 +35,13 @@ class JournalReferential():
         self._journal_general_discipline = build_reverse_dict(self.journals, _get_journal_id, _get_journal_general_discipline)
         self._journal_discipline = build_reverse_dict(self.journals, _get_journal_id, _get_journal_discipline)
         self._journal_speciality = build_reverse_dict(self.journals, _get_journal_id, _get_journal_speciality)
+        self._journal_other_ids = build_reverse_dict(self.journals, _get_journal_id, _get_journal_other_ids)
         self._journal_full_oa = build_reverse_dict(self.journals, _get_journal_id, _get_journal_full_oa)
         self._full_text_html_ranges = build_reverse_dict(self.journals, _get_journal_id, _get_full_text_html_ranges)
 
     def get_journal_id(self, journal_name):
         return self._journal_names.get(journal_name, journal_name)
+
 
     def get_journal_general_discipline(self, journal_id):
         return self._journal_general_discipline.get(journal_id, None)
@@ -50,17 +52,26 @@ class JournalReferential():
     def get_journal_speciality(self, journal_id):
         return self._journal_speciality.get(journal_id, None)
 
+    def get_journal_other_ids(self, journal_id):
+        return self._journal_other_ids.get(journal_id, None)
+
     def is_html_a_download(self, journal_id, year):
         return any(year >= start and year <= stop for (start, stop) in self._full_text_html_ranges.get(journal_id, []))
 
     def is_journal_full_oa(self, journal_id):
         return self._journal_full_oa.get(journal_id, "")
 
-    def to_csv_rows(self):
-        return (_to_csv_row(j) for j in self.journals)
+    def to_journal_csv_rows(self):
+        return (_to_journal_csv_row(j) for j in self.journals)
+
+    def to_journal_other_ids_csv_rows(self):
+        return (line
+                for j in self.journals
+                for line in _to_journal_other_ids_csv_row(_get_journal_id(j),
+                                                          self.get_journal_other_ids(_get_journal_id(j))))
 
 
-def _to_csv_row(journal):
+def _to_journal_csv_row(journal):
     gen_disc = _get_journal_general_discipline(journal)
     disc = _get_journal_discipline(journal)
     spe = _get_journal_speciality(journal)
@@ -70,6 +81,10 @@ def _to_csv_row(journal):
              ([disc.main[:50], disc.fr[:50]] if disc else ['', '']) + \
              ([spe.main[:50], spe.fr[:50]] if spe else ['', '']) + \
              ([_get_journal_full_oa(journal)])
+
+
+def _to_journal_other_ids_csv_row(journal_id, journal_other_ids):
+    return [[journal_id[:20], journal_other_id[:20]] for journal_other_id in journal_other_ids]
 
 
 def build_journal_referential(file_path):
@@ -93,9 +108,11 @@ def _get_journal_speciality(journal):
     return Translation(journal["speciality"], journal["speciality_fr"])
 
 
+def _get_journal_other_ids(journal):
+    return journal["other_ids"]
+
 def _get_journal_full_oa(journal):
     return journal["full_oa"]
-
 
 def _get_journal_id(journal):
     return journal["id"].lower()

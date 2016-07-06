@@ -82,11 +82,17 @@ def to_byte_string(value):
         return value
 
 
-def write_journals_json_file(journals, journals_file_path, quoting):
+def write_journals_json_files(journals, journals_file_path, journals_other_ids_file_path, quoting):
     with codecs.open(journals_file_path, "wb") as journals_file:
         csv_writer = csv.writer(journals_file, delimiter=',', quotechar='"', quoting=quoting)
 
-        for row in journals.to_csv_rows():
+        for row in journals.to_journal_csv_rows():
+            csv_writer.writerow(list_to_byte_string(row))
+
+    with codecs.open(journals_other_ids_file_path, "wb") as journals_other_ids_file:
+        csv_writer = csv.writer(journals_other_ids_file, delimiter=',', quotechar='"', quoting=quoting)
+
+        for row in journals.to_journal_other_ids_csv_rows():
             csv_writer.writerow(list_to_byte_string(row))
 
 
@@ -99,7 +105,7 @@ if __name__ == "__main__":
     quoting = csv.QUOTE_ALL if params.minimum_fields else csv.QUOTE_MINIMAL
 
     journals = build_journal_referential("journals.json")
-    write_journals_json_file(journals, "data/journal.csv", quoting)
+    write_journals_json_files(journals, "data/journal.csv", "data/journal_other_ids.csv", quoting)
 
     # do not process files that have already been processed
     processed_files = [pf[:-4] for pf in get_files(params.output_dir, suffix = ".log.csv", filter=non_emtpy)]

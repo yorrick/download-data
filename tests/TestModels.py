@@ -14,6 +14,7 @@ class TestExtract(TestCase):
     journals = JournalReferential([
         {
             "id": "ltp",
+            "other_ids": [],
             "names": [
                 {"url_name": "ltp", "full_name": "ltp", "start_year": 1968, "stop_year": 1974},
             ],
