@@ -1,3 +1,7 @@
+## v0.16
+
+* Feature: create table to be able to join journals from downloads with journals from E data
+
 ## v0.15
 
 * Feature: add bash script to parse nlm data, and transform usefull data to csv
