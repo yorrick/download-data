@@ -232,16 +232,14 @@ DROP TABLE volume;
 
 
 
--- article referential data
+-- article referential (erudit) data (from NLM file)
 
 DROP TABLE IF EXISTS all_article;
 DROP TABLE IF EXISTS all_journal;
 
 CREATE TABLE all_journal
 (
-    journal VARCHAR(20) NOT NULL PRIMARY KEY,
-    journal_title VARCHAR(200),
-    journal_subtitle VARCHAR(400)
+    journal VARCHAR(20) NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE all_article
@@ -260,14 +258,30 @@ CREATE TABLE all_article
 UPDATE all_article SET journal = lower(trim(journal));
 UPDATE all_article SET publication_year = left(collection_year, 4)::integer;
 
-INSERT INTO all_journal(journal, journal_title, journal_subtitle)
+INSERT INTO all_journal(journal)
     (
-        SELECT lower(trim(journal)), (array_agg(distinct journal_title))[1], (array_agg(distinct journal_subtitle))[1]
+        SELECT journal
         from all_article
-        group by lower(trim(journal))
+        group by journal
     );
 
 ALTER TABLE all_article ADD CONSTRAINT journal_fk
 FOREIGN KEY (journal) REFERENCES all_journal;
 
 ALTER TABLE all_article DROP COLUMN journal_title, DROP COLUMN journal_subtitle;
+
+
+
+
+-- this table allows for joins between erudit's journal ids (all_journal) and download's journal ids
+
+
+--CREATE TABLE journal_alternate_ids
+--(
+--    download_id VARCHAR(20),
+--    referential_id VARCHAR(20) PRIMARY KEY NOT NULL,
+--    CONSTRAINT journal_alternate_ids_download_id_fkey FOREIGN KEY (download_id) REFERENCES journal (journal),
+--    CONSTRAINT journal_alternate_ids_referential_id_fkey FOREIGN KEY (referential_id) REFERENCES all_journal (journal)
+--);
+--
+--\copy journal_alternate_ids(download_id, referential_id) from /data/journal_other_ids.csv CSV DELIMITER ',' QUOTE '"' ENCODING 'utf-8';
