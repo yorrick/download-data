@@ -178,6 +178,6 @@ order by journal, volume, issue;
 ## Run article referential extraction (from NLM files, one xml file per article)
 
 ```
-extract/build-article-referential.sh ~/test/nlm/ac data/all_articles.csv
+extract/build-article-referential.sh ~/test/nlm data/all_articles.csv
 ```
 

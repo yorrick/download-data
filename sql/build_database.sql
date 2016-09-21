@@ -215,8 +215,8 @@ ALTER TABLE issue DROP COLUMN journal, DROP COLUMN volume;
 ALTER TABLE volume DROP COLUMN journal;
 
 -- cleanup volume and issue tables that are not used later
-DROP TABLE issue;
-DROP TABLE volume;
+--DROP TABLE issue;
+--DROP TABLE volume;
 
 
 
@@ -237,14 +237,16 @@ DROP TABLE volume;
 DROP TABLE IF EXISTS all_article;
 DROP TABLE IF EXISTS all_journal;
 
-CREATE TABLE all_journal
-(
-    journal VARCHAR(20) NOT NULL PRIMARY KEY
-);
+--CREATE TABLE all_journal
+--(
+--    journal VARCHAR(20) NOT NULL PRIMARY KEY
+--);
 
 CREATE TABLE all_article
 (
     journal VARCHAR(20) NOT NULL,
+    issue VARCHAR(20),
+    volume VARCHAR(20),
     journal_title VARCHAR(100) NOT NULL,
     journal_subtitle VARCHAR(200),
     article VARCHAR(20) NOT NULL,
@@ -253,22 +255,27 @@ CREATE TABLE all_article
     publication_year INTEGER
 );
 
-\copy all_article(journal, journal_title, journal_subtitle, article, epub_year, collection_year) from /data/all_articles.csv CSV DELIMITER '@' QUOTE '"' ENCODING 'utf-8';
+
+\copy all_article(journal, journal_title, journal_subtitle, article, issue, volume, epub_year, collection_year)
+from /data/all_articles.csv CSV DELIMITER '@' QUOTE '"' ENCODING 'utf-8';
 
 UPDATE all_article SET journal = lower(trim(journal));
 UPDATE all_article SET publication_year = left(collection_year, 4)::integer;
+UPDATE all_article SET issue = null where issue = '';
+UPDATE all_article SET volume = null where volume = '';
 
-INSERT INTO all_journal(journal)
-    (
-        SELECT journal
-        from all_article
-        group by journal
-    );
 
-ALTER TABLE all_article ADD CONSTRAINT journal_fk
-FOREIGN KEY (journal) REFERENCES all_journal;
+--INSERT INTO all_journal(journal)
+--    (
+--        SELECT journal
+--        from all_article
+--        group by journal
+--    );
 
-ALTER TABLE all_article DROP COLUMN journal_title, DROP COLUMN journal_subtitle;
+--ALTER TABLE all_article ADD CONSTRAINT journal_fk
+--FOREIGN KEY (journal) REFERENCES all_journal;
+
+--ALTER TABLE all_article DROP COLUMN journal_title, DROP COLUMN journal_subtitle;
 
 
 
