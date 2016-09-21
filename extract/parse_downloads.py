@@ -105,7 +105,7 @@ if __name__ == "__main__":
     quoting = csv.QUOTE_ALL if params.minimum_fields else csv.QUOTE_MINIMAL
 
     journals = build_journal_referential("journals.json")
-    write_journals_json_files(journals, "data/journal.csv", "data/journal_other_ids.csv", quoting)
+    write_journals_json_files(journals, "data/journal.csv", "data/journal_alternate_ids.csv", quoting)
 
     # do not process files that have already been processed
     processed_files = [pf[:-4] for pf in get_files(params.output_dir, suffix = ".log.csv", filter=non_emtpy)]
